@@ -41,10 +41,10 @@ public class PlatformContoller : MonoBehaviour
             block.SetActive(true);
         }
 
-        int platformStart = Random.Range(0,19);
-        int platformEnd = Random.Range(platformStart,19);
+        int platformStart = Random.Range(0,11);
+        int platformEnd = Random.Range(platformStart,11);
 
-        for(int i = 0; i < 19; i++)
+        for(int i = 0; i < 11; i++)
         {
             if(i >= platformStart && i <= platformEnd)
             {
@@ -60,7 +60,7 @@ public class PlatformContoller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.down * Time.deltaTime * moveSpeed, Space.World);
+        //transform.Translate(Vector3.down * Time.deltaTime * moveSpeed, Space.World);
         //if (transform.position.y < -10)
     }
 
@@ -69,7 +69,7 @@ public class PlatformContoller : MonoBehaviour
         if(col.gameObject.tag == "Despawner")
         {
             Debug.Log("Despawner");
-            transform.position = new Vector3(transform.position.x, PlatformGeneratorManager.transform.position.y + 10, transform.position.z);
+            transform.position = new Vector3(transform.position.x, PlatformGeneratorManager.transform.position.y, transform.position.z);
             randomizePlatform();
         }
     }
