@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private bool canPlayerMove;
     private float deathTimer;
     private float acceleration;
+    private GameObject camera;
 
     public PlayerController()
     {
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour
     {
         if (canPlayerMove)
         {
-            Debug.Log("acceleration: " + acceleration);
+            Debug.Log("isgrounded: " + IsGrounded());
 
 
             this.rigidBody.velocity = new Vector2(this.horizontal + this.acceleration, this.rigidBody.velocity.y + this.jumpPower + this.jumpIntensity);
@@ -75,14 +76,14 @@ public class PlayerController : MonoBehaviour
         {
             if(this.acceleration < 4.0f)
             {
-                this.acceleration += 0.05f;
+                this.acceleration += 0.1f;
             }
         }
         else if(this.horizontal < 0)
         {
             if(this.acceleration > -4.0f)
             {
-                this.acceleration -= 0.05f;
+                this.acceleration -= 0.1f;
             }
         }
         else
@@ -97,14 +98,16 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Jump") /*&& IsGrounded()*/)
+        if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             Debug.Log("Jump");
             this.jumpPower = 3.0f;
+            //this.jumpIntensity = 10.0f;
+
 
             if(System.Math.Abs(acceleration) > 1.0f && System.Math.Abs(acceleration) < 2.0f)
             {
-                this.jumpIntensity = 1.5f;
+                this.jumpIntensity = 10.5f;
             }
             else if(System.Math.Abs(acceleration) > 2.0f && System.Math.Abs(acceleration) < 3.0f)
             {
@@ -116,62 +119,6 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-
-
-
-        /*if (!this.IsGrounded() && this.maxThreshold > 0.0f)
-        {
-            this.maxThreshold -= Time.deltaTime;
-        }
-
-        if (this.collisionThreshold < 0 && this.horizontal < 0.0)
-        {
-            horizontal = 0.0f;
-        }
-        else if (this.collisionThreshold > 0 && this.horizontal > 0.0)
-        {
-            horizontal = 0.0f;
-        }*/
-
-        /*if (Input.GetButtonDown("Jump") && (IsGrounded() || maxThreshold > 0.0))
-        {
-            Debug.Log("Jump");
-            if (maxThreshold > 0.0)
-            {
-                this.rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, 0.0f);
-            }
-            maxThreshold = 0.0f;
-            jumpTimer = 0.25f;
-            jumpIntensity = 0.0f;
-            jumpPower = 3f;
-        }
-        if (Input.GetButtonUp("Jump"))
-        {
-            jumpTimer = 0.0f;
-            jumpIntensity = 0.0f;
-        }
-        if (jumpTimer > 0.0)
-        {
-            float deltaTime = Time.deltaTime;
-            jumpIntensity += deltaTime * 20f;
-            jumpTimer -= deltaTime;
-        }
-        else
-        {
-            this.jumpIntensity = 0.0f;
-        }*/
-
-        /*if (this.transform.position.x > 3.87f)
-        {
-            this.transform.position = new Vector3(3.87f, this.transform.position.y, this.transform.position.z);
-        }
-        else
-        {
-            if (!(this.transform.position.x >= -3.87))
-            {
-                this.transform.position = new Vector3(-3.87f, this.transform.position.y, this.transform.position.z);
-            }
-        }*/
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
