@@ -36,7 +36,6 @@ public class CameraController : MonoBehaviour
             Debug.Log("Player entered camera trigger");
             isFollowingPlayer = true;
             playerBeingFollowed = col.gameObject;
-            //if player that has entered is not the player that is being followed, check which one is the highest and follow that one
             if(col != playerBeingFollowed)
             {
                 if(col.transform.position.y > playerBeingFollowed.transform.position.y)
