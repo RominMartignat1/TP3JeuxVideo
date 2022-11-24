@@ -18,18 +18,17 @@ public class PlayerController : MonoBehaviour
     private bool canPlayerMove;
     private float deathTimer;
     private float acceleration;
-    private GameObject camera;
 
     public PlayerController()
     {
-        this.canPlayerMove = true;
-        this.maxThreshold = 0.2f;
-        this.acceleration = 0.0f;
+        canPlayerMove = true;
+        maxThreshold = 0.2f;
+        acceleration = 0.0f;
     }
     private void Awake()
     {
         //this.audioSource = this.GetComponent<AudioSource>();
-        this.rigidBody = this.GetComponent<Rigidbody2D>();
+        rigidBody = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
@@ -39,13 +38,13 @@ public class PlayerController : MonoBehaviour
             Debug.Log("isgrounded: " + IsGrounded());
 
 
-            this.rigidBody.velocity = new Vector2(this.horizontal + this.acceleration, this.rigidBody.velocity.y + this.jumpPower + this.jumpIntensity);
-            this.jumpPower = 0.0f;
+            rigidBody.velocity = new Vector2(horizontal + acceleration, rigidBody.velocity.y + jumpPower + jumpIntensity);
+            jumpPower = 0.0f;
         }
 
         if (jumpIntensity <= 10.0f)
         {
-            this.jumpIntensity = 0.0f;
+            jumpIntensity = 0.0f;
         }
     }
 

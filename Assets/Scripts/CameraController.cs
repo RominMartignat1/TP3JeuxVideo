@@ -7,11 +7,12 @@ public class CameraController : MonoBehaviour
     private bool isFollowingPlayer;
     private float moveSpeed = -5f; 
 
-    private GameObject playerBeingFollowed;
+    private PlayerController playerBeingFollowed;
     // Start is called before the first frame update
     void Start()
     {
         isFollowingPlayer = false;
+        playerBeingFollowed = FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -25,13 +26,25 @@ public class CameraController : MonoBehaviour
         else
         {
             Debug.Log("Not following player");
-            //transform.Translate(Vector3.down * Time.deltaTime * moveSpeed, Space.World);
+            transform.Translate(Vector3.down * Time.deltaTime * moveSpeed, Space.World);
         }
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (col.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
+        {
+            isFollowingPlayer = true;
+            if (collision != playerBeingFollowed)
+            {
+                if (collision.transform.position.y > playerBeingFollowed.transform.position.y)
+                {
+                   // playerBeingFollowed = collision.gameObject;
+                }
+            }
+
+        }
+       /* if (col.gameObject.tag == "Player")
         {
             Debug.Log("Player entered camera trigger");
             isFollowingPlayer = true;
@@ -43,7 +56,7 @@ public class CameraController : MonoBehaviour
                     playerBeingFollowed = col.gameObject;
                 }
             }
-        }
+        }*/
     }
 
     void OnTriggerExit2D(Collider2D col)
@@ -55,7 +68,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    void makeCameraFollow(GameObject player)
+    void makeCameraFollow(PlayerController player)
     {
         Vector3 playerPos = player.transform.position;
         Vector3 cameraPos = transform.position;

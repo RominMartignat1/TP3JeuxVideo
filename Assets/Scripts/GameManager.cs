@@ -9,8 +9,6 @@ public class GameManager : MonoBehaviour
 
     public bool isPaused = false;
 
-    private const int firstGamingLevel = 1;
-    private const int lastGamingLevel = 3;
     private const int maxLives = 3;
 
     private int actualLevel = 0;
@@ -45,29 +43,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        LinkTexts();
         if (Input.GetButtonDown("Cancel"))
         {
             Application.Quit();
-        }
-    }
-
-    private void LinkTexts()
-    {
-        if (textsNotLinked)
-        {
-            textsNotLinked = false;
-            if (actualLevel == 0) return;  //pas utilisé sur l'écran de titre
-
-            playerNameText = GameObject.FindGameObjectWithTag("TextName").GetComponent<Text>();
-            playerNameText.text = playerName;
-
-            playerLivesText = GameObject.FindGameObjectWithTag("TextLives").GetComponent<Text>();
-            playerLivesText.text = lives.ToString();
-
-
-            playerScoreText = GameObject.FindGameObjectWithTag("TextScore").GetComponent<Text>();
-            playerScoreText.text = score.ToString();
         }
     }
 
@@ -95,14 +73,16 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         textsNotLinked = true;
 
-        if (lives == 0)
-            SceneManager.LoadScene("SceneGameOver");
-        else if (level == 2)
-            SceneManager.LoadScene("Scene2");
-        else if (level == 3)
+        
+           if(level == 0) 
+            SceneManager.LoadScene("HomeScene");
+        
+        else if (level == 1)
+            SceneManager.LoadScene("SceneRomin");
+       /* else if (level == 3)
             SceneManager.LoadScene("Scene3");
         else
-            SceneManager.LoadScene("Scene1");
+            SceneManager.LoadScene("Scene1");*/
 
         scenesAreInTransition = false;
     }
@@ -113,37 +93,31 @@ public class GameManager : MonoBehaviour
         actualLevel = 0;
         score = 0;
         accumulatedScore = 0;
-        SceneManager.LoadScene("Scene0");
-    }
-
-    public void SetPlayerName(string playerName)
-    {
-        this.playerName = playerName;
+        SceneManager.LoadScene("Menu");
     }
 
     private int GetNextLevel()
     {
-        if (++actualLevel == lastGamingLevel + 1)
-            actualLevel = firstGamingLevel;
-
-        accumulatedScore = 0;
+        if (actualLevel == 0)
+        {
+            actualLevel++;
+        }
+        else
+        {
+            actualLevel = 0;
+        }
         return actualLevel;
     }
 
-    public void AddScore(int scoreToAdd)
-    {
-        score += scoreToAdd;
-        accumulatedScore += scoreToAdd;
-        playerScoreText.text = score.ToString();
-    }
+   
 
-    public void PlayerDie()
+   /* public void PlayerDie()
     {
         lives--;
         score -= accumulatedScore;
         playerLivesText.text = lives.ToString();
         playerScoreText.text = score.ToString();
         accumulatedScore = 0;
-    }
+    }*/
 
 }
