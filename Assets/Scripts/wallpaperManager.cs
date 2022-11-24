@@ -21,17 +21,17 @@ public class wallpaperManager : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "WallRespawn")
+        Debug.Log("J'ai exit un trigger");
+        if (collision.gameObject.tag == "Despawner")
         {
             Debug.Log("Despawner");
-            transform.position = new Vector3(transform.position.x, PlatformGeneratorManager.transform.position.y+5, transform.position.z);
-           // randomizePlatform();
+            transform.position = new Vector3(transform.position.x, PlatformGeneratorManager.transform.position.y -10f, transform.position.z);
         }
     }
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.down * Time.deltaTime * moveSpeed, Space.World);
+        //transform.Translate(Vector3.down * Time.deltaTime * moveSpeed, Space.World);
         //if (transform.position.y < -10)
     }
 

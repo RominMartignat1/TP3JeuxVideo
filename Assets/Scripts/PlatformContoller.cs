@@ -68,7 +68,6 @@ public class PlatformContoller : MonoBehaviour
     {
         if(col.gameObject.tag == "Despawner")
         {
-            Debug.Log("Despawner");
             transform.position = new Vector3(transform.position.x, PlatformGeneratorManager.transform.position.y, transform.position.z);
             randomizePlatform();
         }

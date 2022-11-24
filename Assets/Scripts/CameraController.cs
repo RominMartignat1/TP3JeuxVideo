@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     private bool isFollowingPlayer;
-    private float moveSpeed = -5f; 
+    private float moveSpeed = 0.5f; 
 
     private PlayerController playerBeingFollowed;
     // Start is called before the first frame update
@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour
         else
         {
             Debug.Log("Not following player");
-            transform.Translate(Vector3.down * Time.deltaTime * moveSpeed, Space.World);
+            transform.Translate(Vector3.up * Time.deltaTime * moveSpeed, Space.World);
         }
     }
 
@@ -39,6 +39,7 @@ public class CameraController : MonoBehaviour
             {
                 if (collision.transform.position.y > playerBeingFollowed.transform.position.y)
                 {
+                    isFollowingPlayer = false;
                    // playerBeingFollowed = collision.gameObject;
                 }
             }
