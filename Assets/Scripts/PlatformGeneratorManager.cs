@@ -7,7 +7,7 @@ public class PlatformGeneratorManager : MonoBehaviour
 {
     
     private GameObject platform;
-    private const float HEIGHT_BETWEEN_PLATFORM  = 2f;
+    private const float HEIGHT_BETWEEN_PLATFORM  = 1.5f;
     private Finder finder;
     private float height;
     private int counter = 0;
