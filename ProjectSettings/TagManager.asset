@@ -8,6 +8,7 @@ TagManager:
   - Platform
   - Despawner
   - PlatformSpawner
+  - CharacterArm
   layers:
   - Default
   - TransparentFX
@@ -42,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: arriere
+    uniqueID: 914578869
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
