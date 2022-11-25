@@ -21,4 +21,6 @@ public class PlatformGeneratorManager : MonoBehaviour
     {
         
     }
+
+
 }
