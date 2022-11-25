@@ -9,18 +9,23 @@ public class PlatformContoller : MonoBehaviour
 
     private GameObject[] blocks;
     private float moveSpeed = 5f;
-    private GameObject PlatformGeneratorManager;
+    private GameObject platformGeneratorManager;
+    private Finder finder;
 
 
     // Start is called before the first frame update
     void Start()
     {
         blocks = GetEveryBlock(this.gameObject);
-        PlatformGeneratorManager = GameObject.FindGameObjectWithTag("PlatformSpawner");
+        platformGeneratorManager = GameObject.FindGameObjectWithTag("PlatformSpawner");
+        finder = FindObjectOfType<Finder>();
     }
 
 
-
+    private void OnEnable()
+    {
+        Vector3 nextPosition =  finder.GetPositionOfTheHighestPlatform();
+    }
 
 
     private GameObject[] GetEveryBlock(GameObject parent)
@@ -60,16 +65,13 @@ public class PlatformContoller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //transform.Translate(Vector3.down * Time.deltaTime * moveSpeed, Space.World);
-        //if (transform.position.y < -10)
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
         if(col.gameObject.tag == "Despawner")
         {
-            transform.position = new Vector3(transform.position.x, PlatformGeneratorManager.transform.position.y, transform.position.z);
-            randomizePlatform();
+            gameObject.SetActive(false);
         }
     }
     

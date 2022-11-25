@@ -91,4 +91,18 @@ public class Finder : MonoBehaviour
 
         return numberOfChildActive;
     }
+
+    public Vector3 GetPositionOfTheHighestPlatform()
+    {
+        GameObject[] arrayOfActive = GetChildsActive(parentOfPlatform);
+        Vector3 positionToReturn = Vector3.zero;
+        for (int i = 0; i < arrayOfActive.Length; i++)
+        {
+            if (positionToReturn.y < arrayOfActive[i].transform.position.y)
+            {
+                positionToReturn = arrayOfActive[i].transform.position;
+            }
+        }
+        return positionToReturn;
+    }
 }
