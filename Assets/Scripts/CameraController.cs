@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     private bool isFollowingPlayer;
-    private float moveSpeed = 0.5f; 
+    private float moveSpeed = 1.5f; 
 
     private PlayerController playerBeingFollowed;
     // Start is called before the first frame update

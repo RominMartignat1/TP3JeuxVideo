@@ -174,6 +174,6 @@ public class PlayerController : MonoBehaviour
 
     public bool IsGrounded()
     {
-        return this.isGrounded != 0;
+        return isGrounded != 0;
     }
 }

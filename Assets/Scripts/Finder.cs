@@ -10,12 +10,13 @@ public class Finder : MonoBehaviour
     private GameObject wallPaperParent;
     void Start()
     {
-        
+        parentOfPlatform =  GameObject.Find("Platforms");
     }
 
     // Update is called once per frame
     void Update()
     {
+
     }
 
     public GameObject GetPlatformParent()
@@ -54,10 +55,12 @@ public class Finder : MonoBehaviour
                 array[i] = parent.transform.GetChild(i).gameObject;
             }
 
-        }
+        }  
 
         return array;
     }
+
+
 
     public GameObject[] GetChildsNotActive(GameObject parent)
     {
@@ -72,6 +75,21 @@ public class Finder : MonoBehaviour
         }
 
         return array;
+    }
+
+    public GameObject GetAChildNotActive(GameObject parent)
+    {
+        
+        for (int i = 0; i < parent.transform.childCount; i++)
+        {
+            if (!parent.transform.GetChild(i).gameObject.activeSelf)
+            {
+                return parent.transform.GetChild(i).gameObject;
+            }
+
+        }
+
+        return null;
     }
 
 
@@ -92,15 +110,32 @@ public class Finder : MonoBehaviour
         return numberOfChildActive;
     }
 
+
+
+    public List<GameObject> GetListOfChilds(GameObject parent)
+    {
+        List<GameObject> list = new List<GameObject>();
+        for (int i = 0; i < parent.transform.childCount; i++)
+        {
+            if (parent.transform.GetChild(i).gameObject.activeSelf)
+            {
+                list.Add(parent.transform.GetChild(i).gameObject);
+            }
+
+        }
+        return list;
+    }
+
     public Vector3 GetPositionOfTheHighestPlatform()
     {
-        GameObject[] arrayOfActive = GetChildsActive(parentOfPlatform);
+        List<GameObject> arrayOfActive = GetListOfChilds(parentOfPlatform);
         Vector3 positionToReturn = Vector3.zero;
-        for (int i = 0; i < arrayOfActive.Length; i++)
+        for (int i = 0; i < arrayOfActive.Count; i++)
         {
             if (positionToReturn.y < arrayOfActive[i].transform.position.y)
             {
-                positionToReturn = arrayOfActive[i].transform.position;
+               positionToReturn.y = arrayOfActive[i].transform.position.y;
+               
             }
         }
         return positionToReturn;

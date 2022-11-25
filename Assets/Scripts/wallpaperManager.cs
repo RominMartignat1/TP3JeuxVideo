@@ -35,6 +35,38 @@ public class wallpaperManager : MonoBehaviour
         //if (transform.position.y < -10)
     }
 
-   
+    private void OnBecameInvisible()
+    {
+        gameObject.SetActive(false);
+    }
 
 }
+/*using UnityEngine;
+using System.Collections;
+
+public class EndlessBG : MonoBehaviour {
+
+    private Vector3 m_BackPos;
+    private float m_sMoveHeight;
+
+    // Use this for initialization
+    void Start()
+    {
+    }
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+
+    void OnBecameInvisible()
+    {
+        m_sMoveHeight = gameObject.GetComponent<Renderer>().bounds.size.y - 1f;
+        // get current position
+        m_BackPos = gameObject.transform.position;
+
+        // move to new position when invisible
+        gameObject.transform.position = new Vector3(m_BackPos.x, m_BackPos.y + 3 * m_sMoveHeight);
+    }
+}
+*/
