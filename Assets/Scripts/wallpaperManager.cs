@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class wallpaperManager : MonoBehaviour
 {
     //get every children in a list
     //private List<GameObject> children = new List<GameObject>();
 
-   // private GameObject[] blocks;
+    // private GameObject[] blocks;
+    private WallGenerator generator;
     private float moveSpeed = 5f;
     private GameObject PlatformGeneratorManager;
 
@@ -17,6 +19,7 @@ public class wallpaperManager : MonoBehaviour
     {
        // blocks = GetEveryBlock(this.gameObject);
         PlatformGeneratorManager = GameObject.FindGameObjectWithTag("PlatformSpawner");
+        generator = FindObjectOfType<WallGenerator>();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -24,8 +27,9 @@ public class wallpaperManager : MonoBehaviour
         Debug.Log("J'ai exit un trigger");
         if (collision.gameObject.tag == "Despawner")
         {
-            Debug.Log("Despawner");
-            transform.position = new Vector3(transform.position.x, PlatformGeneratorManager.transform.position.y -10f, transform.position.z);
+            generator.RespawnWall(gameObject);
+
+
         }
     }
     // Update is called once per frame
@@ -35,38 +39,5 @@ public class wallpaperManager : MonoBehaviour
         //if (transform.position.y < -10)
     }
 
-    private void OnBecameInvisible()
-    {
-        gameObject.SetActive(false);
-    }
 
 }
-/*using UnityEngine;
-using System.Collections;
-
-public class EndlessBG : MonoBehaviour {
-
-    private Vector3 m_BackPos;
-    private float m_sMoveHeight;
-
-    // Use this for initialization
-    void Start()
-    {
-    }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-    void OnBecameInvisible()
-    {
-        m_sMoveHeight = gameObject.GetComponent<Renderer>().bounds.size.y - 1f;
-        // get current position
-        m_BackPos = gameObject.transform.position;
-
-        // move to new position when invisible
-        gameObject.transform.position = new Vector3(m_BackPos.x, m_BackPos.y + 3 * m_sMoveHeight);
-    }
-}
-*/

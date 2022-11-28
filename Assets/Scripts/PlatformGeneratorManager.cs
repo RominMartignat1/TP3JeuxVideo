@@ -46,7 +46,7 @@ public class PlatformGeneratorManager : MonoBehaviour
     {
         spawningTime = false;
         counter++;
-        Vector3 vector = finder.GetPositionOfTheHighestPlatform();
+        Vector3 vector = finder.GetPositionOfTheHighestChild(platform);
         if (vector == Vector3.zero) return;
         //height = gameObject.transform.position.y;
         GameObject child = finder.GetAChildNotActive(platform);

@@ -6,7 +6,7 @@ public class PlatformContoller : MonoBehaviour
 {
     //get every children in a list
     //private List<GameObject> children = new List<GameObject>();
-
+    
     private GameObject[] blocks;
     private float moveSpeed = 5f;
     private GameObject platformGeneratorManager;
