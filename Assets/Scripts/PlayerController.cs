@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Awake()
     {
-        //this.audioSource = this.GetComponent<AudioSource>();
+        //audioSource = GetComponent<AudioSource>();
         rigidBody = GetComponent<Rigidbody2D>();
     }
 
@@ -56,65 +56,65 @@ public class PlayerController : MonoBehaviour
         }*/
         if (hasDied)
         {
-            this.deathTimer += Time.deltaTime;
-            this.transform.localScale = new Vector3(1f - this.deathTimer, 1f - this.deathTimer, 1f - this.deathTimer);
+            deathTimer += Time.deltaTime;
+            transform.localScale = new Vector3(1f - deathTimer, 1f - deathTimer, 1f - deathTimer);
         }
         if (canPlayerMove)
         {
             ManageMovement();
-            this.transform.rotation = Quaternion.Euler(0, transform.rotation.y, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(0, transform.rotation.y, transform.rotation.z);
         }
 
     }
 
     private void ManageMovement()
     {
-        this.horizontal = Input.GetAxis("Horizontal");
+        horizontal = Input.GetAxis("Horizontal");
 
-        if(this.horizontal > 0)
+        if(horizontal > 0)
         {
-            if(this.acceleration < 4.0f)
+            if(acceleration < 4.0f)
             {
-                this.acceleration += 0.1f;
+                acceleration += 0.1f;
             }
         }
-        else if(this.horizontal < 0)
+        else if(horizontal < 0)
         {
-            if(this.acceleration > -4.0f)
+            if(acceleration > -4.0f)
             {
-                this.acceleration -= 0.1f;
+                acceleration -= 0.1f;
             }
         }
         else
         {
-            if(this.acceleration > 0)
+            if(acceleration > 0)
             {
-                this.acceleration -= 0.2f;
+                acceleration -= 0.2f;
             }
-            else if(this.acceleration < 0)
+            else if(acceleration < 0)
             {
-                this.acceleration += 0.2f;
+                acceleration += 0.2f;
             }
         }
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             Debug.Log("Jump");
-            this.jumpPower = 3.0f;
-            //this.jumpIntensity = 10.0f;
+            jumpPower = 3.0f;
+            //jumpIntensity = 10.0f;
 
 
             if(System.Math.Abs(acceleration) > 1.0f && System.Math.Abs(acceleration) < 2.0f)
             {
-                this.jumpIntensity = 10.5f;
+                jumpIntensity = 10.5f;
             }
             else if(System.Math.Abs(acceleration) > 2.0f && System.Math.Abs(acceleration) < 3.0f)
             {
-                this.jumpIntensity = 2.0f;
+                jumpIntensity = 2.0f;
             }
             else if(System.Math.Abs(acceleration) > 3.0f )
             {
-                this.jumpIntensity = 5.0f;
+                jumpIntensity = 5.0f;
             }
 
         }
@@ -139,28 +139,28 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if ((collision.gameObject.tag == "Block") && !this.IsGrounded())
+        if ((collision.gameObject.tag == "Block") && !IsGrounded())
         {
-            if (collision.transform.position.x > this.transform.position.x)
+            if (collision.transform.position.x > transform.position.x)
             {
-                this.collisionThreshold = 1;
+                collisionThreshold = 1;
             }
-            else if (collision.transform.position.x < (double)this.transform.position.x)
+            else if (collision.transform.position.x < (double)transform.position.x)
             {
-                this.collisionThreshold = -1;
+                collisionThreshold = -1;
             }
             else
             {
-                this.collisionThreshold = 0;
+                collisionThreshold = 0;
             }
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Block" && !this.IsGrounded() && this.collisionThreshold != 0)
+        if (collision.gameObject.tag == "Block" && !IsGrounded() && collisionThreshold != 0)
         {
-            this.collisionThreshold = 0;
+            collisionThreshold = 0;
         }
     }
 
@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Block" || collision.gameObject.tag == "Platform")
         {
-            this.isGrounded--;
+            isGrounded--;
         }
     }
 
