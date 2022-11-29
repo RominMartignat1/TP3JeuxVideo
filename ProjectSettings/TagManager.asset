@@ -9,6 +9,11 @@ TagManager:
   - Despawner
   - PlatformSpawner
   - CharacterArm
+  - TextName
+  - TextScore
+  - TextLives
+  - Monster
+  - Exit
   layers:
   - Default
   - TransparentFX
@@ -43,12 +48,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: arriere
+  - name: Background
     uniqueID: 914578869
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: player
+  - name: Platform
+    uniqueID: 2179075031
+    locked: 0
+  - name: Player
     uniqueID: 866433315
     locked: 0
