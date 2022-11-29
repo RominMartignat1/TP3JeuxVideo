@@ -6,21 +6,29 @@ public class PlatformContoller : MonoBehaviour
 {
     //get every children in a list
     //private List<GameObject> children = new List<GameObject>();
-
+    
     private GameObject[] blocks;
     private float moveSpeed = 5f;
-    private GameObject PlatformGeneratorManager;
+    private GameObject platformGeneratorManager;
+    private Finder finder;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        blocks = GetEveryBlock(this.gameObject);
-        PlatformGeneratorManager = GameObject.FindGameObjectWithTag("PlatformSpawner");
+        blocks = GetEveryBlock(gameObject);
+        platformGeneratorManager = GameObject.FindGameObjectWithTag("PlatformSpawner");
+        finder = FindObjectOfType<Finder>();
+        Debug.Log(finder.enabled + "Finder is active");
     }
 
 
+    private void OnEnable()
+    {
 
+        randomizePlatform();   
+
+    }
 
 
     private GameObject[] GetEveryBlock(GameObject parent)
@@ -36,6 +44,7 @@ public class PlatformContoller : MonoBehaviour
 
     public void randomizePlatform()
     {
+        if (blocks == null) return;
         foreach (GameObject block in blocks)
         {
             block.SetActive(true);
@@ -60,17 +69,14 @@ public class PlatformContoller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //transform.Translate(Vector3.down * Time.deltaTime * moveSpeed, Space.World);
-        //if (transform.position.y < -10)
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if(col.gameObject.tag == "Despawner")
+        if (collision.tag == "Despawner")
         {
-            transform.position = new Vector3(transform.position.x, PlatformGeneratorManager.transform.position.y, transform.position.z);
-            randomizePlatform();
-        }
+            Debug.Log("je touche le despawner");
+            gameObject.SetActive(false);
+        } 
     }
-    
 }
