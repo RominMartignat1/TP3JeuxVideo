@@ -8,9 +8,14 @@ public class Finder : MonoBehaviour
     // Start is called before the first frame update
     private GameObject parentOfPlatform;
     private GameObject wallPaperParent;
+    private GameObject bullets;
+    private GameObject powerUps;
     void Start()
     {
         parentOfPlatform =  GameObject.Find("Platforms");
+        //wallPaperParent = GameObject.Find("Wallpapers");
+        //bullets = GameObject.Find("Bullets");
+        powerUps = GameObject.Find("PowerUps");
     }
 
     // Update is called once per frame
@@ -29,6 +34,12 @@ public class Finder : MonoBehaviour
         return wallPaperParent;
     }
 
+    //get power up parent
+    public GameObject GetPowerUpParent()
+    {
+        return null;
+    }
+
 
     public GameObject[] GetChilds(GameObject parent)
     {
@@ -39,9 +50,7 @@ public class Finder : MonoBehaviour
             {
                 array[i] = parent.transform.GetChild(i).gameObject;
             }
-
         }
-
         return array;
     }
 
@@ -54,12 +63,42 @@ public class Finder : MonoBehaviour
             {
                 array[i] = parent.transform.GetChild(i).gameObject;
             }
-
         }  
-
         return array;
     }
 
+
+//GetRandomInactiveChild returns a random inactive child of a parent if there is no inactive child it returns null
+    public GameObject GetRandomInactiveChild(GameObject parent)
+    {
+        GameObject[] array = GetChilds(parent);
+        List<GameObject> inactiveChildren = new List<GameObject>();
+        foreach (GameObject child in array)
+        {
+            if (!child.activeSelf)
+            {
+                inactiveChildren.Add(child);
+            }
+        }
+        if (inactiveChildren.Count > 0)
+        {
+            int randomChild = UnityEngine.Random.Range(0, inactiveChildren.Count);
+            return inactiveChildren[randomChild];
+        }
+        else
+        {
+            return null;
+        }
+    }
+   
+   
+    
+    public GameObject GetRandomChild(GameObject parent)
+    {
+        GameObject[] array = GetChilds(parent);
+        int random = UnityEngine.Random.Range(0, array.Length);
+        return array[random];
+    }
 
 
     public GameObject[] GetChildsNotActive(GameObject parent)
@@ -71,24 +110,19 @@ public class Finder : MonoBehaviour
             {
                 array[i] = parent.transform.GetChild(i).gameObject;
             }
-
         }
-
         return array;
     }
 
     public GameObject GetAChildNotActive(GameObject parent)
     {
-        
         for (int i = 0; i < parent.transform.childCount; i++)
         {
             if (!parent.transform.GetChild(i).gameObject.activeSelf)
             {
                 return parent.transform.GetChild(i).gameObject;
             }
-
         }
-
         return null;
     }
 
@@ -96,21 +130,16 @@ public class Finder : MonoBehaviour
     public int GetNumberOfActiveChild(GameObject parent)
     {
         int numberOfChildActive = 0;
-
         for (int i = 0; i < parent.transform.childCount; i++)
         {
             if (parent.transform.GetChild(i).gameObject.activeSelf)
             {
-
                 numberOfChildActive++;
             }
 
         }
-
         return numberOfChildActive;
     }
-
-
 
     public List<GameObject> GetListOfChilds(GameObject parent)
     {
@@ -121,7 +150,6 @@ public class Finder : MonoBehaviour
             {
                 list.Add(parent.transform.GetChild(i).gameObject);
             }
-
         }
         return list;
     }
@@ -135,9 +163,22 @@ public class Finder : MonoBehaviour
             if (positionToReturn.y < arrayOfActive[i].transform.position.y)
             {
                positionToReturn.y = arrayOfActive[i].transform.position.y;
-               
             }
         }
         return positionToReturn;
+    }
+
+    public GameObject GetFirstAvailableObject(GameObject parent)
+    {
+        for (int i = 0; i < parent.transform.childCount; i++)
+        {
+            Transform child = parent.transform.GetChild(i);
+
+            if (!child.gameObject.activeInHierarchy)
+            {
+                return child.gameObject;
+            }
+        }
+        return null;
     }
 }

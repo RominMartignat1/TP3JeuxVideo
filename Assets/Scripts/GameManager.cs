@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    /*public static GameManager instance;
 
     public bool isPaused = false;
 
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartLevel(float delay)
     {
-        if (scenesAreInTransition) return;  //Pour éviter plusieurs transitions lancées en bloc
+        if (scenesAreInTransition) return;  //Pour ï¿½viter plusieurs transitions lancï¿½es en bloc
 
         scenesAreInTransition = true;
 
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
 
     public void StartNextlevel(float delay)
     {
-        if (scenesAreInTransition) return;  //Pour éviter plusieurs transitions lancées en bloc
+        if (scenesAreInTransition) return;  //Pour ï¿½viter plusieurs transitions lancï¿½es en bloc
 
         scenesAreInTransition = true;
 
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
         else
             SceneManager.LoadScene("Scene1");*/
 
-        scenesAreInTransition = false;
+/*        scenesAreInTransition = false;
     }
 
     public void ResetGame()
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
             actualLevel = 0;
         }
         return actualLevel;
-    }
+    }*/
 
    
 

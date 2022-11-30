@@ -5,7 +5,7 @@ using UnityEngine;
 public class ButtonBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+   /* void Start()
     {
         
     }
@@ -21,5 +21,5 @@ public class ButtonBehaviour : MonoBehaviour
     {
         if (GameManager.instance.enabled) Debug.Log("existe");
         GameManager.instance.StartNextlevel(2f);
-    }
+    }*/
 }

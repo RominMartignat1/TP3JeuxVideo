@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour
     {
 
         isFollowingPlayer = false;
-        playerBeingFollowed = GameObject.FindGameObjectWithTag("player");
+        playerBeingFollowed = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
@@ -29,7 +29,7 @@ public class CameraController : MonoBehaviour
         else
         {
             Debug.Log("Not following player");
-            transform.Translate(Vector3.up * Time.deltaTime * moveSpeed, Space.World);
+            //transform.Translate(Vector3.up * Time.deltaTime * moveSpeed, Space.World);
         }
     }
 
@@ -67,11 +67,11 @@ public class CameraController : MonoBehaviour
         Vector3 cameraPos = transform.position;
         if (playerBeingFollowed.transform.position.y > transform.position.y)
         {
-            transform.Translate(Vector3.up * Time.deltaTime * moveSpeed, Space.World);
+            transform.position = new Vector3(cameraPos.x, playerPos.y, cameraPos.z);
+            //transform.Translate(Vector3.up * Time.deltaTime * moveSpeed, Space.World);
         }
 
     }
-
 }
 
 

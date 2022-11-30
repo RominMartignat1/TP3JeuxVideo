@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    public enum PlayerTeam
+    {
+        Team1,
+        Team2
+    }
     private int isGrounded;
     //private AudioSource audioSource;
+    [SerializeField] PlayerTeam playerTeam;
     private Rigidbody2D rigidBody;
     private float horizontal;
     private int collisionThreshold;
@@ -40,6 +45,7 @@ public class PlayerController : MonoBehaviour
 
             rigidBody.velocity = new Vector2(horizontal + acceleration, rigidBody.velocity.y + jumpPower + jumpIntensity);
             jumpPower = 0.0f;
+            Debug.Log("Velocity: " + rigidBody.velocity);
         }
 
         if (jumpIntensity <= 10.0f)
@@ -50,10 +56,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        /*if (Input.GetButtonDown("Cancel"))
-        {
-            Application.Quit();
-        }*/
+
         if (hasDied)
         {
             deathTimer += Time.deltaTime;
@@ -69,64 +72,135 @@ public class PlayerController : MonoBehaviour
 
     private void ManageMovement()
     {
-        horizontal = Input.GetAxis("Horizontal");
-
-        if(horizontal > 0)
+        if(playerTeam == PlayerTeam.Team1)
         {
-            if(acceleration < 4.0f)
-            {
-                acceleration += 0.1f;
+            /*{
+                horizontal = Input.GetAxis("Horizontal");
             }
-        }
-        else if(horizontal < 0)
-        {
-            if(acceleration > -4.0f)
+            else if(playerTeam == playerTeam.Team2)
             {
-                acceleration -= 0.1f;
-            }
-        }
-        else
-        {
-            if(acceleration > 0)
-            {
-                acceleration -= 0.2f;
-            }
-            else if(acceleration < 0)
-            {
-                acceleration += 0.2f;
-            }
-        }
+                horizontal = Input.GetAxis("Horizontal2");
+            }*/
+            horizontal = Input.GetAxis("Horizontal");
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
-        {
-            Debug.Log("Jump");
-            jumpPower = 3.0f;
-            //jumpIntensity = 10.0f;
-
-
-            if(System.Math.Abs(acceleration) > 1.0f && System.Math.Abs(acceleration) < 2.0f)
+            if(horizontal > 0)
             {
-                jumpIntensity = 10.5f;
+                if(acceleration < 4.0f)
+                {
+                    acceleration += 0.1f;
+                }
             }
-            else if(System.Math.Abs(acceleration) > 2.0f && System.Math.Abs(acceleration) < 3.0f)
+            else if(horizontal < 0)
             {
-                jumpIntensity = 2.0f;
+                if(acceleration > -4.0f)
+                {
+                    acceleration -= 0.1f;
+                }
             }
-            else if(System.Math.Abs(acceleration) > 3.0f )
+            else
             {
-                jumpIntensity = 5.0f;
+                if(acceleration > 0)
+                {
+                    acceleration -= 0.2f;
+                }
+                else if(acceleration < 0)
+                {
+                    acceleration += 0.2f;
+                }
             }
 
+            if (Input.GetButtonDown("Jump") && IsGrounded())
+            {
+                Debug.Log("Jump");
+                jumpPower = 3.0f;
+                //jumpIntensity = 10.0f;
+
+
+                if(System.Math.Abs(acceleration) > 1.0f && System.Math.Abs(acceleration) < 2.0f)
+                {
+                    //jumpIntensity = 10.5f;
+                }
+                else if(System.Math.Abs(acceleration) > 2.0f && System.Math.Abs(acceleration) < 3.0f)
+                {
+                    //jumpIntensity = 2.0f;
+                }
+                else if(System.Math.Abs(acceleration) > 3.0f )
+                {
+                    //jumpIntensity = 5.0f;
+                }
+
+            }
         }
     }
 
+//on collision enter
+    private void OnCollisionEnter2D(Collision2D Collider2D)
+    {
+        if (!hasDied)
+        {
+            if ( Collider2D.gameObject.tag == "wall")
+            {
+                Debug.Log("Hit wall");
 
+                float oldAcceleration = acceleration;
+                if (rigidBody.velocity.x > 0)
+                {
+                    acceleration = 0.0f;
+                    acceleration = 5.0f;//oldAcceleration * 0.75f;
+                }
+                else
+                {
+                    acceleration = 0.0f;
+                    acceleration = -5.0f;//-oldAcceleration * 0.75f;
+                }
+            }
+        }
+        if (Collider2D.gameObject.tag == "Player")
+        {
+            Debug.Log("Hit player");
+            //fix that later i guess
+            Collider2D.gameObject.GetComponent<PlayerController>().acceleration = acceleration;
+        }
+
+    }
+
+    //getplayer acceleration
+    public float GetPlayerAcceleration()
+    {
+        return acceleration;
+    }
     
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!hasDied)
         {
+            if (collision.gameObject.tag == "Bullet")
+            {
+                if (collision.gameObject.GetComponent<BulletsManager>().GetBulletTeam().ToString() == playerTeam.ToString())
+                {
+                    return;
+                }
+                else
+                {
+                    //make the player blink
+                    StartCoroutine(Blink());
+                    if (collision.transform.position.x > transform.position.x)
+                    {
+                        acceleration = -5.0f;
+                    }
+                    else if (collision.transform.position.x < (double)transform.position.x)
+                    {
+                        acceleration = 5.0f;
+                    }
+                    else
+                    {
+                        acceleration = -5.0f;
+                    }
+                    //addforce upwards to the player according to the bullet's force
+                    rigidBody.AddForce(new Vector2(0, collision.gameObject.GetComponent<Rigidbody2D>().velocity.y * 0.5f), ForceMode2D.Impulse);
+                }
+            }
             if ( collision.gameObject.tag == "Block")
             {
                 isGrounded++;
@@ -135,6 +209,17 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+    }
+
+    private IEnumerator Blink()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            GetComponent<SpriteRenderer>().enabled = false;
+            yield return new WaitForSeconds(0.1f);
+            GetComponent<SpriteRenderer>().enabled = true;
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
