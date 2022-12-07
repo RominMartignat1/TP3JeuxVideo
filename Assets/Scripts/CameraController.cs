@@ -37,18 +37,23 @@ public class CameraController : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-            Debug.Log("Player entered camera trigger");
-            isFollowingPlayer = true;
-            playerBeingFollowed = col.gameObject;
-            //if player that has entered is not the player that is being followed, check which one is the highest and follow that one
-            if (col != playerBeingFollowed)
+            //check if player is dead or respawnig
+            if (!col.gameObject.GetComponent<PlayerController>().isPlayerDeadOrRespawning())
             {
-                if (col.transform.position.y > playerBeingFollowed.transform.position.y)
+                Debug.Log("Player entered camera trigger");
+                isFollowingPlayer = true;
+                playerBeingFollowed = col.gameObject;
+                //if player that has entered is not the player that is being followed, check which one is the highest and follow that one
+                if (col != playerBeingFollowed)
                 {
-                    isFollowingPlayer = true;
-                    playerBeingFollowed = col.gameObject;
+                    if (col.transform.position.y > playerBeingFollowed.transform.position.y)
+                    {
+                        isFollowingPlayer = true;
+                        playerBeingFollowed = col.gameObject;
+                    }
                 }
             }
+
         }
     }
 
