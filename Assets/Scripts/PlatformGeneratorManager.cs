@@ -18,7 +18,7 @@ public class PlatformGeneratorManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        platform = GameObject.Find("Platforms");
+        //platform = GameObject.Find("Platforms");
         finder = FindObjectOfType<Finder>();
         height = gameObject.transform.parent.position.y;
         
@@ -28,8 +28,8 @@ public class PlatformGeneratorManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckHeight();
-        if (spawningTime && counter == 0) SpawnAPlatform();
+        //CheckHeight();
+        //if (spawningTime && counter == 0) SpawnAPlatform();
     }
 
     private void CheckHeight()

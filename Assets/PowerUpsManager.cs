@@ -9,7 +9,7 @@ public class PowerUpsManager : MonoBehaviour
     private float spawnCooldown = 0f;
     private float spawnCooldownMax;
     GameObject powerUp;
-
+ 
     void Start()
     {
         childPowerUpsList = finder.GetChilds(this.gameObject);
@@ -31,10 +31,11 @@ public class PowerUpsManager : MonoBehaviour
 
     private void SpawnPowerUp()
     {
-        //powerUp = finder.GetRandomInactiveChild(this.gameObject);
-        //if (powerUp != null)
-        //{
-        //    powerUp.SetActive(true);
-        //}
+        powerUp = finder.GetRandomInactiveChild(this.gameObject);
+        if (powerUp != null)
+        {
+            Debug.Log("Spawned PowerUp");
+            powerUp.SetActive(true);
+        }
     }
 }
