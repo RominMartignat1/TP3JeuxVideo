@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class ArmController : MonoBehaviour
 {
+
     private GameObject player;
-    // Start is called before the first frame update
     void Start()
     {
         player = gameObject.transform.parent.gameObject;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Vector3 mousePos = Input.mousePosition;

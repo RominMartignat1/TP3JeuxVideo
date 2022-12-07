@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    /*public static GameManager instance;
+    public static GameManager instance;
 
     public bool isPaused = false;
 
@@ -39,12 +39,14 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         actualLevel = SceneManager.GetActiveScene().buildIndex;
+       // Time.timeScale = 1f;
     }
 
     void Update()
     {
         if (Input.GetButtonDown("Cancel"))
         {
+            Debug.Log("quitte");
             Application.Quit();
         }
     }
@@ -84,7 +86,7 @@ public class GameManager : MonoBehaviour
         else
             SceneManager.LoadScene("Scene1");*/
 
-/*        scenesAreInTransition = false;
+       scenesAreInTransition = false;
     }
 
     public void ResetGame()
@@ -107,17 +109,17 @@ public class GameManager : MonoBehaviour
             actualLevel = 0;
         }
         return actualLevel;
-    }*/
+    }
 
    
 
-   /* public void PlayerDie()
+    public void PlayerDie()
     {
         lives--;
         score -= accumulatedScore;
         playerLivesText.text = lives.ToString();
         playerScoreText.text = score.ToString();
         accumulatedScore = 0;
-    }*/
+    }
 
 }
