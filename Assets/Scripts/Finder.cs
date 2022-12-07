@@ -10,8 +10,12 @@ public class Finder : MonoBehaviour
     private GameObject wallPaperParent;
     private GameObject bullets;
     private GameObject powerUps;
+    private GameObject respawnArea;
+    private GameObject[] players;
     void Start()
     {
+        respawnArea = GameObject.Find("RespawnAera");
+        players = GameObject.FindGameObjectsWithTag("Player");
         parentOfPlatform =  GameObject.Find("Platforms");
         //wallPaperParent = GameObject.Find("Wallpapers");
         //bullets = GameObject.Find("Bullets");
@@ -22,6 +26,16 @@ public class Finder : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public GameObject[] GetPlayers()
+    {
+        return players;
+    }
+
+    public GameObject GetRespawnArea()
+    {
+        return respawnArea;
     }
 
     public GameObject GetPlatformParent()

@@ -23,6 +23,11 @@ public class PlayerController : MonoBehaviour
     private bool canPlayerMove;
     private float deathTimer;
     private float acceleration;
+    public bool isRespawning = false;
+    private bool isInvicible = false;
+    [SerializeField] private Finder finders;
+
+    private float playerLives = 3;
 
     public PlayerController()
     {
@@ -40,7 +45,7 @@ public class PlayerController : MonoBehaviour
     {
         if (canPlayerMove)
         {
-            Debug.Log("isgrounded: " + IsGrounded());
+            //Debug.Log("isgrounded: " + IsGrounded());
 
 
             rigidBody.velocity = new Vector2(horizontal + acceleration, rigidBody.velocity.y + jumpPower + jumpIntensity);
@@ -54,33 +59,56 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        rigidBody.velocity = new Vector2(0.0f, 0.0f);
+        hasDied = true;
+        canPlayerMove = false;
+        acceleration = 0.0f;
+        jumpIntensity = 0.0f;
+        jumpPower = 0.0f;
+
+    }
+
+    private void OnEnable()
+    {
+        if(hasDied)
+        {
+            StartCoroutine(respawnSequence());
+        }
+    }
+
+
     private void Update()
     {
-
-        if (hasDied)
+        //if player is this team
+        if(playerTeam == PlayerTeam.Team1)
         {
-            deathTimer += Time.deltaTime;
-            transform.localScale = new Vector3(1f - deathTimer, 1f - deathTimer, 1f - deathTimer);
+            Debug.Log("isgrounded: " + isGrounded);
         }
+        
         if (canPlayerMove)
         {
             ManageMovement();
             transform.rotation = Quaternion.Euler(0, transform.rotation.y, transform.rotation.z);
         }
-
     }
 
     private void ManageMovement()
     {
-        if(playerTeam == PlayerTeam.Team1)
+        if(isRespawning)
         {
-            /*{
-                horizontal = Input.GetAxis("Horizontal");
-            }
-            else if(playerTeam == playerTeam.Team2)
-            {
-                horizontal = Input.GetAxis("Horizontal2");
-            }*/
+            horizontal = Input.GetAxis("Horizontal") * 1.5f;
+            //fix later
+            //if (Input.GetButtonDown("Jump"))
+            //{
+            //    isRespawning = false;
+            //    StopCoroutine(respawnSequence());
+            //    
+            //}
+        }
+        else if (playerTeam == PlayerTeam.Team1)
+        {
             horizontal = Input.GetAxis("Horizontal");
 
             if(horizontal > 0)
@@ -118,26 +146,58 @@ public class PlayerController : MonoBehaviour
 
                 if(System.Math.Abs(acceleration) > 1.0f && System.Math.Abs(acceleration) < 2.0f)
                 {
-                    //jumpIntensity = 10.5f;
+                    jumpIntensity = 10.5f;
                 }
                 else if(System.Math.Abs(acceleration) > 2.0f && System.Math.Abs(acceleration) < 3.0f)
                 {
-                    //jumpIntensity = 2.0f;
+                    jumpIntensity = 2.0f;
                 }
                 else if(System.Math.Abs(acceleration) > 3.0f )
                 {
-                    //jumpIntensity = 5.0f;
+                    jumpIntensity = 5.0f;
                 }
-
             }
         }
     }
 
-//on collision enter
+    private IEnumerator respawnSequence()
+    {
+        this.GetComponent<Rigidbody2D>().isKinematic = true;
+        canPlayerMove = true;
+        this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY; 
+        hasDied = false;
+        isRespawning = true;
+        for (int i = 0; i < 3; i++)
+        {
+            GetComponent<SpriteRenderer>().enabled = false;
+            yield return new WaitForSeconds(0.5f);
+            GetComponent<SpriteRenderer>().enabled = true;
+            yield return new WaitForSeconds(0.5f);
+        }
+        //respawn();
+        isRespawning = false;
+        canPlayerMove = true;
+        this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        this.GetComponent<Rigidbody2D>().isKinematic = false;
+    }
+
+    public bool isPlayerDeadOrRespawning()
+    {
+        return hasDied || isRespawning;
+    }
+
     private void OnCollisionEnter2D(Collision2D Collider2D)
     {
-        if (!hasDied)
+        if (!hasDied && !isRespawning)
         {
+
+
+            if (Collider2D.gameObject.tag == "GreenMushroom")
+            {
+                playerLives += 1;
+            }
+
             if ( Collider2D.gameObject.tag == "wall")
             {
                 Debug.Log("Hit wall");
@@ -154,17 +214,15 @@ public class PlayerController : MonoBehaviour
                     acceleration = -5.0f;//-oldAcceleration * 0.75f;
                 }
             }
+            if (Collider2D.gameObject.tag == "Player")
+            {
+                Debug.Log("Hit player");
+                //fix that later i guess
+                Collider2D.gameObject.GetComponent<PlayerController>().acceleration = acceleration;
+            }
         }
-        if (Collider2D.gameObject.tag == "Player")
-        {
-            Debug.Log("Hit player");
-            //fix that later i guess
-            Collider2D.gameObject.GetComponent<PlayerController>().acceleration = acceleration;
-        }
-
     }
 
-    //getplayer acceleration
     public float GetPlayerAcceleration()
     {
         return acceleration;
@@ -173,8 +231,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!hasDied)
+        if (!hasDied && !isRespawning)
         {
+            
+            if (collision.gameObject.tag == "Despawner")
+            {
+                //1
+                Debug.Log("player died");
+                //StartCoroutine(ManageDeath());
+                gameObject.SetActive(false);
+
+            }
             if (collision.gameObject.tag == "Bullet")
             {
                 if (collision.gameObject.GetComponent<BulletsManager>().GetBulletTeam().ToString() == playerTeam.ToString())
@@ -183,7 +250,6 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
-                    //make the player blink
                     StartCoroutine(Blink());
                     if (collision.transform.position.x > transform.position.x)
                     {
@@ -197,7 +263,6 @@ public class PlayerController : MonoBehaviour
                     {
                         acceleration = -5.0f;
                     }
-                    //addforce upwards to the player according to the bullet's force
                     rigidBody.AddForce(new Vector2(0, collision.gameObject.GetComponent<Rigidbody2D>().velocity.y * 0.5f), ForceMode2D.Impulse);
                 }
             }
@@ -251,7 +316,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Block" || collision.gameObject.tag == "Platform")
+        if (collision.gameObject.tag == "Block")
         {
             isGrounded--;
         }

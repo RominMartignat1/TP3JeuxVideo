@@ -6,24 +6,32 @@ public class GreenMushroomController : MonoBehaviour
 {
     private float timeActive = 0f;
     private float maxTimeActive = 10f;
-    private float speed = 5f;
+    private float speed = 2.5f;
+    private Vector2 currentDirection = Vector2.left;
 
     void Start()
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
-        timeActive = 10f;
-        transform.position = new Vector2(Random.Range(-8f, 8f), 5f);
+        Debug.Log("Green Mushroom Enabled AAAAAAAAAA");
+        //timeActive = 10f;
+        transform.position = new Vector2(Random.Range(-6f, 6f), 2f);
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("Green Mushroom Disabled AAAAAAAAAA");
     }
 
     void Update()
     {
+        Debug.Log("GreenMushroomController Update");
         if (gameObject.activeSelf)
         {
-            transform.Translate(Vector2.down * speed * Time.deltaTime);
+            transform.Translate(currentDirection * speed * Time.deltaTime);
             if (timeActive >= maxTimeActive)
             {
                 gameObject.SetActive(false);
@@ -36,13 +44,11 @@ public class GreenMushroomController : MonoBehaviour
         }    
     }
 
-
-    //on collision enter 2d if its a player
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Wall")
+        if (collision.gameObject.CompareTag("wall"))
         {
-            transform.Rotate(0, 0, 180);
+            currentDirection *= -1;
         }
     }
 
@@ -50,6 +56,7 @@ public class GreenMushroomController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            Debug.Log("Green Mushroom hit player");
             gameObject.SetActive(false);
             timeActive = 0f;
         }
