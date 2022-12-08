@@ -6,13 +6,14 @@ public class PlayerController : MonoBehaviour
 {
     public enum PlayerTeam
     {
-        Team1,
-        Team2
+        Blue,
+        Red
     }
     private int isGrounded;
     //private AudioSource audioSource;
-    [SerializeField] PlayerTeam playerTeam;
+    [SerializeField] PlayerTeam team;
     private Rigidbody2D rigidBody;
+    private Animator animator;
     private float horizontal;
     private int collisionThreshold;
     private float jumpTimer;
@@ -39,15 +40,13 @@ public class PlayerController : MonoBehaviour
     {
         //audioSource = GetComponent<AudioSource>();
         rigidBody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
     {
         if (canPlayerMove)
         {
-            //Debug.Log("isgrounded: " + IsGrounded());
-
-
             rigidBody.velocity = new Vector2(horizontal + acceleration, rigidBody.velocity.y + jumpPower + jumpIntensity);
             jumpPower = 0.0f;
             Debug.Log("Velocity: " + rigidBody.velocity);
@@ -72,87 +71,86 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        if(hasDied)
+        if (hasDied)
         {
             StartCoroutine(respawnSequence());
         }
     }
 
-
     private void Update()
     {
-        //if player is this team
-        if(playerTeam == PlayerTeam.Team1)
-        {
-            Debug.Log("isgrounded: " + isGrounded);
-        }
-        
         if (canPlayerMove)
         {
             ManageMovement();
             transform.rotation = Quaternion.Euler(0, transform.rotation.y, transform.rotation.z);
+            animator.SetFloat("Jump Power", jumpPower);
+            animator.SetFloat("Speed", horizontal);
         }
     }
 
     private void ManageMovement()
     {
-        if(isRespawning)
+        if (team == PlayerTeam.Blue)
         {
-            horizontal = Input.GetAxis("Horizontal") * 1.5f;
+            horizontal = Input.GetAxis("Horizontal");
+        }
+        else if(team == PlayerTeam.Red)
+        {
+            horizontal = Input.GetAxis("HorizontalP2");
+        }
+        if (isRespawning)
+        {
+            horizontal *= 1.5f;
             //fix later
             //if (Input.GetButtonDown("Jump"))
             //{
             //    isRespawning = false;
             //    StopCoroutine(respawnSequence());
-            //    
+            //
             //}
         }
-        else if (playerTeam == PlayerTeam.Team1)
+        else
         {
-            horizontal = Input.GetAxis("Horizontal");
-
-            if(horizontal > 0)
+            if (horizontal > 0)
             {
-                if(acceleration < 4.0f)
+                if (acceleration < 4.0f)
                 {
                     acceleration += 0.1f;
                 }
             }
-            else if(horizontal < 0)
+            else if (horizontal < 0)
             {
-                if(acceleration > -4.0f)
+                if (acceleration > -4.0f)
                 {
                     acceleration -= 0.1f;
                 }
             }
             else
             {
-                if(acceleration > 0)
+                if (acceleration > 0)
                 {
                     acceleration -= 0.2f;
                 }
-                else if(acceleration < 0)
+                else if (acceleration < 0)
                 {
                     acceleration += 0.2f;
                 }
             }
 
-            if (Input.GetButtonDown("Jump") && IsGrounded())
+            if ((Input.GetButtonDown("Jump") && team == PlayerTeam.Blue) || (Input.GetButtonDown("JumpP2") && team == PlayerTeam.Red) && IsGrounded())
             {
-                Debug.Log("Jump");
                 jumpPower = 3.0f;
+
                 //jumpIntensity = 10.0f;
-
-
-                if(System.Math.Abs(acceleration) > 1.0f && System.Math.Abs(acceleration) < 2.0f)
+                if (System.Math.Abs(acceleration) > 1.0f && System.Math.Abs(acceleration) < 2.0f)
                 {
                     jumpIntensity = 10.5f;
                 }
-                else if(System.Math.Abs(acceleration) > 2.0f && System.Math.Abs(acceleration) < 3.0f)
+                else if (System.Math.Abs(acceleration) > 2.0f && System.Math.Abs(acceleration) < 3.0f)
                 {
                     jumpIntensity = 2.0f;
                 }
-                else if(System.Math.Abs(acceleration) > 3.0f )
+                else if (System.Math.Abs(acceleration) > 3.0f)
                 {
                     jumpIntensity = 5.0f;
                 }
@@ -164,7 +162,7 @@ public class PlayerController : MonoBehaviour
     {
         this.GetComponent<Rigidbody2D>().isKinematic = true;
         canPlayerMove = true;
-        this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY; 
+        this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
         hasDied = false;
         isRespawning = true;
         for (int i = 0; i < 3; i++)
@@ -191,17 +189,13 @@ public class PlayerController : MonoBehaviour
     {
         if (!hasDied && !isRespawning)
         {
-
-
             if (Collider2D.gameObject.tag == "GreenMushroom")
             {
-                playerLives += 1;
+                playerLives++;
             }
 
-            if ( Collider2D.gameObject.tag == "wall")
+            if (Collider2D.gameObject.tag == "wall")
             {
-                Debug.Log("Hit wall");
-
                 float oldAcceleration = acceleration;
                 if (rigidBody.velocity.x > 0)
                 {
@@ -227,16 +221,14 @@ public class PlayerController : MonoBehaviour
     {
         return acceleration;
     }
-    
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!hasDied && !isRespawning)
         {
-            
             if (collision.gameObject.tag == "Despawner")
             {
-                //1
                 Debug.Log("player died");
                 //StartCoroutine(ManageDeath());
                 gameObject.SetActive(false);
@@ -244,7 +236,7 @@ public class PlayerController : MonoBehaviour
             }
             if (collision.gameObject.tag == "Bullet")
             {
-                if (collision.gameObject.GetComponent<BulletsManager>().GetBulletTeam().ToString() == playerTeam.ToString())
+                if (collision.gameObject.GetComponent<BulletsManager>().GetBulletTeam().ToString() == team.ToString())
                 {
                     return;
                 }
@@ -266,7 +258,7 @@ public class PlayerController : MonoBehaviour
                     rigidBody.AddForce(new Vector2(0, collision.gameObject.GetComponent<Rigidbody2D>().velocity.y * 0.5f), ForceMode2D.Impulse);
                 }
             }
-            if ( collision.gameObject.tag == "Block")
+            if (collision.gameObject.tag == "Block")
             {
                 isGrounded++;
                 collisionThreshold = 0;

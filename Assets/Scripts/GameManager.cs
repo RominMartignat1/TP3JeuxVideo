@@ -39,14 +39,12 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         actualLevel = SceneManager.GetActiveScene().buildIndex;
-       // Time.timeScale = 1f;
     }
 
     void Update()
     {
         if (Input.GetButtonDown("Cancel"))
         {
-            Debug.Log("quitte");
             Application.Quit();
         }
     }
@@ -75,10 +73,10 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         textsNotLinked = true;
 
-        
-           if(level == 0) 
+
+           if(level == 0)
             SceneManager.LoadScene("HomeScene");
-        
+
         else if (level == 1)
             SceneManager.LoadScene("SceneRomin");
        /* else if (level == 3)
@@ -110,8 +108,6 @@ public class GameManager : MonoBehaviour
         }
         return actualLevel;
     }
-
-   
 
     public void PlayerDie()
     {
