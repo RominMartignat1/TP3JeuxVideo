@@ -189,4 +189,9 @@ public class Finder : MonoBehaviour
         }
         return null;
     }
+
+    public GameObject[] GetChildHearths(GameObject parent)
+    {
+        return null;
+    }
 }

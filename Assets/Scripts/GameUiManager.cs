@@ -10,16 +10,24 @@ public class GameUiManager : MonoBehaviour
 
     [SerializeField] private Text playerName1Text;
     [SerializeField] private Text playerName2Text;
+    GameObject[] player1Lifes;
+    GameObject[] player2Lifes;
+    Color black = Color.black;
     private bool playerIsSet = false;
-    private const int MAX_LIFE = 3;
+    private const int MAX_INITIAL_LIFE = 3;
+    private const int MAX_POSSIBLE_LIFE = 5;
     private int player1Life;
     private int player2Life;
     private bool gameIsEnded = false;
 
     void Start()
     {
-        player1Life = MAX_LIFE;
-        player2Life = MAX_LIFE;
+        player1Life = MAX_INITIAL_LIFE;
+        player2Life = MAX_INITIAL_LIFE;
+        player1Lifes = GameObject.FindGameObjectsWithTag("HearthPlayer1");
+        player2Lifes = GameObject.FindGameObjectsWithTag("HearthPlayer2");
+        Debug.Log(player1Lifes.Length);
+
     }
 
     // Update is called once per frame
@@ -28,6 +36,7 @@ public class GameUiManager : MonoBehaviour
         if (!playerIsSet)
         {
             SetPlayer();
+            SetHearths();
         }
         if (!gameIsEnded)
         {
@@ -38,7 +47,11 @@ public class GameUiManager : MonoBehaviour
         {
             FinishGame();
         }
-        
+
+    }
+
+    private void SetHearths()
+    {
     }
 
     private void FinishGame()
@@ -54,20 +67,38 @@ public class GameUiManager : MonoBehaviour
         }
     }
 
-    private void SetLife(GameManager.PLAYER player ,int life)
+    private void SubstractLife(PlayerController.PlayerTeam player, int life)
     {
-        /*if (player == GameManager.PLAYER.PLAYER1)
+        if (player == PlayerController.PlayerTeam.Blue)
         {
-            player1Name = playerName;
-            Debug.Log(playerName);
+            player1Life -= life;
+            player1Lifes[player1Life].GetComponent<Image>().color = black;
         }
         else
         {
-            player2Name = playerName;
-            Debug.Log(playerName);
-        }*/
+            player2Life -= life;
+            player2Lifes[player2Life].GetComponent<Image>().color = black;
+        }
+
+        if (player1Life <= 0 || player2Life <= 0)
+        {
+            //cela call le gamemanager avec qui qui a perdu 
+        }
     }
 
+    private void AddLife(PlayerController.PlayerTeam player, int life)
+    {
+        if (player == PlayerController.PlayerTeam.Blue)
+        {
+            player1Life += life;
+            player1Lifes[player1Life].GetComponent<Image>().color = Color.white;
+        }
+        else
+        {
+            player2Life += life;
+            player2Lifes[player2Life].GetComponent<Image>().color = Color.white;
+        }
+    }
     private void SetPlayer()
     {
         playerName1Text.text = GameManager.instance.getPlayerName(GameManager.PLAYER.PLAYER1);
