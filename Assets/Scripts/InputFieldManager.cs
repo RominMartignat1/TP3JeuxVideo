@@ -2,10 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class InputFieldManager : MonoBehaviour
 {
+    
+
     public enum PLAYER { PLAYER1, PLAYER2 };
     private PLAYER playerNumber;
     private bool playerIsSet = false;
@@ -25,22 +28,7 @@ public class InputFieldManager : MonoBehaviour
         {
             SetPlayer();
         }
-        if (Input.GetButtonDown("Cancel")) Application.Quit();
-
-        if (Input.GetButtonDown("Submit"))
-        {
-            if (playerNameText.text.Length < 3)
-            {
-                inputField.Select();
-                inputField.text = "";
-                placeHolderText.text = "Le nom doit avoir au moins 3 caractères";
-            }
-            else
-            {
-               // GameManager.instance.SetPlayerName(playerNameText.text);
-                GameManager.instance.StartNextlevel(0.2f);
-            }
-        }
+        
     }
 
     private void SetPlayer()
@@ -55,6 +43,11 @@ public class InputFieldManager : MonoBehaviour
         }
         Debug.Log(playerNumber);
         playerIsSet = true;
+    }
+
+    public void SaveText()
+    {
+        GameManager.instance.savePlayerName(playerNumber, playerNameText.text);
     }
 }
 
