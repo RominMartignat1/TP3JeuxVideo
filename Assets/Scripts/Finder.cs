@@ -122,18 +122,6 @@ public class Finder : MonoBehaviour
         return array;
     }
 
-    public GameObject GetAChildNotActive(GameObject parent)
-    {
-        for (int i = 0; i < parent.transform.childCount; i++)
-        {
-            if (!parent.transform.GetChild(i).gameObject.activeSelf)
-            {
-                return parent.transform.GetChild(i).gameObject;
-            }
-        }
-        return null;
-    }
-
 
     public int GetNumberOfActiveChild(GameObject parent)
     {
@@ -162,15 +150,14 @@ public class Finder : MonoBehaviour
         return list;
     }
 
-    public Vector3 GetPositionOfTheHighestChild(GameObject parent)
+    public Vector3 GetPositionOfHighestPlayer()
     {
-        List<GameObject> arrayOfActive = GetListOfChilds(parent);
         Vector3 positionToReturn = Vector3.zero;
-        for (int i = 0; i < arrayOfActive.Count; i++)
+        for (int i = 0; i < players.Length; i++)
         {
-            if (positionToReturn.y < arrayOfActive[i].transform.position.y)
+            if (positionToReturn.y < players[i].transform.position.y)
             {
-               positionToReturn.y = arrayOfActive[i].transform.position.y;
+               positionToReturn.y = players[i].transform.position.y;
             }
         }
         return positionToReturn;

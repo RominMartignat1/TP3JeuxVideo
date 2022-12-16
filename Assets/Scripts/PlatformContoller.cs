@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class PlatformContoller : MonoBehaviour
 {
-    //private List<GameObject> children = new List<GameObject>();
     private GameObject[] blocks;
     private float moveSpeed = 5f;
-    private GameObject platformGeneratorManager;
-
+    private PlatformContoller platformGeneratorManager;
     public const int MAX_PLATFORM_COUNT = 11;
     private Finder finder;
 
     void Start()
     {
         blocks = finder.GetChilds(gameObject);
-        platformGeneratorManager = GameObject.FindGameObjectWithTag("PlatformSpawner");
         finder = FindObjectOfType<Finder>();
     }
     private void OnEnable()
