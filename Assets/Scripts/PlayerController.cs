@@ -38,7 +38,6 @@ public class PlayerController : MonoBehaviour
     }
     private void Awake()
     {
-        //audioSource = GetComponent<AudioSource>();
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -49,7 +48,6 @@ public class PlayerController : MonoBehaviour
         {
             rigidBody.velocity = new Vector2(horizontal + acceleration, rigidBody.velocity.y + jumpPower + jumpIntensity);
             jumpPower = 0.0f;
-            Debug.Log("Velocity: " + rigidBody.velocity);
         }
 
         if (jumpIntensity <= 10.0f)
@@ -66,14 +64,13 @@ public class PlayerController : MonoBehaviour
         acceleration = 0.0f;
         jumpIntensity = 0.0f;
         jumpPower = 0.0f;
-
     }
 
     private void OnEnable()
     {
         if (hasDied)
         {
-            StartCoroutine(respawnSequence());
+            respawnSequence();
         }
     }
 
@@ -140,7 +137,6 @@ public class PlayerController : MonoBehaviour
             if ((Input.GetButtonDown("Jump") && team == PlayerTeam.Blue) || (Input.GetButtonDown("JumpP2") && team == PlayerTeam.Red) && IsGrounded())
             {
                 jumpPower = 3.0f;
-
                 //jumpIntensity = 10.0f;
                 if (System.Math.Abs(acceleration) > 1.0f && System.Math.Abs(acceleration) < 2.0f)
                 {
@@ -158,20 +154,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private IEnumerator respawnSequence()
+    private void respawnSequence()
     {
         this.GetComponent<Rigidbody2D>().isKinematic = true;
         canPlayerMove = true;
         this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
         hasDied = false;
         isRespawning = true;
-        for (int i = 0; i < 3; i++)
-        {
-            GetComponent<SpriteRenderer>().enabled = false;
-            yield return new WaitForSeconds(0.5f);
-            GetComponent<SpriteRenderer>().enabled = true;
-            yield return new WaitForSeconds(0.5f);
-        }
+        StartCoroutine(Blink(0.5f));
         //respawn();
         isRespawning = false;
         canPlayerMove = true;
@@ -242,7 +232,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
-                    StartCoroutine(Blink());
+                    StartCoroutine(Blink(0.1f));
                     if (collision.transform.position.x > transform.position.x)
                     {
                         acceleration = -5.0f;
@@ -268,14 +258,14 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private IEnumerator Blink()
+    private IEnumerator Blink(float delay)
     {
         for (int i = 0; i < 3; i++)
         {
             GetComponent<SpriteRenderer>().enabled = false;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(delay);
             GetComponent<SpriteRenderer>().enabled = true;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(delay);
         }
     }
 

@@ -77,12 +77,9 @@ public class Finder : MonoBehaviour
             {
                 array[i] = parent.transform.GetChild(i).gameObject;
             }
-        }  
+        }
         return array;
     }
-
-
-//GetRandomInactiveChild returns a random inactive child of a parent if there is no inactive child it returns null
     public GameObject GetRandomInactiveChild(GameObject parent)
     {
         GameObject[] array = GetChilds(parent);
@@ -104,9 +101,6 @@ public class Finder : MonoBehaviour
             return null;
         }
     }
-   
-   
-    
     public GameObject GetRandomChild(GameObject parent)
     {
         GameObject[] array = GetChilds(parent);

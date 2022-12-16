@@ -30,8 +30,6 @@ public class BulletsManager : MonoBehaviour
         return bulletTeam;
     }
 
-
-
     private float timeActive = 0f;
 
     void Start()
@@ -51,7 +49,7 @@ public class BulletsManager : MonoBehaviour
             gameObject.SetActive(false);
             timeActive = 0f;
         }
-        
+
     }
 
     private void OnEnable()
@@ -73,7 +71,7 @@ public class BulletsManager : MonoBehaviour
         /*if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.name.Contains("Pickup") && !collision.gameObject.name.Contains("Bullet"))
         {
             Debug.Log("touched something" + collision.name);
-            
+
             gameObject.SetActive(false);
         }*/
     }
@@ -86,7 +84,7 @@ public class BulletsManager : MonoBehaviour
     }
 
 
-    public GameObject GetSource() 
+    public GameObject GetSource()
     {
         return this.source;
     }
