@@ -14,6 +14,22 @@ TagManager:
   - TextLives
   - Monster
   - Exit
+  - Player2Bullets
+  - Bullets
+  - PowerUps
+  - Player1Bullets
+  - Bullet
+  - GreenMushroom
+  - Gun
+  - WallPaper
+  - InputPlayer1
+  - InputPlayer2
+  - TextName1
+  - TextName2
+  - RespawnAera
+  - wall
+  - HearthPlayer1
+  - HearthPlayer2
   layers:
   - Default
   - TransparentFX
