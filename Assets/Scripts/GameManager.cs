@@ -7,7 +7,7 @@ using System;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-
+    public enum PLAYER { PLAYER1, PLAYER2 };
     private const int MENU_SCENE = 0;
     private const int GAME_SCENE = 1;
     private const int END_SCENE = 2;
@@ -49,9 +49,9 @@ public class GameManager : MonoBehaviour
         actualLevel = SceneManager.GetActiveScene().buildIndex;
     }
 
-    public void savePlayerName(InputFieldManager.PLAYER playernumber, string playerName)
+    public void savePlayerName(PLAYER playernumber, string playerName)
     {
-        if (playernumber == InputFieldManager.PLAYER.PLAYER1)
+        if (playernumber == PLAYER.PLAYER1)
         {
             player1Name = playerName;
             Debug.Log(playerName);
@@ -63,6 +63,19 @@ public class GameManager : MonoBehaviour
         }
         
 }
+
+    public string getPlayerName(PLAYER playernumber)
+    {
+        if (playernumber == PLAYER.PLAYER1)
+        {
+            return player1Name;
+        }
+        else
+        {
+            return player2Name;
+        }
+       
+    }
 
     void Update()
     {

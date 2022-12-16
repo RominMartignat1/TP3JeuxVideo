@@ -9,8 +9,8 @@ public class InputFieldManager : MonoBehaviour
 {
     
 
-    public enum PLAYER { PLAYER1, PLAYER2 };
-    private PLAYER playerNumber;
+    
+    private GameManager.PLAYER playerNumber;
     private bool playerIsSet = false;
     [SerializeField] private InputField inputField;
     [SerializeField] private Text playerNameText;
@@ -35,11 +35,11 @@ public class InputFieldManager : MonoBehaviour
     {
         if (inputField.gameObject.name == "InputFieldPlayerOne")
         {
-            playerNumber = PLAYER.PLAYER1;
+            playerNumber = GameManager.PLAYER.PLAYER1;
         }
         else 
         {
-            playerNumber = PLAYER.PLAYER2;
+            playerNumber = GameManager.PLAYER.PLAYER2;
         }
         Debug.Log(playerNumber);
         playerIsSet = true;
