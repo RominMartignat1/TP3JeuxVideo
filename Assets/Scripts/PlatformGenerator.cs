@@ -4,84 +4,124 @@ using UnityEngine.Tilemaps;
 
 public class PlatformGenerator : MonoBehaviour
 {
-    private Tilemap tilemap;
-    public TileBase leftPlatform;
-    public TileBase centerPlatform;
-    public TileBase rightPlatform;
+    [Header("Walls")]
+    public GameObject wallsPrefab;
+    public float wallTall = 11.5f;
+    public float distanceBeforeSpawn = 10f;
+    public int initialWalls = 6;
+    private float wallY;
+    private List<GameObject> walls;
+
+    [Header("Platforms")]
+    public GameObject shortPlatform;
+    public GameObject mediumPlatform;
+    public GameObject longPlatform;
     private Finder finder;
     private List<GameObject> platforms;
     private float heightBetweenPlatforms = 1.5f;
     private int distBetweenPlatforms = 2;
     public int minPlatformLength = 3;
     public int maxPlatformLength = 10;
-    public float distBeforeSpawnPlatform = 10f;
+    public float distBeforeSpawn = 10f;
     public int maxPlatforms = 10;
-    public int MaxPlatformX = 12;
-    public int platformY;
+    public int platformMaxX = 12;
+    private int platformY;
+    private int platformLength = 0;
 
     private void Awake()
     {
-        InitBlocks();
+        InitSideWalls();
+        InitPlatforms();
     }
 
     void Start()
     {
         finder = GetComponent<Finder>();
-        tilemap = GetComponent<Tilemap>();
     }
     void Update()
     {
-        if (platformY - finder.GetPositionOfHighestPlayer().y < distBeforeSpawnPlatform)
+        if (wallY - finder.GetPositionOfHighestPlayer().y < distanceBeforeSpawn)
         {
-            SpawnBlocks();
+            SpawnWall();
+        }
+        if (platformY - finder.GetPositionOfHighestPlayer().y < distBeforeSpawn)
+        {
+            SpawnPlatforms();
+        }
+
+    }
+
+    private void InitSideWalls()
+    {
+        for (int i = 0; i < initialWalls; ++i)
+        {
+            Vector2 position = new Vector2(0, wallY);
+            GameObject wall = Instantiate(wallsPrefab, position, Quaternion.identity, transform);
+            walls.Add(wall);
+            wallY += wallTall;
         }
     }
 
-    private void SpawnBlocks()
+    private void InitPlatforms()
     {
+        for (int i = 0; i < maxPlatforms; i++)
+        {
+            Vector2 startPosition = new Vector2(Random.Range(-12, platformMaxX - platformLength), platformY);
+            GameObject prefab = SelectRandomPlatform();
+            GameObject platform = Instantiate(prefab, startPosition, Quaternion.identity, transform);
+            platforms.Add(platform);
+            platformY += distBetweenPlatforms;
+        }
+    }
+
+    private void SpawnWall()
+    {
+        walls[0].transform.position = new Vector2(0, wallY);
+        wallY += wallTall;
+
+        GameObject temp = walls[0];
+        walls.RemoveAt(0);
+        walls.Add(temp);
+    }
+
+    private void SpawnPlatforms()
+    {
+        CreatePlatform();
         platformY += distBetweenPlatforms;
         GameObject newPlatform = platforms[0];
         platforms.RemoveAt(0);
         platforms.Add(newPlatform);
     }
 
-    private void InitBlocks()
-    {
-        for (int i = 0; i < maxPlatforms; i++)
-        {
-            CreatePlatform();
-            platformY += distBetweenPlatforms;
-        }
-    }
+
 
     private void CreatePlatform()
     {
-        Vector3Int startPosition = new Vector3Int(Random.Range(-9, 9), platformY);
-        tilemap.SetTile(startPosition, leftPlatform);
-        int platformLength = GetPlatformLength(startPosition);
-        for (int i = startPosition.x + 1; i < platformLength; startPosition.x++)
-        {
-            tilemap.SetTile(startPosition, leftPlatform);
-        }
-        startPosition.x += 1;
-        tilemap.SetTile(startPosition, rightPlatform);
-    }
+        GameObject platform = SelectRandomPlatform();
+        platforms[0].transform.position = new Vector2(Random.Range(-12, platformMaxX - platformLength), platformY);
+        platformY += distBetweenPlatforms;
 
-    private int GetPlatformLength(Vector3Int startPosition)
+        GameObject temp = platforms[0];
+        platforms.RemoveAt(0);
+        platforms.Add(temp);
+    }
+    private GameObject SelectRandomPlatform()
     {
-        int maxX = MaxPlatformX - startPosition.x;
-        if (startPosition.x > 0)
+        int platformType = Random.Range(1, 3);
+        switch (platformType)
         {
-            if (maxX > maxPlatformLength)
-            {
-                maxX = maxPlatformLength;
-            }
+            case 1:
+                platformLength = 4;
+                return shortPlatform;
+            case 2:
+                platformLength = 7;
+                return mediumPlatform;
+            case 3:
+                platformLength = 11;
+                return longPlatform;
+            default:
+                return shortPlatform;
         }
-        else
-        {
-            maxX = maxPlatformLength;
-        }
-        return Random.Range(minPlatformLength, maxX);
     }
 
 }

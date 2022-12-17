@@ -17,12 +17,10 @@ public class Finder : MonoBehaviour
         respawnArea = GameObject.Find("RespawnAera");
         players = GameObject.FindGameObjectsWithTag("Player");
         parentOfPlatform =  GameObject.Find("Platforms");
-        //wallPaperParent = GameObject.Find("Wallpapers");
         //bullets = GameObject.Find("Bullets");
         powerUps = GameObject.Find("PowerUps");
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -48,12 +46,10 @@ public class Finder : MonoBehaviour
         return wallPaperParent;
     }
 
-    //get power up parent
     public GameObject GetPowerUpParent()
     {
         return null;
     }
-
 
     public GameObject[] GetChilds(GameObject parent)
     {
@@ -135,19 +131,6 @@ public class Finder : MonoBehaviour
 
         }
         return numberOfChildActive;
-    }
-
-    public List<GameObject> GetListOfChilds(GameObject parent)
-    {
-        List<GameObject> list = new List<GameObject>();
-        for (int i = 0; i < parent.transform.childCount; i++)
-        {
-            if (parent.transform.GetChild(i).gameObject.activeSelf)
-            {
-                list.Add(parent.transform.GetChild(i).gameObject);
-            }
-        }
-        return list;
     }
 
     public Vector3 GetPositionOfHighestPlayer()
