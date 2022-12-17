@@ -26,8 +26,8 @@ public class PlayerController : MonoBehaviour
     public bool isRespawning = false;
     private bool isInvicible = false;
     [SerializeField] private Finder finders;
+    GameSceneManager managerOfTheScene;
 
-    private float playerLives = 3;
 
     public PlayerController()
     {
@@ -39,6 +39,11 @@ public class PlayerController : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        managerOfTheScene = FindObjectOfType<GameSceneManager>();
     }
 
     private void FixedUpdate()
@@ -156,18 +161,18 @@ public class PlayerController : MonoBehaviour
 
     private void respawnSequence()
     {
-        this.GetComponent<Rigidbody2D>().isKinematic = true;
+        GetComponent<Rigidbody2D>().isKinematic = true;
         canPlayerMove = true;
-        this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
         hasDied = false;
         isRespawning = true;
         StartCoroutine(Blink(0.5f));
         //respawn();
         isRespawning = false;
         canPlayerMove = true;
-        this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-        this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-        this.GetComponent<Rigidbody2D>().isKinematic = false;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        GetComponent<Rigidbody2D>().isKinematic = false;
     }
 
     public bool isPlayerDeadOrRespawning()
@@ -181,7 +186,9 @@ public class PlayerController : MonoBehaviour
         {
             if (Collider2D.gameObject.tag == "GreenMushroom")
             {
-                playerLives++;
+
+                managerOfTheScene.AddLife(team);
+               
             }
 
             if (Collider2D.gameObject.tag == "wall")
