@@ -34,7 +34,7 @@ public class GameSceneManager : MonoBehaviour
         player2Lifes = GameObject.FindGameObjectsWithTag("HearthPlayer2"); // liste des coeurs de droite
         playerName1Text.text = GameManager.instance.getPlayerName(GameManager.PLAYER.PLAYER1);
         playerName2Text.text = GameManager.instance.getPlayerName(GameManager.PLAYER.PLAYER2);
-      //  SubstractLife(PlayerController.PlayerTeam.Blue);
+      //SubstractLife(PlayerController.PlayerTeam.Blue);
        // SubstractLife(PlayerController.PlayerTeam.Blue);
        // SubstractLife(PlayerController.PlayerTeam.Blue);
 
@@ -131,14 +131,14 @@ public class GameSceneManager : MonoBehaviour
         
         if (player == PlayerController.PlayerTeam.Blue)
         {
-            if (player1Life++ > MAX_POSSIBLE_LIFE) return;
+            if (player1Life++ >= MAX_POSSIBLE_LIFE) return;
             player1Lifes[player1Life - 1].GetComponent<Image>().color = Color.white;
             player1Life += LIFE_TO_ADD;
            
         }
         else
         {
-            if (player2Life++ > MAX_POSSIBLE_LIFE) return;
+            if (player2Life++ >= MAX_POSSIBLE_LIFE) return;
             player2Lifes[player2Life - 1].GetComponent<Image>().color = Color.white;
             player2Life += LIFE_TO_ADD;
             
