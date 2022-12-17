@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
         Red
     }
     private int isGrounded;
-    //private AudioSource audioSource;
     [SerializeField] PlayerTeam team;
     private Rigidbody2D rigidBody;
     private Animator animator;
@@ -48,6 +47,7 @@ public class PlayerController : MonoBehaviour
         {
             rigidBody.velocity = new Vector2(horizontal + acceleration, rigidBody.velocity.y + jumpPower + jumpIntensity);
             jumpPower = 0.0f;
+            animator.SetBool("Is Jumping", false);
         }
 
         if (jumpIntensity <= 10.0f)
@@ -80,7 +80,6 @@ public class PlayerController : MonoBehaviour
         {
             ManageMovement();
             transform.rotation = Quaternion.Euler(0, transform.rotation.y, transform.rotation.z);
-            animator.SetFloat("Jump Power", jumpPower);
             animator.SetFloat("Speed", horizontal);
         }
     }
@@ -91,7 +90,7 @@ public class PlayerController : MonoBehaviour
         {
             horizontal = Input.GetAxis("Horizontal");
         }
-        else if(team == PlayerTeam.Red)
+        else if (team == PlayerTeam.Red)
         {
             horizontal = Input.GetAxis("HorizontalP2");
         }
@@ -136,6 +135,7 @@ public class PlayerController : MonoBehaviour
 
             if ((Input.GetButtonDown("Jump") && team == PlayerTeam.Blue) || (Input.GetButtonDown("JumpP2") && team == PlayerTeam.Red) && IsGrounded())
             {
+                animator.SetBool("Is Jumping", true);
                 jumpPower = 3.0f;
                 //jumpIntensity = 10.0f;
                 if (System.Math.Abs(acceleration) > 1.0f && System.Math.Abs(acceleration) < 2.0f)

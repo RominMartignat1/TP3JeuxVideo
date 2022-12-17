@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffeb1daeb6b0e7a4f935c762fc963c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTeam: 0
+  team: 0
   isRespawning: 0
   finders: {fileID: 0}
 --- !u!70 &1424673430056593530

@@ -21,11 +21,6 @@ public class Finder : MonoBehaviour
         powerUps = GameObject.Find("PowerUps");
     }
 
-    void Update()
-    {
-
-    }
-
     public GameObject[] GetPlayers()
     {
         return players;

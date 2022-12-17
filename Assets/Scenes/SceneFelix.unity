@@ -3608,6 +3608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57096b7225f023a43908d4f37618ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPaused: 0
 --- !u!4 &224631374
 Transform:
   m_ObjectHideFlags: 0
@@ -12969,7 +12970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffeb1daeb6b0e7a4f935c762fc963c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTeam: 0
+  team: 0
   isRespawning: 0
   finders: {fileID: 689674403}
 --- !u!50 &701315890
@@ -27426,7 +27427,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 866433315
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b363ec8ca83837a499d1b7e18010912e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -30521,7 +30522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffeb1daeb6b0e7a4f935c762fc963c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTeam: 1
+  team: 0
   isRespawning: 0
   finders: {fileID: 689674403}
 --- !u!50 &1478851319
@@ -38632,7 +38633,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 866433315
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b363ec8ca83837a499d1b7e18010912e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
