@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private const int maxLives = 3;
 
     private int actualLevel = 0;
-    private string winnerName = "player1";
+    private string winnerName = "joueur1";
 
     private int accumulatedScore = 0;
     private int lives = maxLives;
@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour
 
     
 
-    private string player1Name = "Player1";
-    private string player2Name = "Player2";
+    private string player1Name = "joueur1";
+    private string player2Name = "joueur2";
 
 
     void Awake()
@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
 
     public void savePlayerName(PLAYER playernumber, string playerName)
     {
+        if (playerName == "") return;
         if (playernumber == PLAYER.PLAYER1)
         {
             player1Name = playerName;

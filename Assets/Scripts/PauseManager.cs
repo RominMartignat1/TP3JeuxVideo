@@ -8,7 +8,7 @@ public class PauseManager : MonoBehaviour
     public static bool GameIsPaused { get { return gameIsPaused; } }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7))
         {
             gameIsPaused = !gameIsPaused;
             PauseGame();
