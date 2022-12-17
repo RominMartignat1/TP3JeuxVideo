@@ -17,12 +17,10 @@ public class Finder : MonoBehaviour
         respawnArea = GameObject.Find("RespawnAera");
         players = GameObject.FindGameObjectsWithTag("Player");
         parentOfPlatform =  GameObject.Find("Platforms");
-        //wallPaperParent = GameObject.Find("Wallpapers");
         //bullets = GameObject.Find("Bullets");
         powerUps = GameObject.Find("PowerUps");
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -48,12 +46,10 @@ public class Finder : MonoBehaviour
         return wallPaperParent;
     }
 
-    //get power up parent
     public GameObject GetPowerUpParent()
     {
         return null;
     }
-
 
     public GameObject[] GetChilds(GameObject parent)
     {
@@ -77,12 +73,9 @@ public class Finder : MonoBehaviour
             {
                 array[i] = parent.transform.GetChild(i).gameObject;
             }
-        }  
+        }
         return array;
     }
-
-
-//GetRandomInactiveChild returns a random inactive child of a parent if there is no inactive child it returns null
     public GameObject GetRandomInactiveChild(GameObject parent)
     {
         GameObject[] array = GetChilds(parent);
@@ -104,9 +97,6 @@ public class Finder : MonoBehaviour
             return null;
         }
     }
-   
-   
-    
     public GameObject GetRandomChild(GameObject parent)
     {
         GameObject[] array = GetChilds(parent);
@@ -128,18 +118,6 @@ public class Finder : MonoBehaviour
         return array;
     }
 
-    public GameObject GetAChildNotActive(GameObject parent)
-    {
-        for (int i = 0; i < parent.transform.childCount; i++)
-        {
-            if (!parent.transform.GetChild(i).gameObject.activeSelf)
-            {
-                return parent.transform.GetChild(i).gameObject;
-            }
-        }
-        return null;
-    }
-
 
     public int GetNumberOfActiveChild(GameObject parent)
     {
@@ -155,28 +133,14 @@ public class Finder : MonoBehaviour
         return numberOfChildActive;
     }
 
-    public List<GameObject> GetListOfChilds(GameObject parent)
+    public Vector3 GetPositionOfHighestPlayer()
     {
-        List<GameObject> list = new List<GameObject>();
-        for (int i = 0; i < parent.transform.childCount; i++)
-        {
-            if (parent.transform.GetChild(i).gameObject.activeSelf)
-            {
-                list.Add(parent.transform.GetChild(i).gameObject);
-            }
-        }
-        return list;
-    }
-
-    public Vector3 GetPositionOfTheHighestChild(GameObject parent)
-    {
-        List<GameObject> arrayOfActive = GetListOfChilds(parent);
         Vector3 positionToReturn = Vector3.zero;
-        for (int i = 0; i < arrayOfActive.Count; i++)
+        for (int i = 0; i < players.Length; i++)
         {
-            if (positionToReturn.y < arrayOfActive[i].transform.position.y)
+            if (positionToReturn.y < players[i].transform.position.y)
             {
-               positionToReturn.y = arrayOfActive[i].transform.position.y;
+               positionToReturn.y = players[i].transform.position.y;
             }
         }
         return positionToReturn;
@@ -193,6 +157,11 @@ public class Finder : MonoBehaviour
                 return child.gameObject;
             }
         }
+        return null;
+    }
+
+    public GameObject[] GetChildHearths(GameObject parent)
+    {
         return null;
     }
 }

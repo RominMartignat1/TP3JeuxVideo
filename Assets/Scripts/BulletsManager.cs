@@ -99,7 +99,7 @@ public class BulletsManager : MonoBehaviour
     }
 
 
-    public GameObject GetSource() 
+    public GameObject GetSource()
     {
         return this.source;
     }

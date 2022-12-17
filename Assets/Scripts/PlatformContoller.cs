@@ -4,42 +4,20 @@ using UnityEngine;
 
 public class PlatformContoller : MonoBehaviour
 {
-    //get every children in a list
-    //private List<GameObject> children = new List<GameObject>();
-    
     private GameObject[] blocks;
     private float moveSpeed = 5f;
-    private GameObject platformGeneratorManager;
+    private PlatformContoller platformGeneratorManager;
+    public const int MAX_PLATFORM_COUNT = 11;
     private Finder finder;
 
-
-    // Start is called before the first frame update
     void Start()
     {
-        blocks = GetEveryBlock(gameObject);
-        platformGeneratorManager = GameObject.FindGameObjectWithTag("PlatformSpawner");
+        blocks = finder.GetChilds(gameObject);
         finder = FindObjectOfType<Finder>();
-        Debug.Log(finder.enabled + "Finder is active");
     }
-
-
     private void OnEnable()
     {
-
-        randomizePlatform();   
-
-    }
-
-
-    private GameObject[] GetEveryBlock(GameObject parent)
-    {
-        GameObject[] array = new GameObject[parent.transform.childCount];
-        for (int i = 0; i < parent.transform.childCount; i++)
-        {
-            array[i] = parent.transform.GetChild(i).gameObject;
-        }
-
-        return array;
+        randomizePlatform();
     }
 
     public void randomizePlatform()
@@ -49,11 +27,10 @@ public class PlatformContoller : MonoBehaviour
         {
             block.SetActive(true);
         }
+        int platformStart = Random.Range(0, MAX_PLATFORM_COUNT - 2);
+        int platformEnd = Random.Range(platformStart, MAX_PLATFORM_COUNT);
 
-        int platformStart = Random.Range(0,11);
-        int platformEnd = Random.Range(platformStart,11);
-
-        for(int i = 0; i < 11; i++)
+        for(int i = 0; i < MAX_PLATFORM_COUNT; i++)
         {
             if(i >= platformStart && i <= platformEnd)
             {
@@ -66,17 +43,11 @@ public class PlatformContoller : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Despawner")
         {
-            Debug.Log("je touche le despawner");
             gameObject.SetActive(false);
-        } 
+        }
     }
 }

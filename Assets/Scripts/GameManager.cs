@@ -2,29 +2,34 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public enum PLAYER { PLAYER1, PLAYER2 };
+    private const int MENU_SCENE = 0;
+    private const int GAME_SCENE = 1;
+    private const int END_SCENE = 2;
 
     public bool isPaused = false;
-
     private const int maxLives = 3;
 
     private int actualLevel = 0;
+    private string winnerName = "player1";
 
-    private int score = 0;
     private int accumulatedScore = 0;
-    private string playerName = "Player1";
     private int lives = maxLives;
 
     bool scenesAreInTransition = false;
 
     private bool textsNotLinked = true;
 
-    Text playerNameText;
-    Text playerScoreText;
-    Text playerLivesText;
+    
+
+    private string player1Name = "Player1";
+    private string player2Name = "Player2";
+
 
     void Awake()
     {
@@ -39,86 +44,119 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         actualLevel = SceneManager.GetActiveScene().buildIndex;
-       // Time.timeScale = 1f;
+    }
+
+    public void savePlayerName(PLAYER playernumber, string playerName)
+    {
+        if (playernumber == PLAYER.PLAYER1)
+        {
+            player1Name = playerName;
+            Debug.Log(playerName);
+        }
+        else
+        {
+            player2Name = playerName;
+            Debug.Log(playerName);
+        }
+        
+}
+
+    public string getPlayerName(PLAYER playernumber)
+    {
+        if (playernumber == PLAYER.PLAYER1)
+        {
+            return player1Name;
+        }
+        else
+        {
+            return player2Name;
+        }
+       
+    }
+
+    public string GetWinner()
+    {
+        return winnerName;
+    }
+
+    public void EndGame(string text)
+    {
+        winnerName = text;
+        StartEnding(1f);
     }
 
     void Update()
     {
         if (Input.GetButtonDown("Cancel"))
         {
-            Debug.Log("quitte");
             Application.Quit();
         }
     }
 
-    public void RestartLevel(float delay)
+    private void StartEnding(float delay)
     {
         if (scenesAreInTransition) return;  //Pour �viter plusieurs transitions lanc�es en bloc
 
         scenesAreInTransition = true;
 
-        StartCoroutine(RestartLevelDelay(delay, actualLevel));
+        StartCoroutine(RestartLevelDelay(delay, END_SCENE));
     }
 
 
-    public void StartNextlevel(float delay)
+    public void StartGame(float delay)
     {
         if (scenesAreInTransition) return;  //Pour �viter plusieurs transitions lanc�es en bloc
 
         scenesAreInTransition = true;
 
-        StartCoroutine(RestartLevelDelay(delay, GetNextLevel()));
+        StartCoroutine(RestartLevelDelay(delay, GAME_SCENE));
     }
+
+    public void StartMenu(float delay)
+    {
+        if (scenesAreInTransition) return;  //Pour �viter plusieurs transitions lanc�es en bloc
+
+        scenesAreInTransition = true;
+
+        StartCoroutine(RestartLevelDelay(delay, MENU_SCENE));
+    }
+    
 
     private IEnumerator RestartLevelDelay(float delay, int level)
     {
         yield return new WaitForSeconds(delay);
         textsNotLinked = true;
 
-        
-           if(level == 0) 
+
+           if(level == MENU_SCENE)
             SceneManager.LoadScene("HomeScene");
-        
-        else if (level == 1)
+
+        else if (level == GAME_SCENE)
             SceneManager.LoadScene("SceneRomin");
-       /* else if (level == 3)
-            SceneManager.LoadScene("Scene3");
-        else
+        else if (level == END_SCENE)
+            SceneManager.LoadScene("GameOverScene");
+       /* else
             SceneManager.LoadScene("Scene1");*/
 
        scenesAreInTransition = false;
     }
 
+
     public void ResetGame()
     {
         lives = maxLives;
         actualLevel = 0;
-        score = 0;
+      
         accumulatedScore = 0;
         SceneManager.LoadScene("Menu");
     }
 
-    private int GetNextLevel()
-    {
-        if (actualLevel == 0)
-        {
-            actualLevel++;
-        }
-        else
-        {
-            actualLevel = 0;
-        }
-        return actualLevel;
-    }
-
-   
 
     public void PlayerDie()
     {
         lives--;
-        score -= accumulatedScore;
-        playerLivesText.text = lives.ToString();
-        playerScoreText.text = score.ToString();
+        //playerLivesText.text = lives.ToString();
+        //playerScoreText.text = score.ToString();
         accumulatedScore = 0;
     }
 
