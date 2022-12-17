@@ -73,6 +73,9 @@ TagManager:
   - name: Platform
     uniqueID: 2179075031
     locked: 0
+  - name: Wall
+    uniqueID: 3215515973
+    locked: 0
   - name: Player
     uniqueID: 866433315
     locked: 0
