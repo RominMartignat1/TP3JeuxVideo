@@ -8,7 +8,8 @@ public class CameraController : MonoBehaviour
 {
     private bool isFollowingPlayer;
 
-    private float moveSpeed = 1.5f;
+    private const float MOVE_SPEED_TO_ADD = 0.5f;
+    private float currentMoveSpeed = 0.0f;
     private GameObject playerBeingFollowed;
     
     void Start()
@@ -29,7 +30,7 @@ public class CameraController : MonoBehaviour
         else
         {
             Debug.Log("Not following player");
-            //transform.Translate(Vector3.up * Time.deltaTime * moveSpeed, Space.World);
+            transform.Translate(Vector3.up * Time.deltaTime * currentMoveSpeed, Space.World);
         }
     }
 
@@ -76,6 +77,11 @@ public class CameraController : MonoBehaviour
             //transform.Translate(Vector3.up * Time.deltaTime * moveSpeed, Space.World);
         }
 
+    }
+
+    public void ChangeSpeed()
+    {
+        currentMoveSpeed += MOVE_SPEED_TO_ADD;
     }
 }
 

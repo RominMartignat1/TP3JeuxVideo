@@ -24,7 +24,7 @@ public class GameSceneManager : MonoBehaviour
     private const int LIFE_TO_ADD = 1;
 
     private const float TIMER_FOR_SPEED = 30f;
-    private float timer = 30f;
+    private float timer = TIMER_FOR_SPEED;
 
     void Start()
     {
