@@ -8,6 +8,9 @@ public class PowerUpsManager : MonoBehaviour
     private GameObject[] childPowerUpsList;
     private float spawnCooldown = 0f;
     private float spawnCooldownMax;
+    
+
+
     GameObject powerUp;
  
     void Start()
