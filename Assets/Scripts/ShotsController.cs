@@ -26,6 +26,14 @@ public class ShotsController : MonoBehaviour
     private float shootingCooldown = 2f;
     [SerializeField] private Finder finder;
 
+
+    private int homingBulletExtraCount = 0;
+
+
+
+
+
+
     void Start()
     {
         //gun = GetChildWithTag(gameObject, "Bullets");
@@ -83,15 +91,37 @@ public class ShotsController : MonoBehaviour
                 if (bullet != null)
                 {
                     bullet.SetActive(true);
+                    bullet.GetComponent<BulletsManager>().SetHoming(false);
                     shotcooldown = shootingCooldown;
                 }
             }
         }
         if (Input.GetButtonDown("Fire2"))
         {
-            //well do that one later
+            //if player has homming bullets
+            if (homingBulletExtraCount > 0)
+            {
+                if(shotcooldown <= 0)
+                {
+                    homingBulletExtraCount--;
+                    GameObject bullet = finder.GetFirstAvailableObject(bullets);
+                    if (bullet != null)
+                    {
+                        bullet.SetActive(true);
+                        bullet.GetComponent<BulletsManager>().SetHoming(true);
+                        shotcooldown = shootingCooldown;
+                    }
+                }
+            }
         }
     }
+
+
+    public void addHommingBullet()
+    {
+        homingBulletExtraCount+= 3;
+    }
+
 
     private float DecreaseCooldown(float cooldown)
     {

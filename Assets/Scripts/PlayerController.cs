@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
         Red
     }
     private int isGrounded;
-    //private AudioSource audioSource;
     [SerializeField] PlayerTeam team;
     private Rigidbody2D rigidBody;
     private Animator animator;
@@ -29,6 +28,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Finder finders;
     GameSceneManager managerOfTheScene;
 
+
+
+    private int doubleJumpExtraCounter = 0;
+    private int doubleJumpCounter = 0;
+    
+
+
+    private float playerLives = 3;
 
     public PlayerController()
     {
@@ -53,6 +60,7 @@ public class PlayerController : MonoBehaviour
         {
             rigidBody.velocity = new Vector2(horizontal + acceleration, rigidBody.velocity.y + jumpPower + jumpIntensity);
             jumpPower = 0.0f;
+            animator.SetBool("Is Jumping", false);
         }
 
         if (jumpIntensity <= 10.0f)
@@ -81,11 +89,15 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if(playerTeam == PlayerTeam.Team1)
+        {
+            Debug.Log("isgrounded: " + isGrounded);
+        }
+        
         if (canPlayerMove)
         {
             ManageMovement();
             transform.rotation = Quaternion.Euler(0, transform.rotation.y, transform.rotation.z);
-            animator.SetFloat("Jump Power", jumpPower);
             animator.SetFloat("Speed", horizontal);
         }
     }
@@ -96,7 +108,7 @@ public class PlayerController : MonoBehaviour
         {
             horizontal = Input.GetAxis("Horizontal");
         }
-        else if(team == PlayerTeam.Red)
+        else if (team == PlayerTeam.Red)
         {
             horizontal = Input.GetAxis("HorizontalP2");
         }
@@ -139,21 +151,45 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if ((Input.GetButtonDown("Jump") && team == PlayerTeam.Blue) || (Input.GetButtonDown("JumpP2") && team == PlayerTeam.Red) && IsGrounded())
+            if (Input.GetButtonDown("Jump") && IsGrounded() || Input.GetButtonDown("Jump") && doubleJumpExtraCounter >0 &&  doubleJumpCounter < 1)
             {
+                animator.SetBool("Is Jumping", true);
                 jumpPower = 3.0f;
-                //jumpIntensity = 10.0f;
-                if (System.Math.Abs(acceleration) > 1.0f && System.Math.Abs(acceleration) < 2.0f)
+
+                if(System.Math.Abs(acceleration) > 1.0f && System.Math.Abs(acceleration) < 2.0f)
                 {
-                    jumpIntensity = 10.5f;
+                    //jumpIntensity = 10.5f;
                 }
                 else if (System.Math.Abs(acceleration) > 2.0f && System.Math.Abs(acceleration) < 3.0f)
                 {
-                    jumpIntensity = 2.0f;
+                    //jumpIntensity = 2.0f;
                 }
                 else if (System.Math.Abs(acceleration) > 3.0f)
                 {
                     jumpIntensity = 5.0f;
+                }
+
+
+
+
+                if (doubleJumpExtraCounter > 0)
+                {
+
+                    if (IsGrounded())
+                    {
+                        doubleJumpCounter = 0;
+                    }
+                    else
+                    {
+                        doubleJumpCounter++;
+                    }
+
+                    Debug.Log("Double Jump");
+                    
+                    if(doubleJumpCounter > 1)
+                    {
+                        doubleJumpExtraCounter--;
+                    }
                 }
             }
         }
@@ -227,10 +263,21 @@ public class PlayerController : MonoBehaviour
             if (collision.gameObject.tag == "Despawner")
             {
                 Debug.Log("player died");
-                //StartCoroutine(ManageDeath());
                 gameObject.SetActive(false);
 
             }
+
+
+            if(collision.gameObject.tag == "BulletPowerUp")
+            {
+                this.GetComponent<ShotsController>().addHommingBullet();     
+            }
+
+            if(collision.gameObject.tag == "DoubleJumpBonus")
+            {
+                doubleJumpExtraCounter += 5;
+            }
+
             if (collision.gameObject.tag == "Bullet")
             {
                 if (collision.gameObject.GetComponent<BulletsManager>().GetBulletTeam().ToString() == team.ToString())
@@ -315,4 +362,6 @@ public class PlayerController : MonoBehaviour
     {
         return isGrounded != 0;
     }
+
+    
 }

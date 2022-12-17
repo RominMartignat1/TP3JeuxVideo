@@ -11,24 +11,19 @@ public class GreenMushroomController : MonoBehaviour
 
     void Start()
     {
-        //gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
-        Debug.Log("Green Mushroom Enabled AAAAAAAAAA");
-        //timeActive = 10f;
-        transform.position = new Vector2(Random.Range(-6f, 6f), 2f);
+        transform.position = new Vector2(Random.Range(-5f, 5f), 2f);
     }
 
     private void OnDisable()
     {
-        Debug.Log("Green Mushroom Disabled AAAAAAAAAA");
     }
 
     void Update()
     {
-        Debug.Log("GreenMushroomController Update");
         if (gameObject.activeSelf)
         {
             transform.Translate(currentDirection * speed * Time.deltaTime);
@@ -56,7 +51,6 @@ public class GreenMushroomController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Green Mushroom hit player");
             gameObject.SetActive(false);
             timeActive = 0f;
         }

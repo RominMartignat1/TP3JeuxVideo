@@ -12,19 +12,19 @@ public class BulletsManager : MonoBehaviour
     [SerializeField] private float bulletSpeed = 75;
     [SerializeField] private float maxTimeActive = 4;
 
-    //bullet team enum
+    private GameObject[] players;
+
+    private bool isRegularBullet = true;
+    private bool isHomingBullet = false;
+
     public enum BulletTeam
     {
         Team1,
         Team2
     }
 
-    //bullet team
     [SerializeField] private BulletTeam bulletTeam;
 
-    //bullet team
-    //public BulletTeam GetBulletTeam { get { return bulletTeam; } }
-    //get bullet team
     public BulletTeam GetBulletTeam()
     {
         return bulletTeam;
@@ -50,6 +50,26 @@ public class BulletsManager : MonoBehaviour
             timeActive = 0f;
         }
 
+
+        if (isHomingBullet)
+        {
+            GetComponent<Renderer>().material.color = Color.red;
+            if(players == null)
+            {
+                players = GameObject.FindGameObjectsWithTag("Player");
+            }
+            else
+            {
+                foreach (GameObject player in players)
+                {
+                    if (player != source)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, bulletSpeed * Time.deltaTime);
+                    }
+                }
+                
+            }
+        }
     }
 
     private void OnEnable()
@@ -61,26 +81,21 @@ public class BulletsManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-        //if touches a player disable bullet after 0.5 seconds
         if (collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(DisableBullet());
         }
-
-        /*if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.name.Contains("Pickup") && !collision.gameObject.name.Contains("Bullet"))
-        {
-            Debug.Log("touched something" + collision.name);
-
-            gameObject.SetActive(false);
-        }*/
     }
 
-    //disable bullet after 0.5 seconds
     IEnumerator DisableBullet()
     {
         yield return new WaitForSeconds(0.5f);
         gameObject.SetActive(false);
+    }
+
+    public void SetHoming(bool isHomingBullet)
+    {
+        this.isHomingBullet = isHomingBullet;
     }
 
 
