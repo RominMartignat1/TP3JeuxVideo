@@ -24,8 +24,8 @@ public class GameSceneManager : MonoBehaviour
     {
         player1Life = MAX_INITIAL_LIFE;
         player2Life = MAX_INITIAL_LIFE;
-        player1Lifes = GameObject.FindGameObjectsWithTag("HearthPlayer1");
-        player2Lifes = GameObject.FindGameObjectsWithTag("HearthPlayer2");
+        player1Lifes = GameObject.FindGameObjectsWithTag("HearthPlayer1"); //liste des coeurs de gauche
+        player2Lifes = GameObject.FindGameObjectsWithTag("HearthPlayer2"); // liste des coeurs de droite
         playerName1Text.text = GameManager.instance.getPlayerName(GameManager.PLAYER.PLAYER1);
         playerName2Text.text = GameManager.instance.getPlayerName(GameManager.PLAYER.PLAYER2);
         SubstractLife(PlayerController.PlayerTeam.Blue);
