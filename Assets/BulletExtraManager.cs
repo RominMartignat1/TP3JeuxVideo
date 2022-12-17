@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GreenMushroomController : MonoBehaviour
+public class BulletExtraManager : MonoBehaviour
 {
     private float timeActive = 0f;
     private float maxTimeActive = 10f;
@@ -15,18 +15,13 @@ public class GreenMushroomController : MonoBehaviour
 
     private void OnEnable()
     {
-        transform.position = new Vector2(Random.Range(-5f, 5f), 2f);
-    }
-
-    private void OnDisable()
-    {
+        transform.position = new Vector2(Random.Range(-6f, 6f), 2f);
     }
 
     void Update()
     {
         if (gameObject.activeSelf)
         {
-            transform.Translate(currentDirection * speed * Time.deltaTime);
             if (timeActive >= maxTimeActive)
             {
                 gameObject.SetActive(false);
@@ -37,14 +32,6 @@ public class GreenMushroomController : MonoBehaviour
                 timeActive += Time.deltaTime;
             }
         }    
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("wall"))
-        {
-            currentDirection *= -1;
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

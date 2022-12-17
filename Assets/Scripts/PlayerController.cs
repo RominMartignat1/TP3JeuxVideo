@@ -27,6 +27,13 @@ public class PlayerController : MonoBehaviour
     private bool isInvicible = false;
     [SerializeField] private Finder finders;
 
+
+
+    private int doubleJumpExtraCounter = 0;
+    private int doubleJumpCounter = 0;
+    
+
+
     private float playerLives = 3;
 
     public PlayerController()
@@ -37,7 +44,6 @@ public class PlayerController : MonoBehaviour
     }
     private void Awake()
     {
-        //audioSource = GetComponent<AudioSource>();
         rigidBody = GetComponent<Rigidbody2D>();
     }
 
@@ -45,9 +51,6 @@ public class PlayerController : MonoBehaviour
     {
         if (canPlayerMove)
         {
-            //Debug.Log("isgrounded: " + IsGrounded());
-
-
             rigidBody.velocity = new Vector2(horizontal + acceleration, rigidBody.velocity.y + jumpPower + jumpIntensity);
             jumpPower = 0.0f;
             Debug.Log("Velocity: " + rigidBody.velocity);
@@ -81,7 +84,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        //if player is this team
         if(playerTeam == PlayerTeam.Team1)
         {
             Debug.Log("isgrounded: " + isGrounded);
@@ -137,24 +139,45 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (Input.GetButtonDown("Jump") && IsGrounded())
+            if (Input.GetButtonDown("Jump") && IsGrounded() || Input.GetButtonDown("Jump") && doubleJumpExtraCounter >0 &&  doubleJumpCounter < 1)
             {
                 Debug.Log("Jump");
                 jumpPower = 3.0f;
-                //jumpIntensity = 10.0f;
-
 
                 if(System.Math.Abs(acceleration) > 1.0f && System.Math.Abs(acceleration) < 2.0f)
                 {
-                    jumpIntensity = 10.5f;
+                    //jumpIntensity = 10.5f;
                 }
                 else if(System.Math.Abs(acceleration) > 2.0f && System.Math.Abs(acceleration) < 3.0f)
                 {
-                    jumpIntensity = 2.0f;
+                    //jumpIntensity = 2.0f;
                 }
                 else if(System.Math.Abs(acceleration) > 3.0f )
                 {
                     jumpIntensity = 5.0f;
+                }
+
+
+
+
+                if (doubleJumpExtraCounter > 0)
+                {
+
+                    if (IsGrounded())
+                    {
+                        doubleJumpCounter = 0;
+                    }
+                    else
+                    {
+                        doubleJumpCounter++;
+                    }
+
+                    Debug.Log("Double Jump");
+                    
+                    if(doubleJumpCounter > 1)
+                    {
+                        doubleJumpExtraCounter--;
+                    }
                 }
             }
         }
@@ -236,12 +259,22 @@ public class PlayerController : MonoBehaviour
             
             if (collision.gameObject.tag == "Despawner")
             {
-                //1
                 Debug.Log("player died");
-                //StartCoroutine(ManageDeath());
                 gameObject.SetActive(false);
 
             }
+
+
+            if(collision.gameObject.tag == "BulletPowerUp")
+            {
+                this.GetComponent<ShotsController>().addHommingBullet();     
+            }
+
+            if(collision.gameObject.tag == "DoubleJumpBonus")
+            {
+                doubleJumpExtraCounter += 5;
+            }
+
             if (collision.gameObject.tag == "Bullet")
             {
                 if (collision.gameObject.GetComponent<BulletsManager>().GetBulletTeam().ToString() == playerTeam.ToString())
@@ -326,4 +359,6 @@ public class PlayerController : MonoBehaviour
     {
         return isGrounded != 0;
     }
+
+    
 }
