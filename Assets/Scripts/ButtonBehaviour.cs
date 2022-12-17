@@ -32,11 +32,11 @@ public class ButtonBehaviour : MonoBehaviour
         GameManager.instance.StartMenu(2f);
     }
 
-    public void OnButtonToEndPressed()
+    /*public void OnButtonToEndPressed()
     {
         if (GameManager.instance.enabled) Debug.Log("existe");
         GameManager.instance.StartEnding(2f);
-    }
+    }*/
 
     public void OnQuitPress()
     {

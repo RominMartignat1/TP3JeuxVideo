@@ -13,14 +13,11 @@ public class GameManager : MonoBehaviour
     private const int END_SCENE = 2;
 
     public bool isPaused = false;
-    private const int firstGamingLevel = 1;
-    private const int lastGamingLevel = 2;
     private const int maxLives = 3;
 
     private int actualLevel = 0;
-   
+    private string winnerName = "player1";
 
-    private int score = 0;
     private int accumulatedScore = 0;
     private int lives = maxLives;
 
@@ -77,6 +74,17 @@ public class GameManager : MonoBehaviour
        
     }
 
+    public string GetWinner()
+    {
+        return winnerName;
+    }
+
+    public void EndGame(string text)
+    {
+        winnerName = text;
+        StartEnding(1f);
+    }
+
     void Update()
     {
         if (Input.GetButtonDown("Cancel"))
@@ -85,7 +93,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartEnding(float delay)
+    private void StartEnding(float delay)
     {
         if (scenesAreInTransition) return;  //Pour �viter plusieurs transitions lanc�es en bloc
 
@@ -138,23 +146,15 @@ public class GameManager : MonoBehaviour
     {
         lives = maxLives;
         actualLevel = 0;
-        score = 0;
+      
         accumulatedScore = 0;
         SceneManager.LoadScene("Menu");
     }
 
-    private int GetNextLevel()
-    {
-        if (++actualLevel == lastGamingLevel + 1)
-            actualLevel = firstGamingLevel;
-
-        return actualLevel;
-    }
 
     public void PlayerDie()
     {
         lives--;
-        score -= accumulatedScore;
         //playerLivesText.text = lives.ToString();
         //playerScoreText.text = score.ToString();
         accumulatedScore = 0;

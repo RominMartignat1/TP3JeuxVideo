@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameUiManager : MonoBehaviour
+public class GameSceneManager : MonoBehaviour
 {
     // Start is called before the first frame update
 
@@ -13,12 +13,12 @@ public class GameUiManager : MonoBehaviour
     GameObject[] player1Lifes;
     GameObject[] player2Lifes;
     Color black = Color.black;
-    private bool playerIsSet = false;
     private const int MAX_INITIAL_LIFE = 3;
     private const int MAX_POSSIBLE_LIFE = 5;
     private int player1Life;
     private int player2Life;
     private bool gameIsEnded = false;
+    private const int LIFE_TO_ADD = 1;
 
     void Start()
     {
@@ -26,18 +26,17 @@ public class GameUiManager : MonoBehaviour
         player2Life = MAX_INITIAL_LIFE;
         player1Lifes = GameObject.FindGameObjectsWithTag("HearthPlayer1");
         player2Lifes = GameObject.FindGameObjectsWithTag("HearthPlayer2");
-        Debug.Log(player1Lifes.Length);
+        playerName1Text.text = GameManager.instance.getPlayerName(GameManager.PLAYER.PLAYER1);
+        playerName2Text.text = GameManager.instance.getPlayerName(GameManager.PLAYER.PLAYER2);
+        SubstractLife(PlayerController.PlayerTeam.Blue);
+        SubstractLife(PlayerController.PlayerTeam.Blue);
+        SubstractLife(PlayerController.PlayerTeam.Blue);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!playerIsSet)
-        {
-            SetPlayer();
-            SetHearths();
-        }
         if (!gameIsEnded)
         {
 
@@ -50,13 +49,17 @@ public class GameUiManager : MonoBehaviour
 
     }
 
-    private void SetHearths()
-    {
-    }
-
     private void FinishGame()
     {
-        throw new NotImplementedException();
+        if (player1Life <= 0)
+        {
+            GameManager.instance.EndGame(playerName1Text.text);
+        }
+        else if (player2Life <= 0)
+        {
+            GameManager.instance.EndGame(playerName1Text.text);
+        }
+        
     }
 
     private void CheckIfGameEnded()
@@ -67,41 +70,55 @@ public class GameUiManager : MonoBehaviour
         }
     }
 
-    private void SubstractLife(PlayerController.PlayerTeam player, int life)
+    public void SubstractLife(PlayerController.PlayerTeam player)
     {
         if (player == PlayerController.PlayerTeam.Blue)
         {
-            player1Life -= life;
+            player1Life -= LIFE_TO_ADD;
             player1Lifes[player1Life].GetComponent<Image>().color = black;
         }
         else
         {
-            player2Life -= life;
+            player2Life -= LIFE_TO_ADD;
             player2Lifes[player2Life].GetComponent<Image>().color = black;
         }
 
         if (player1Life <= 0 || player2Life <= 0)
         {
-            //cela call le gamemanager avec qui qui a perdu 
+            ManagerWinner(player);
+                
         }
     }
 
-    private void AddLife(PlayerController.PlayerTeam player, int life)
+    private void ManagerWinner(PlayerController.PlayerTeam player)
     {
         if (player == PlayerController.PlayerTeam.Blue)
         {
-            player1Life += life;
-            player1Lifes[player1Life].GetComponent<Image>().color = Color.white;
+            GameManager.instance.EndGame(playerName2Text.text);
         }
         else
         {
-            player2Life += life;
-            player2Lifes[player2Life].GetComponent<Image>().color = Color.white;
+            GameManager.instance.EndGame(playerName1Text.text);
+            
         }
     }
-    private void SetPlayer()
+
+    public void AddLife(PlayerController.PlayerTeam player)
     {
-        playerName1Text.text = GameManager.instance.getPlayerName(GameManager.PLAYER.PLAYER1);
-        playerName2Text.text = GameManager.instance.getPlayerName(GameManager.PLAYER.PLAYER2);
+        
+        if (player == PlayerController.PlayerTeam.Blue)
+        {
+            if (player1Life++ > MAX_POSSIBLE_LIFE) return;
+            player1Lifes[player1Life - 1].GetComponent<Image>().color = Color.white;
+            player1Life += LIFE_TO_ADD;
+           
+        }
+        else
+        {
+            if (player2Life++ > MAX_POSSIBLE_LIFE) return;
+            player2Lifes[player2Life - 1].GetComponent<Image>().color = Color.white;
+            player2Life += LIFE_TO_ADD;
+            
+        }
     }
 }
