@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(playerTeam == PlayerTeam.Team1)
+        if(team == PlayerTeam.Blue)
         {
             Debug.Log("isgrounded: " + isGrounded);
         }
@@ -115,13 +115,6 @@ public class PlayerController : MonoBehaviour
         if (isRespawning)
         {
             horizontal *= 1.5f;
-            //fix later
-            //if (Input.GetButtonDown("Jump"))
-            //{
-            //    isRespawning = false;
-            //    StopCoroutine(respawnSequence());
-            //
-            //}
         }
         else
         {
