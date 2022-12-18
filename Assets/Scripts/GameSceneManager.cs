@@ -2,14 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GameSceneManager : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    [SerializeField] private UnityEvent addSpeed;
     [SerializeField] private Text playerName1Text;
     [SerializeField] private Text playerName2Text;
+    [SerializeField] private Text timerText;
+
     GameObject[] player1Lifes;
     GameObject[] player2Lifes;
     Color black = Color.black;
@@ -20,6 +23,9 @@ public class GameSceneManager : MonoBehaviour
     private bool gameIsEnded = false;
     private const int LIFE_TO_ADD = 1;
 
+    private const float TIMER_FOR_SPEED = 30f;
+    private float timer = TIMER_FOR_SPEED;
+
     void Start()
     {
         player1Life = MAX_INITIAL_LIFE;
@@ -28,9 +34,6 @@ public class GameSceneManager : MonoBehaviour
         player2Lifes = GameObject.FindGameObjectsWithTag("HearthPlayer2"); // liste des coeurs de droite
         playerName1Text.text = GameManager.instance.getPlayerName(GameManager.PLAYER.PLAYER1);
         playerName2Text.text = GameManager.instance.getPlayerName(GameManager.PLAYER.PLAYER2);
-      //  SubstractLife(PlayerController.PlayerTeam.Blue);
-       // SubstractLife(PlayerController.PlayerTeam.Blue);
-       // SubstractLife(PlayerController.PlayerTeam.Blue);
 
     }
 
@@ -39,7 +42,7 @@ public class GameSceneManager : MonoBehaviour
     {
         if (!gameIsEnded)
         {
-
+            CheckTimer();
             CheckIfGameEnded();
         }
         else
@@ -47,6 +50,23 @@ public class GameSceneManager : MonoBehaviour
             FinishGame();
         }
 
+    }
+
+    private void CheckTimer()
+    {
+        timer -= Time.deltaTime;
+        if (timer <= 0f)
+        {
+            addSpeed.Invoke();
+            timer = TIMER_FOR_SPEED;
+        }
+
+        ChangeTimerText();
+    }
+
+    private void ChangeTimerText()
+    {
+        timerText.text = ((int)timer).ToString();
     }
 
     private void FinishGame()
@@ -108,14 +128,14 @@ public class GameSceneManager : MonoBehaviour
         
         if (player == PlayerController.PlayerTeam.Blue)
         {
-            if (player1Life++ > MAX_POSSIBLE_LIFE) return;
+            if (player1Life++ >= MAX_POSSIBLE_LIFE) return;
             player1Lifes[player1Life - 1].GetComponent<Image>().color = Color.white;
             player1Life += LIFE_TO_ADD;
            
         }
         else
         {
-            if (player2Life++ > MAX_POSSIBLE_LIFE) return;
+            if (player2Life++ >= MAX_POSSIBLE_LIFE) return;
             player2Lifes[player2Life - 1].GetComponent<Image>().color = Color.white;
             player2Life += LIFE_TO_ADD;
             

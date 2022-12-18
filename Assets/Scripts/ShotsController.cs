@@ -25,7 +25,7 @@ public class ShotsController : MonoBehaviour
     private float shotcooldown = 0f;
     private float shootingCooldown = 2f;
     [SerializeField] private Finder finder;
-
+    AudioSource soundSource;
 
     private int homingBulletExtraCount = 0;
 
@@ -40,6 +40,7 @@ public class ShotsController : MonoBehaviour
         //bullets = gun.transform.GetChild(0).gameObject;//GetChildsSpawnerActive(gun.transform.GetChild(0).gameObject);
         gun = GetChildWithTag(gameObject, "Gun");
         bullets = GameObject.FindGameObjectWithTag("Player1Bullets");
+        soundSource = gameObject.GetComponent<AudioSource>();
         //Debug.Log(bullets.Length + "bullets");
     }
 
@@ -77,43 +78,49 @@ public class ShotsController : MonoBehaviour
         return null;
     }
 
+
     void Update()
     {
-        shotcooldown = DecreaseCooldown(shotcooldown);
-        if (Input.GetButtonDown("Fire1"))
+        if (!PauseManager.GameIsPaused)
         {
-            Debug.Log("Fire1");
-            if(shotcooldown <= 0)
+            shotcooldown = DecreaseCooldown(shotcooldown);
+            if (Input.GetButtonDown("Fire1"))
             {
-                Debug.Log("Fire1 AGAIN");
-                GameObject bullet = finder.GetFirstAvailableObject(bullets);
-                Debug.Log(bullet);
-                if (bullet != null)
+                Debug.Log("Fire1");
+                if (shotcooldown <= 0)
                 {
-                    bullet.SetActive(true);
-                    bullet.GetComponent<BulletsManager>().SetHoming(false);
-                    shotcooldown = shootingCooldown;
-                }
-            }
-        }
-        if (Input.GetButtonDown("Fire2"))
-        {
-            //if player has homming bullets
-            if (homingBulletExtraCount > 0)
-            {
-                if(shotcooldown <= 0)
-                {
-                    homingBulletExtraCount--;
+                    Debug.Log("Fire1 AGAIN");
                     GameObject bullet = finder.GetFirstAvailableObject(bullets);
+                    Debug.Log(bullet);
                     if (bullet != null)
                     {
                         bullet.SetActive(true);
-                        bullet.GetComponent<BulletsManager>().SetHoming(true);
+                        bullet.GetComponent<BulletsManager>().SetHoming(false);
+                        soundSource.PlayOneShot(SoundManager.Instance.FireBulletSound);
                         shotcooldown = shootingCooldown;
                     }
                 }
             }
+            if (Input.GetButtonDown("Fire2"))
+            {
+                //if player has homming bullets
+                if (homingBulletExtraCount > 0)
+                {
+                    if (shotcooldown <= 0)
+                    {
+                        homingBulletExtraCount--;
+                        GameObject bullet = finder.GetFirstAvailableObject(bullets);
+                        if (bullet != null)
+                        {
+                            bullet.SetActive(true);
+                            bullet.GetComponent<BulletsManager>().SetHoming(true);
+                            shotcooldown = shootingCooldown;
+                        }
+                    }
+                }
+            }
         }
+       
     }
 
 
