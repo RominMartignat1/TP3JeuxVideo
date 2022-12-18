@@ -1279,7 +1279,9 @@ MonoBehaviour:
   playerJump: {fileID: 8300000, guid: 12da60b036645e74d94dd60dcfc9d0cb, type: 3}
   playerKilled: {fileID: 8300000, guid: 9c39abda2eb845443bcfa72e006b95e8, type: 3}
   gameMusic: {fileID: 8300000, guid: 48a9f16d56dbaf446822ab2c7bd19284, type: 3}
-  bulletSound: {fileID: 0}
+  bulletSound: {fileID: 8300000, guid: e7c5e53c9026081409b33e184baf66a0, type: 3}
+  deathSound: {fileID: 0}
+  powerUpSound: {fileID: 0}
 --- !u!4 &123246748
 Transform:
   m_ObjectHideFlags: 0
@@ -25458,7 +25460,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1463592559}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00371a75244b97d43bb5b902168082b3, type: 3}
   m_Name: 
@@ -25543,7 +25545,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 48a9f16d56dbaf446822ab2c7bd19284, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.514
+  m_Volume: 0.205
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -32072,7 +32074,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   addSpeed:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1463592562}
+        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+        m_MethodName: ChangeSpeed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   playerName1Text: {fileID: 948566695}
   playerName2Text: {fileID: 948566694}
   timerText: {fileID: 948566696}

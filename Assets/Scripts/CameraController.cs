@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
 {
     private bool isFollowingPlayer;
 
-    private const float MOVE_SPEED_TO_ADD = 0.5f;
+    private const float MOVE_SPEED_TO_ADD = 0.75f;
     private float currentMoveSpeed = 0.0f;
     private GameObject playerBeingFollowed;
     
@@ -21,17 +21,20 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-
-        if (isFollowingPlayer)
+        if (!PauseManager.GameIsPaused)
         {
-            Debug.Log("Following player");
-            makeCameraFollow(playerBeingFollowed);
+            if (isFollowingPlayer)
+            {
+                Debug.Log("Following player");
+                makeCameraFollow(playerBeingFollowed);
+            }
+            else
+            {
+                Debug.Log("Not following player");
+                transform.Translate(Vector3.up * Time.deltaTime * currentMoveSpeed, Space.World);
+            }
         }
-        else
-        {
-            Debug.Log("Not following player");
-            transform.Translate(Vector3.up * Time.deltaTime * currentMoveSpeed, Space.World);
-        }
+      
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -74,7 +77,7 @@ public class CameraController : MonoBehaviour
         if (playerBeingFollowed.transform.position.y > transform.position.y)
         {
             transform.position = new Vector3(cameraPos.x, playerPos.y, cameraPos.z);
-            //transform.Translate(Vector3.up * Time.deltaTime * moveSpeed, Space.World);
+            //transform.Translate(Vector3.up * Time.deltaTime * currentMoveSpeed, Space.World);
         }
 
     }

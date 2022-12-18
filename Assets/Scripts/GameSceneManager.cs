@@ -34,9 +34,6 @@ public class GameSceneManager : MonoBehaviour
         player2Lifes = GameObject.FindGameObjectsWithTag("HearthPlayer2"); // liste des coeurs de droite
         playerName1Text.text = GameManager.instance.getPlayerName(GameManager.PLAYER.PLAYER1);
         playerName2Text.text = GameManager.instance.getPlayerName(GameManager.PLAYER.PLAYER2);
-      //SubstractLife(PlayerController.PlayerTeam.Blue);
-       // SubstractLife(PlayerController.PlayerTeam.Blue);
-       // SubstractLife(PlayerController.PlayerTeam.Blue);
 
     }
 
