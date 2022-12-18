@@ -6,7 +6,6 @@ public class BulletExtraManager : MonoBehaviour
 {
     private float timeActive = 0f;
     private float maxTimeActive = 10f;
-    private float speed = 2.5f;
     private Vector2 currentDirection = Vector2.left;
 
     void Start()
@@ -31,7 +30,7 @@ public class BulletExtraManager : MonoBehaviour
             {
                 timeActive += Time.deltaTime;
             }
-        }    
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

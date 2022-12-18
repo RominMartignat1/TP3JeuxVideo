@@ -12,7 +12,6 @@ public class BulletsManager : MonoBehaviour
 
     private GameObject[] players;
 
-    private bool isRegularBullet = true;
     private bool isHomingBullet = false;
 
     public enum BulletTeam
@@ -20,7 +19,6 @@ public class BulletsManager : MonoBehaviour
         Blue,
         Red
     }
-
     [SerializeField] private BulletTeam bulletTeam;
 
     public BulletTeam GetBulletTeam()
