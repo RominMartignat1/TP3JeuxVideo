@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
             player2Name = playerName;
             Debug.Log(playerName);
         }
-        
+
 }
 
     public string getPlayerName(PLAYER playernumber)
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         {
             return player2Name;
         }
-       
+
     }
 
     public string GetWinner()
@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(RestartLevelDelay(delay, MENU_SCENE));
     }
-    
+
 
     private IEnumerator RestartLevelDelay(float delay, int level)
     {
@@ -128,12 +128,8 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("CommonScene");
         else if (level == END_SCENE)
             SceneManager.LoadScene("GameOverScene");
-   
+
 
        scenesAreInTransition = false;
     }
-
-
-
-
 }
