@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6191995872902397809}
   m_Layer: 0
   m_Name: SmallPlatform
-  m_TagString: Untagged
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,7 +121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1854477223069592616, guid: 9fbad29e1d2d3e948a761d2a77b9ada6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 1854477223069592616, guid: 9fbad29e1d2d3e948a761d2a77b9ada6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -249,7 +249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7417182360082527105, guid: d063bf0aa5a4dbf4e88b5bc8e5ebaac0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.75
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 7417182360082527105, guid: d063bf0aa5a4dbf4e88b5bc8e5ebaac0, type: 3}
       propertyPath: m_LocalPosition.y

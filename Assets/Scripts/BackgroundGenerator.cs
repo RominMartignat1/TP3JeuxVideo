@@ -6,7 +6,6 @@ public class BackgroundGenerator : MonoBehaviour
 {
     private List<GameObject> backgroundTiles;
     private Finder finder;
-    private GameObject background;
     public float distBeforeSpawn = 10f;
     public float heightBetween = 10f;
     private float backgroundY;

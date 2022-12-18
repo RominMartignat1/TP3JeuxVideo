@@ -27,13 +27,8 @@ public class PlayerController : MonoBehaviour
     private bool isInvicible = false;
     [SerializeField] private Finder finders;
     GameSceneManager managerOfTheScene;
-
-
-
     private int doubleJumpExtraCounter = 0;
     private int doubleJumpCounter = 0;
-    
-
 
     private float playerLives = 3;
 
@@ -93,7 +88,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("isgrounded: " + isGrounded);
         }
-        
+
         if (canPlayerMove)
         {
             ManageMovement();
@@ -144,8 +139,10 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (Input.GetButtonDown("Jump") && IsGrounded() || Input.GetButtonDown("Jump") && doubleJumpExtraCounter >0 &&  doubleJumpCounter < 1)
+            if (((Input.GetButtonDown("Jump") && team == PlayerTeam.Blue) || (Input.GetButtonDown("JumpP2") && team == PlayerTeam.Red)) && (IsGrounded() ||
+             (doubleJumpExtraCounter > 0 &&  doubleJumpCounter < 1)))
             {
+                Debug.Log(IsGrounded());
                 animator.SetBool("Is Jumping", true);
                 jumpPower = 3.0f;
 
@@ -162,9 +159,6 @@ public class PlayerController : MonoBehaviour
                     jumpIntensity = 5.0f;
                 }
 
-
-
-
                 if (doubleJumpExtraCounter > 0)
                 {
 
@@ -178,7 +172,7 @@ public class PlayerController : MonoBehaviour
                     }
 
                     Debug.Log("Double Jump");
-                    
+
                     if(doubleJumpCounter > 1)
                     {
                         doubleJumpExtraCounter--;
@@ -194,8 +188,8 @@ public class PlayerController : MonoBehaviour
         canPlayerMove = true;
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
         hasDied = false;
-        isRespawning = true;
         StartCoroutine(Blink(0.5f));
+        isRespawning = true;
         //respawn();
         isRespawning = false;
         canPlayerMove = true;
@@ -217,7 +211,7 @@ public class PlayerController : MonoBehaviour
             {
 
                 managerOfTheScene.AddLife(team);
-               
+
             }
 
             if (Collider2D.gameObject.tag == "wall")
@@ -263,7 +257,7 @@ public class PlayerController : MonoBehaviour
 
             if(collision.gameObject.tag == "BulletPowerUp")
             {
-                this.GetComponent<ShotsController>().addHommingBullet();     
+                this.GetComponent<ShotsController>().addHommingBullet();
             }
 
             if(collision.gameObject.tag == "DoubleJumpBonus")
@@ -356,5 +350,5 @@ public class PlayerController : MonoBehaviour
         return isGrounded != 0;
     }
 
-    
+
 }

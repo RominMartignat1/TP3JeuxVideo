@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TerrainGenerator : MonoBehaviour
+public class PlatformGenerator : MonoBehaviour
 {
     [Header("Platforms")]
     public GameObject shortPlatform;
@@ -10,14 +10,12 @@ public class TerrainGenerator : MonoBehaviour
     private Finder finder;
     private List<GameObject> platforms = new List<GameObject>();
     private float heightBetweenPlatforms = 1.5f;
-    private int distBetweenPlatforms = 2;
-    public int minPlatformLength = 3;
-    public int maxPlatformLength = 10;
-    public float distBeforeSpawn = 10f;
-    public int maxPlatforms = 10;
-    public int platformMaxX = 12;
-    public int platformY;
-    private int platformLength = 0;
+    public int distBeforeSpawn = 10;
+    public int maxPlatforms = 20;
+    public float platformMinX = -9.15f;
+    public float platformMaxX = 4.6f;
+    public float platformY = -1.5f;
+    private int platformLength;
 
     private void Awake()
     {
@@ -40,23 +38,22 @@ public class TerrainGenerator : MonoBehaviour
     {
         for (int i = 0; i < maxPlatforms; i++)
         {
-            Vector2 startPosition = new Vector2(Random.Range(-12, platformMaxX - platformLength), platformY);
-            Debug.Log(startPosition);
             GameObject prefab = SelectRandomPlatform();
+            Vector2 startPosition = new Vector2(Random.Range(-platformMaxX, platformMaxX - platformLength), platformY);
             GameObject platform = Instantiate(prefab, startPosition, Quaternion.identity, transform);
             platforms.Add(platform);
-            platformY += distBetweenPlatforms;
+            platformY += heightBetweenPlatforms;
         }
     }
 
     private void SpawnPlatforms()
     {
-        platforms[0].transform.position = new Vector2(Random.Range(-12, platformMaxX - platformLength), platformY);
+        platforms[0].transform.position = new Vector2(Random.Range(-platformMaxX, platformMaxX - platformLength), platformY);
         if (!platforms[0].activeInHierarchy)
         {
             platforms[0].SetActive(true);
         }
-        platformY += distBetweenPlatforms;
+        platformY += heightBetweenPlatforms;
         GameObject newPlatform = platforms[0];
         platforms.RemoveAt(0);
         platforms.Add(newPlatform);
