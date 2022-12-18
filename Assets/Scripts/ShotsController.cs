@@ -122,7 +122,7 @@ public class ShotsController : MonoBehaviour
         if (bullet != null)
         {
             soundSource.PlayOneShot(SoundManager.Instance.FireBulletSound);
-            bullet.GetComponent<BulletsManager>().Shoot(gameObject, gun, homing);
+            bullet.GetComponent<BulletsManager>().Shoot(gun, homing);
             shotcooldown = shootingCooldown;
         }
     }
