@@ -134,17 +134,19 @@ public class PlayerController : MonoBehaviour
             {
                 animator.SetBool("Is Jumping", true);
                 jumpPower = 3.0f;
-                soundSource.PlayOneShot(SoundManager.Instance.PlayerJump);
                 if(System.Math.Abs(acceleration) > 1.0f && System.Math.Abs(acceleration) < 2.0f)
                 {
+                    soundSource.PlayOneShot(SoundManager.Instance.PlayerJumpMid);
                     jumpIntensity = 6.5f;
                 }
                 else if (System.Math.Abs(acceleration) > 2.0f && System.Math.Abs(acceleration) < 3.0f)
                 {
+                    soundSource.PlayOneShot(SoundManager.Instance.PlayerJumpLow);
                     jumpIntensity = 2.0f;
                 }
                 else if (System.Math.Abs(acceleration) > 3.0f)
                 {
+                    soundSource.PlayOneShot(SoundManager.Instance.PlayerJumpHigh);
                     jumpIntensity = 5.0f;
                 }
 

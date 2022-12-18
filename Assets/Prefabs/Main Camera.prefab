@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 755637907570760614}
   - component: {fileID: 761770038587021222}
   - component: {fileID: 582321333755557541}
-  - component: {fileID: 7774670739938208229}
+  - component: {fileID: 2235285369225400910}
   m_Layer: 0
   m_Name: RespawnAera
   m_TagString: RespawnAera
@@ -81,7 +81,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7774670739938208229
+--- !u!114 &2235285369225400910
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,10 +90,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 314608358410637894}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d2cdb6a7c89b77448846ff8995f8e49, type: 3}
+  m_Script: {fileID: 11500000, guid: cd1d42007a3dee04190d2f79b94a1a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  finder: {fileID: 0}
+  finder: {fileID: 939258264346637418, guid: 0319833b2d95a4c499b7dc2f0c208e32, type: 3}
 --- !u!1 &3253779288592841370
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4519978984820475332}
-  - component: {fileID: 5060884360537809012}
+  - component: {fileID: 2687757157650087234}
   m_Layer: 0
   m_Name: Power Ups
   m_TagString: PowerUps
@@ -126,7 +126,7 @@ Transform:
   m_Father: {fileID: 5191410853431700268}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5060884360537809012
+--- !u!114 &2687757157650087234
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,10 +135,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3253779288592841370}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2af4eb86a9bee2248834e0c6aa433938, type: 3}
+  m_Script: {fileID: 11500000, guid: 2208a850d9f0c6640bb7c344db96e350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUps: []
+  powerUps:
+  - {fileID: 8747477294732327135, guid: 283888ce734e153489ec28fc47cb97da, type: 3}
+  - {fileID: 1184037705811500271, guid: 1b4764e7534c1b2429504025c425014d, type: 3}
+  - {fileID: 7713139670828678535, guid: a0e234fa91a53bb42bc6b8d4bc27882b, type: 3}
   finder: {fileID: 0}
 --- !u!1 &5191410851868927889
 GameObject:

@@ -6,7 +6,9 @@ public class SoundManager : MonoBehaviour
 {
     private static SoundManager instance;
 
-    [SerializeField] private AudioClip playerJump;
+    [SerializeField] private AudioClip playerJumpHigh;
+    [SerializeField] private AudioClip playerJumpMid;
+    [SerializeField] private AudioClip playerJumpLow;
     [SerializeField] private AudioClip playerKilled;
     [SerializeField] private AudioClip gameMusic;
     [SerializeField] private AudioClip bulletSound;
@@ -15,7 +17,9 @@ public class SoundManager : MonoBehaviour
 
 
     public static SoundManager Instance { get { return instance; } }
-    public AudioClip PlayerJump { get { return playerJump; } }
+    public AudioClip PlayerJumpHigh { get { return playerJumpHigh; } }
+    public AudioClip PlayerJumpMid { get { return playerJumpMid; } }
+    public AudioClip PlayerJumpLow { get { return playerJumpLow; } }
     public AudioClip GameMusic { get { return gameMusic; } }
     public AudioClip FireBulletSound { get { return bulletSound; } }
     public AudioClip PlayerDeath { get { return deathSound; } }

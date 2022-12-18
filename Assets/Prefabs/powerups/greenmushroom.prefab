@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1374346862538102772}
   - component: {fileID: 7552013732328973865}
-  - component: {fileID: 608441165728128796}
   - component: {fileID: 323360675439448015}
   - component: {fileID: 1520239438928397858}
   - component: {fileID: 5822695873166734207}
+  - component: {fileID: 164294799071927897}
   m_Layer: 0
   m_Name: greenmushroom
   m_TagString: GreenMushroom
@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7552013732328973865
 SpriteRenderer:
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8700cef6744fe3144b0e93a725797e37, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 222d62d87db5931498bb85845842b0d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -88,18 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &608441165728128796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8747477294732327135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56414fe975bb2de418b9915012cc77e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &323360675439448015
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -117,7 +105,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8.4, y: 8.59}
+    oldSize: {x: 1.1, y: 1}
     newSize: {x: 8.4, y: 8.59}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -133,10 +121,10 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8747477294732327135}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.0000038146973}
@@ -163,3 +151,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &164294799071927897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8747477294732327135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 856b0b94f16d05246b3ed18701bf8bd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

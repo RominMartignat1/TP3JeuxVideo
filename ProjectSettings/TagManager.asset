@@ -32,6 +32,7 @@ TagManager:
   - HearthPlayer2
   - BulletPowerUp
   - DoubleJumpBonus
+  - timer
   layers:
   - Default
   - TransparentFX
@@ -80,6 +81,9 @@ TagManager:
     locked: 0
   - name: Wall
     uniqueID: 3215515973
+    locked: 0
+  - name: PowerUps
+    uniqueID: 3587214637
     locked: 0
   - name: Player
     uniqueID: 866433315
