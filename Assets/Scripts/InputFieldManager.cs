@@ -7,16 +7,12 @@ using UnityEngine.UI;
 
 public class InputFieldManager : MonoBehaviour
 {
-    
-
-    
     private GameManager.PLAYER playerNumber;
     private bool playerIsSet = false;
     [SerializeField] private InputField inputField;
     [SerializeField] private Text playerNameText;
     [SerializeField] private Text placeHolderText;
-
-   
+    
     private void Start()
     {
         
