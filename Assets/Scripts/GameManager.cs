@@ -13,17 +13,13 @@ public class GameManager : MonoBehaviour
     private const int END_SCENE = 2;
 
     public bool isPaused = false;
-    private const int maxLives = 3;
 
     private int actualLevel = 0;
     private string winnerName = "personne";
 
-    private int accumulatedScore = 0;
-    private int lives = maxLives;
 
     bool scenesAreInTransition = false;
 
-    private bool textsNotLinked = true;
     private string player1Name = "joueur1";
     private string player2Name = "joueur2";
 
@@ -133,29 +129,8 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("CommonScene");
         else if (level == END_SCENE)
             SceneManager.LoadScene("GameOverScene");
-       /* else
-            SceneManager.LoadScene("Scene1");*/
+
 
        scenesAreInTransition = false;
     }
-
-
-    public void ResetGame()
-    {
-        lives = maxLives;
-        actualLevel = 0;
-
-        accumulatedScore = 0;
-        SceneManager.LoadScene("Menu");
-    }
-
-
-    public void PlayerDie()
-    {
-        lives--;
-        //playerLivesText.text = lives.ToString();
-        //playerScoreText.text = score.ToString();
-        accumulatedScore = 0;
-    }
-
 }

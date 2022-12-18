@@ -25,16 +25,8 @@ public class CameraController : MonoBehaviour
         {
             if (!isFollowingPlayer)
             {
-                Debug.Log("Following player");
-                Debug.Log("Not following player");
                 transform.Translate(Vector3.up * Time.deltaTime * currentMoveSpeed, Space.World);
-                // makeCameraFollow(playerBeingFollowed);
             }
-            /*else
-            {
-                Debug.Log("Not following player");
-                transform.Translate(Vector3.up * Time.deltaTime * currentMoveSpeed, Space.World);
-            }*/
         }
 
     }
@@ -61,7 +53,6 @@ public class CameraController : MonoBehaviour
             {
                 if (col.gameObject.GetComponent<Rigidbody2D>().velocity.y > 0)
                 {
-                    Debug.Log("Player entered camera trigger");
                     isFollowingPlayer = true;
                     playerBeingFollowed = col.gameObject;
                     //if player that has entered is not the player that is being followed, check which one is the highest and follow that one
@@ -96,7 +87,6 @@ public class CameraController : MonoBehaviour
         if (playerBeingFollowed.transform.position.y > transform.position.y)
         {
             transform.position = new Vector3(cameraPos.x, playerPos.y, cameraPos.z);
-            //transform.Translate(Vector3.up * Time.deltaTime * currentMoveSpeed, Space.World);
         }
 
     }
