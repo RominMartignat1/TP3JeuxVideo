@@ -24,9 +24,6 @@ public class GameManager : MonoBehaviour
     bool scenesAreInTransition = false;
 
     private bool textsNotLinked = true;
-
-    
-
     private string player1Name = "joueur1";
     private string player2Name = "joueur2";
 
@@ -59,7 +56,7 @@ public class GameManager : MonoBehaviour
             player2Name = playerName;
             Debug.Log(playerName);
         }
-        
+
 }
 
     public string getPlayerName(PLAYER playernumber)
@@ -72,7 +69,7 @@ public class GameManager : MonoBehaviour
         {
             return player2Name;
         }
-       
+
     }
 
     public string GetWinner()
@@ -121,7 +118,7 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(RestartLevelDelay(delay, MENU_SCENE));
     }
-    
+
 
     private IEnumerator RestartLevelDelay(float delay, int level)
     {
@@ -147,7 +144,7 @@ public class GameManager : MonoBehaviour
     {
         lives = maxLives;
         actualLevel = 0;
-      
+
         accumulatedScore = 0;
         SceneManager.LoadScene("Menu");
     }
