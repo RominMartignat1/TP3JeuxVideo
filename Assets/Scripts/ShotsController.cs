@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using teams;
 
 public class ShotsController : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class ShotsController : MonoBehaviour
     public int maxBulletsEachTeam = 40;
     AudioSource soundSource;
     private int homingBulletExtraCount = 0;
+    private Teams team;
 
     void Start()
     {
@@ -35,6 +37,7 @@ public class ShotsController : MonoBehaviour
         //bullets = gun.transform.GetChild(0).gameObject;//GetChildsSpawnerActive(gun.transform.GetChild(0).gameObject);
         gun = GetChildWithTag(gameObject, "Gun");
         soundSource = gameObject.GetComponent<AudioSource>();
+        team = GetComponent<PlayerController>().GetTeam();
     }
 
     void Awake()
@@ -92,7 +95,7 @@ public class ShotsController : MonoBehaviour
         if (!PauseManager.GameIsPaused || !GameSceneManager.GameIsEnded)
         {
             shotcooldown = DecreaseCooldown(shotcooldown);
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && team == Teams.Blue)
             {
                 if (shotcooldown <= 0)
                 {

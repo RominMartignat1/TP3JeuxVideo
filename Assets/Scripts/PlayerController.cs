@@ -1,16 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using teams;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum PlayerTeam
-    {
-        Blue,
-        Red
-    }
+
     private int isGrounded;
-    [SerializeField] PlayerTeam team;
+    [SerializeField] Teams team;
     private Rigidbody2D rigidBody;
     private Animator animator;
     private float horizontal;
@@ -97,11 +93,11 @@ public class PlayerController : MonoBehaviour
 
     private void ManageMovement()
     {
-        if (team == PlayerTeam.Blue)
+        if (team == Teams.Blue)
         {
             horizontal = Input.GetAxis("Horizontal");
         }
-        else if (team == PlayerTeam.Red)
+        else if (team == Teams.Red)
         {
             horizontal = Input.GetAxis("HorizontalP2");
         }
@@ -137,7 +133,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (((Input.GetButtonDown("Jump") && team == PlayerTeam.Blue) || (Input.GetButtonDown("JumpP2") && team == PlayerTeam.Red)) && (IsGrounded() ||
+            if (((Input.GetButtonDown("Jump") && team == Teams.Blue) || (Input.GetButtonDown("JumpP2") && team == Teams.Red)) && (IsGrounded() ||
              (doubleJumpExtraCounter > 0 &&  doubleJumpCounter < 1)))
             {
                 animator.SetBool("Is Jumping", true);
@@ -346,6 +342,10 @@ public class PlayerController : MonoBehaviour
     public bool IsGrounded()
     {
         return isGrounded != 0;
+    }
+
+    public Teams GetTeam() {
+        return team;
     }
 
 

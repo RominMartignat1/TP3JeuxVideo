@@ -1,13 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using teams;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GameSceneManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField] private UnityEvent addSpeed;
     [SerializeField] private Text playerName1Text;
     [SerializeField] private Text playerName2Text;
@@ -72,7 +72,7 @@ public class GameSceneManager : MonoBehaviour
 
     private void FinishGame()
     {
-        
+
         if (player1Life <= 0)
         {
             GameManager.instance.EndGame(playerName2Text.text);
@@ -81,7 +81,7 @@ public class GameSceneManager : MonoBehaviour
         {
             GameManager.instance.EndGame(playerName1Text.text);
         }
-        
+
     }
 
     private void CheckIfGameEnded()
@@ -92,10 +92,10 @@ public class GameSceneManager : MonoBehaviour
         }
     }
 
-    public void SubstractLife(PlayerController.PlayerTeam player)
+    public void SubstractLife(Teams team)
     {
-        Debug.Log("substract life a été call");
-        if (player == PlayerController.PlayerTeam.Blue)
+        Debug.Log("substract life a ï¿½tï¿½ call");
+        if (team == Teams.Blue)
         {
             player1Life -= LIFE_TO_ADD;
             player1Lifes[player1Life].GetComponent<Image>().color = black;
@@ -109,22 +109,22 @@ public class GameSceneManager : MonoBehaviour
     }
 
 
-    public void AddLife(PlayerController.PlayerTeam player)
+    public void AddLife(Teams team)
     {
-        
-        if (player == PlayerController.PlayerTeam.Blue)
+
+        if (team == Teams.Blue)
         {
             if (player1Life++ >= MAX_POSSIBLE_LIFE) return;
             player1Lifes[player1Life - 1].GetComponent<Image>().color = Color.white;
             player1Life += LIFE_TO_ADD;
-           
+
         }
         else
         {
             if (player2Life++ >= MAX_POSSIBLE_LIFE) return;
             player2Lifes[player2Life - 1].GetComponent<Image>().color = Color.white;
             player2Life += LIFE_TO_ADD;
-            
+
         }
     }
 }
