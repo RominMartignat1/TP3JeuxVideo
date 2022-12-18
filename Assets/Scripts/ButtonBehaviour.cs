@@ -22,21 +22,13 @@ public class ButtonBehaviour : MonoBehaviour
     public void OnButtonStartGamePressed()
     {
         startGame.Invoke();
-        if (GameManager.instance.enabled) Debug.Log("existe");
         GameManager.instance.StartGame(2f);
     }
 
     public void OnButtonToMenuPressed()
     {
-        if (GameManager.instance.enabled) Debug.Log("existe");
         GameManager.instance.StartMenu(2f);
     }
-
-    /*public void OnButtonToEndPressed()
-    {
-        if (GameManager.instance.enabled) Debug.Log("existe");
-        GameManager.instance.StartEnding(2f);
-    }*/
 
     public void OnQuitPress()
     {

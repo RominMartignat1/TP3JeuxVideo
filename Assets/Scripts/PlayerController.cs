@@ -223,8 +223,7 @@ public class PlayerController : MonoBehaviour
             }
             if (Collider2D.gameObject.tag == "Player")
             {
-                Debug.Log("Hit player");
-                //fix that later i guess
+               
                 Collider2D.gameObject.GetComponent<PlayerController>().acceleration = acceleration;
             }
         }
@@ -242,7 +241,6 @@ public class PlayerController : MonoBehaviour
         {
             if (collision.gameObject.tag == "Despawner")
             {
-                Debug.Log("player died");
                 sceneManager.SubstractLife(team);
                 gameObject.SetActive(false);
 
