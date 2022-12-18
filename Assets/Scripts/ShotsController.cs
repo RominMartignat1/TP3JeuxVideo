@@ -46,7 +46,7 @@ public class ShotsController : MonoBehaviour
     {
         for (int i = 0; i < maxBulletsEachTeam; i++)
         {
-            GameObject b = Instantiate(bullet, Vector2.zero, Quaternion.identity, transform);
+            GameObject b = Instantiate(bullet);
             b.gameObject.SetActive(false);
             bullets.Add(b);
         }
@@ -127,7 +127,6 @@ public class ShotsController : MonoBehaviour
             bullet.GetComponent<BulletsManager>().SetHoming(false);
             soundSource.PlayOneShot(SoundManager.Instance.FireBulletSound);
             shotcooldown = shootingCooldown;
-            bullet.GetComponent<Rigidbody2D>().transform.position = gun.transform.position;
             bullet.GetComponent<Rigidbody2D>().transform.position = gun.transform.position;
             bullet.GetComponent<Rigidbody2D>().transform.forward = gun.transform.forward;
             bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bullet.transform.forward.x, bullet.transform.forward.y) * bulletSpeed;

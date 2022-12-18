@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4488438001233183550}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 8.782472, y: 0.06241568, z: 0}
-  m_LocalScale: {x: 0.447039, y: 0.4260673, z: 0.021303367}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.021303367}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -101,7 +101,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 0}
-  bulletSpawnPoint: {fileID: 0}
   bulletSpeed: 15
   maxTimeActive: 4
   bulletTeam: 1
