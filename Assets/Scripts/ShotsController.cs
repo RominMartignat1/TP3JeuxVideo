@@ -83,7 +83,7 @@ public class ShotsController : MonoBehaviour
 
     void Update()
     {
-        if (!PauseManager.GameIsPaused)
+        if (!PauseManager.GameIsPaused || !GameSceneManager.GameIsEnded)
         {
             shotcooldown = DecreaseCooldown(shotcooldown);
             if (Input.GetButtonDown("Fire1"))
@@ -93,7 +93,7 @@ public class ShotsController : MonoBehaviour
                 if (shotcooldown <= 0)
                 {
                     Debug.Log("Fire1 AGAIN");
-
+                    soundSource.PlayOneShot(SoundManager.Instance.FireBulletSound);
                     GameObject bullet = finder.GetFirstAvailableObject(bullets);
                     Debug.Log( "bullet :");
                     if (bullet != null)

@@ -20,11 +20,12 @@ public class GameSceneManager : MonoBehaviour
     private const int MAX_POSSIBLE_LIFE = 5;
     private int player1Life;
     private int player2Life;
-    private bool gameIsEnded = false;
+    private static bool gameIsEnded = false;
     private const int LIFE_TO_ADD = 1;
-
     private const float TIMER_FOR_SPEED = 30f;
     private float timer = TIMER_FOR_SPEED;
+
+    public static bool GameIsEnded { get { return gameIsEnded; } }
 
     void Start()
     {
@@ -71,6 +72,7 @@ public class GameSceneManager : MonoBehaviour
 
     private void FinishGame()
     {
+        
         if (player1Life <= 0)
         {
             GameManager.instance.EndGame(playerName1Text.text);

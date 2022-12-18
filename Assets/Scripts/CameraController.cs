@@ -21,20 +21,35 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        if (!PauseManager.GameIsPaused)
+        if (!PauseManager.GameIsPaused || !GameSceneManager.GameIsEnded)
         {
-            if (isFollowingPlayer)
+            if (!isFollowingPlayer)
             {
                 Debug.Log("Following player");
-                makeCameraFollow(playerBeingFollowed);
+                Debug.Log("Not following player");
+                transform.Translate(Vector3.up * Time.deltaTime * currentMoveSpeed, Space.World);
+                // makeCameraFollow(playerBeingFollowed);
             }
-            else
+            /*else
             {
                 Debug.Log("Not following player");
                 transform.Translate(Vector3.up * Time.deltaTime * currentMoveSpeed, Space.World);
-            }
+            }*/
         }
 
+    }
+
+    private void LateUpdate()
+    {
+        if (!PauseManager.GameIsPaused || !GameSceneManager.GameIsEnded) 
+        {
+            if (isFollowingPlayer)
+            {
+                makeCameraFollow(playerBeingFollowed);
+            }
+        }
+        
+        
     }
 
     void OnTriggerEnter2D(Collider2D col)

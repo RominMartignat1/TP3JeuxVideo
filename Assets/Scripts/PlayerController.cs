@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!PauseManager.GameIsPaused)
+        if (!PauseManager.GameIsPaused || !GameSceneManager.GameIsEnded)
         {
             if (canPlayerMove)
             {
@@ -189,8 +189,6 @@ public class PlayerController : MonoBehaviour
         isRespawning = true;
         StartCoroutine(Blink(0.5f));
         isRespawning = true;
-        
-        //respawn();
         isRespawning = false;
         canPlayerMove = true;
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
