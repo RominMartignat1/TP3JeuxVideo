@@ -6,7 +6,7 @@ public class ShotsController : MonoBehaviour
 {
     private GameObject gun;
     public GameObject bullet;
-    private GameObject[] bullets;
+    private GameObject bullets;
     private int maxBulletsEachTeam;
     private GameObject player;
     private float bulletSpeed = 10f;
@@ -89,11 +89,13 @@ public class ShotsController : MonoBehaviour
             if (Input.GetButtonDown("Fire1"))
             {
                 Debug.Log("Fire1");
+                
                 if (shotcooldown <= 0)
                 {
                     Debug.Log("Fire1 AGAIN");
+
                     GameObject bullet = finder.GetFirstAvailableObject(bullets);
-                    Debug.Log(bullet);
+                    Debug.Log( "bullet :");
                     if (bullet != null)
                     {
                         bullet.SetActive(true);

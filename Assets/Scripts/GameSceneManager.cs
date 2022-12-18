@@ -92,6 +92,7 @@ public class GameSceneManager : MonoBehaviour
 
     public void SubstractLife(PlayerController.PlayerTeam player)
     {
+        Debug.Log("substract life a été call");
         if (player == PlayerController.PlayerTeam.Blue)
         {
             player1Life -= LIFE_TO_ADD;

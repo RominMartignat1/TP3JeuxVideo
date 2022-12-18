@@ -186,8 +186,6 @@ public class PlayerController : MonoBehaviour
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
         hasDied = false;
         isRespawning = true;
-        soundSource.PlayOneShot(SoundManager.Instance.PlayerDeath);
-        sceneManager.SubstractLife(team);
         StartCoroutine(Blink(0.5f));
         isRespawning = true;
         //respawn();
@@ -249,6 +247,8 @@ public class PlayerController : MonoBehaviour
             if (collision.gameObject.tag == "Despawner")
             {
                 Debug.Log("player died");
+                sceneManager.SubstractLife(team);
+                soundSource.PlayOneShot(SoundManager.Instance.PlayerDeath);
                 gameObject.SetActive(false);
 
             }

@@ -147,7 +147,7 @@ public class Finder : MonoBehaviour
         {
             Transform child = parent.transform.GetChild(i);
 
-            if (!child.gameObject.activeInHierarchy)
+            if (!child.gameObject.activeSelf)
             {
                 return child.gameObject;
             }
