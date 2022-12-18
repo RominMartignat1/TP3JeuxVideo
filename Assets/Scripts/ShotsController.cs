@@ -95,7 +95,7 @@ public class ShotsController : MonoBehaviour
         if (!PauseManager.GameIsPaused || !GameSceneManager.GameIsEnded)
         {
             shotcooldown = DecreaseCooldown(shotcooldown);
-            if (Input.GetButtonDown("Fire1") && team == Teams.Blue)
+            if (Input.GetButtonDown("Fire1") && team == Teams.Blue || Input.GetButtonDown("Fire1P2") && team == Teams.Red)
             {
                 if (shotcooldown <= 0)
                 {
@@ -104,9 +104,8 @@ public class ShotsController : MonoBehaviour
                     SpawnBullet(bullet);
                 }
             }
-            if (Input.GetButtonDown("Fire2"))
+            if (Input.GetButtonDown("Fire2") && team == Teams.Blue || Input.GetButtonDown("Fire2P2") && team == Teams.Red)
             {
-                //if player has homming bullets
                 if (homingBulletExtraCount > 0)
                 {
                     if (shotcooldown <= 0)
