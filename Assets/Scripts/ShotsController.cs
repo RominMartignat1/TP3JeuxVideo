@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class ShotsController : MonoBehaviour
 {
-    private GameObject gun;
+    public GameObject gun;
     public GameObject bullet;
     private List<GameObject> bullets = new List<GameObject>();
-    private int maxBulletsEachTeam;
     private GameObject player;
-    private float bulletSpeed = 10f;
+    public float bulletSpeed = 75f;
     private float bulletLifeTime = 2f;
     private float timeBetweenShots = 0.5f;
     private float timeSinceLastShot = 0f;
@@ -26,8 +25,8 @@ public class ShotsController : MonoBehaviour
     private float shotcooldown = 0f;
     private float shootingCooldown = 2f;
     [SerializeField] private Finder finder;
+    public int maxBulletsEachTeam = 40;
     AudioSource soundSource;
-
     private int homingBulletExtraCount = 0;
 
     void Start()
@@ -38,7 +37,8 @@ public class ShotsController : MonoBehaviour
         soundSource = gameObject.GetComponent<AudioSource>();
     }
 
-    void Awake() {
+    void Awake()
+    {
         InitBullets();
     }
 
@@ -47,8 +47,8 @@ public class ShotsController : MonoBehaviour
         for (int i = 0; i < maxBulletsEachTeam; i++)
         {
             GameObject b = Instantiate(bullet, Vector2.zero, Quaternion.identity, transform);
+            b.gameObject.SetActive(false);
             bullets.Add(b);
-            Debug.Log(bullets[0]);
         }
     }
 
@@ -101,13 +101,7 @@ public class ShotsController : MonoBehaviour
                     Debug.Log("Fire1 AGAIN");
                     soundSource.PlayOneShot(SoundManager.Instance.FireBulletSound);
                     GameObject bullet = finder.GetFirstAvailableObject(bullets);
-                    if (bullet != null)
-                    {
-                        bullet.SetActive(true);
-                        bullet.GetComponent<BulletsManager>().SetHoming(false);
-                        soundSource.PlayOneShot(SoundManager.Instance.FireBulletSound);
-                        shotcooldown = shootingCooldown;
-                    }
+                    SpawnBullet(bullet);
                 }
             }
             if (Input.GetButtonDown("Fire2"))
@@ -119,17 +113,25 @@ public class ShotsController : MonoBehaviour
                     {
                         homingBulletExtraCount--;
                         GameObject bullet = finder.GetFirstAvailableObject(bullets);
-                        if (bullet != null)
-                        {
-                            bullet.SetActive(true);
-                            bullet.GetComponent<BulletsManager>().SetHoming(true);
-                            shotcooldown = shootingCooldown;
-                        }
+                        SpawnBullet(bullet);
                     }
                 }
             }
         }
+    }
 
+    private void SpawnBullet(GameObject bullet)
+    {
+        if (bullet != null)
+        {
+            bullet.GetComponent<BulletsManager>().SetHoming(false);
+            soundSource.PlayOneShot(SoundManager.Instance.FireBulletSound);
+            shotcooldown = shootingCooldown;
+            bullet.GetComponent<Rigidbody2D>().transform.position = gun.transform.position;
+            bullet.GetComponent<Rigidbody2D>().transform.position = gun.transform.position;
+            bullet.GetComponent<Rigidbody2D>().transform.forward = gun.transform.forward;
+            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bullet.transform.forward.x, bullet.transform.forward.y) * bulletSpeed;
+        }
     }
 
 

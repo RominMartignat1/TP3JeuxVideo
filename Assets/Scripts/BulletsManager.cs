@@ -7,8 +7,6 @@ public class BulletsManager : MonoBehaviour
 {
 
     [SerializeField] private GameObject source;
-    [SerializeField] private GameObject bulletSpawnPoint;
-
     [SerializeField] private float bulletSpeed = 75;
     [SerializeField] private float maxTimeActive = 4;
 
@@ -67,16 +65,9 @@ public class BulletsManager : MonoBehaviour
                         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, bulletSpeed * Time.deltaTime);
                     }
                 }
-                
+
             }
         }
-    }
-
-    private void OnEnable()
-    {
-        GetComponent<Rigidbody2D>().transform.position = bulletSpawnPoint.transform.position;
-        GetComponent<Rigidbody2D>().transform.forward = bulletSpawnPoint.transform.forward;
-        GetComponent<Rigidbody2D>().velocity = new Vector2(gameObject.transform.forward.x, gameObject.transform.forward.y) * bulletSpeed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

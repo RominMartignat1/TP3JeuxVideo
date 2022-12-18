@@ -141,19 +141,7 @@ public class Finder : MonoBehaviour
         return positionToReturn;
     }
 
-    public GameObject GetFirstAvailableObject(GameObject parent)
-    {
-        for (int i = 0; i < parent.transform.childCount; i++)
-        {
-            Transform child = parent.transform.GetChild(i);
 
-            if (!child.gameObject.activeSelf)
-            {
-                return child.gameObject;
-            }
-        }
-        return null;
-    }
 
     public GameObject GetFirstAvailableObject(List<GameObject> gameObjects)
     {
@@ -161,6 +149,7 @@ public class Finder : MonoBehaviour
         {
             if (!gameObjects[i].activeInHierarchy)
             {
+                gameObjects[i].SetActive(true);
                 return gameObjects[i];
             }
         }

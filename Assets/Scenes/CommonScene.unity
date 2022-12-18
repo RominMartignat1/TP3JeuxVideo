@@ -260,9 +260,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1424673430056593529, guid: 28796c2d335bee644895408f45516e7a, type: 3}
+      propertyPath: gun
+      value: 
+      objectReference: {fileID: 21374316}
+    - target: {fileID: 1424673430056593529, guid: 28796c2d335bee644895408f45516e7a, type: 3}
       propertyPath: bullet
       value: 
-      objectReference: {fileID: 2013224462}
+      objectReference: {fileID: 4488438001233183550, guid: 81eefdb8198b0c94ebca82ddba41c672, type: 3}
     - target: {fileID: 1424673430056593529, guid: 28796c2d335bee644895408f45516e7a, type: 3}
       propertyPath: finder
       value: 
@@ -360,11 +364,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &911446191 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2811309115269575797, guid: 76f9f7e481c3c44439b4be7cd490d3f8, type: 3}
-  m_PrefabInstance: {fileID: 1080319793}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &920205245 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 939258264346637418, guid: 0319833b2d95a4c499b7dc2f0c208e32, type: 3}
@@ -1614,11 +1613,6 @@ Transform:
   m_Father: {fileID: 1112912585}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2013224462 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2811309114503139515, guid: 76f9f7e481c3c44439b4be7cd490d3f8, type: 3}
-  m_PrefabInstance: {fileID: 1080319793}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2030859153
 GameObject:
   m_ObjectHideFlags: 0
@@ -1855,9 +1849,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1424673430056593529, guid: 28796c2d335bee644895408f45516e7a, type: 3}
+      propertyPath: gun
+      value: 
+      objectReference: {fileID: 21374316}
+    - target: {fileID: 1424673430056593529, guid: 28796c2d335bee644895408f45516e7a, type: 3}
       propertyPath: bullet
       value: 
-      objectReference: {fileID: 911446191}
+      objectReference: {fileID: 7154565940362090006, guid: cd98fc3841bd25d4da38c32cc431fdf7, type: 3}
     - target: {fileID: 1424673430056593529, guid: 28796c2d335bee644895408f45516e7a, type: 3}
       propertyPath: finder
       value: 
