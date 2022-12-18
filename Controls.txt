@@ -1,0 +1,16 @@
+# TP3JeuxVideo
+
+Pour jouer avec clavier souris :
+	joueur1(bleu) =
+		gauche = a
+		droite = d
+		sauter = espace
+		tirer = click
+	joueur2(rouge) = 
+		gauche = <-
+		droite = ->
+		sauter = flèche du haut
+		tirer = click //TODO changer ça pour le deuxième joueur
+		
+Pour jouer avec une manette : 
+		//Il n'y a pas encore le support
