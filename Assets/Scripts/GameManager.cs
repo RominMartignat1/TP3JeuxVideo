@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private const int maxLives = 3;
 
     private int actualLevel = 0;
-    private string winnerName = "joueur1";
+    private string winnerName = "personne";
 
     private int accumulatedScore = 0;
     private int lives = maxLives;
