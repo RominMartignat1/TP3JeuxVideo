@@ -4,24 +4,10 @@ using UnityEngine;
 
 public class PlayerRespawnerController : MonoBehaviour
 {
-
     [SerializeField] private Finder finder;
-    private GameObject[] players ;
-
-    void Start()
-    {
-        players = GameObject.FindGameObjectsWithTag("Player");
-        
-    }
-
-    private void Awake()
-    {
-   
-    }
-
     void Update()
     {
-        foreach (GameObject player in players)
+        foreach (GameObject player in finder.GetPlayers())
         {
             if (!player.activeSelf)
             {
@@ -33,6 +19,6 @@ public class PlayerRespawnerController : MonoBehaviour
     public void RespawnPlayer(GameObject player)
     {
         player.SetActive(true);
-        player.transform.position = new Vector2(this.transform.position.x, this.transform.position.y);
+        player.transform.position = new Vector2(transform.position.x, transform.position.y);
     }
 }

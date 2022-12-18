@@ -155,6 +155,18 @@ public class Finder : MonoBehaviour
         return null;
     }
 
+    public GameObject GetFirstAvailableObject(GameObject[] gameObjects)
+    {
+        for (int i = 0; i < gameObjects.Length; i++)
+        {
+            if (gameObjects[i].activeInHierarchy)
+            {
+                return gameObjects[i];
+            }
+        }
+        return null;
+    }
+
     public GameObject[] GetChildHearths(GameObject parent)
     {
         return null;

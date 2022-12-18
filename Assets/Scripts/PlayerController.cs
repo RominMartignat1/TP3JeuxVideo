@@ -25,8 +25,8 @@ public class PlayerController : MonoBehaviour
     private float acceleration;
     public bool isRespawning = false;
     private bool isInvicible = false;
-    [SerializeField] private Finder finders;
-    GameSceneManager managerOfTheScene;
+    [SerializeField] private Finder finder;
+    [SerializeField] private GameSceneManager sceneManager;
     AudioSource soundSource;
     private int doubleJumpExtraCounter = 0;
     private int doubleJumpCounter = 0;
@@ -42,11 +42,6 @@ public class PlayerController : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         soundSource = GetComponent<AudioSource>();
-    }
-
-    private void Start()
-    {
-        managerOfTheScene = FindObjectOfType<GameSceneManager>();
     }
 
     private void FixedUpdate()
@@ -71,7 +66,7 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         rigidBody.velocity = new Vector2(0.0f, 0.0f);
-        //soundSource.PlayOneShot(SoundManager.Instance.PlayerDeath);
+        soundSource.PlayOneShot(SoundManager.Instance.PlayerDeath);
         hasDied = true;
         canPlayerMove = false;
         acceleration = 0.0f;
@@ -91,11 +86,6 @@ public class PlayerController : MonoBehaviour
     {
         if (!PauseManager.GameIsPaused)
         {
-            if (team == PlayerTeam.Blue)
-            {
-                Debug.Log("isgrounded: " + isGrounded);
-            }
-
             if (canPlayerMove)
             {
                 ManageMovement();
@@ -103,7 +93,6 @@ public class PlayerController : MonoBehaviour
                 animator.SetFloat("Speed", horizontal);
             }
         }
-
     }
 
     private void ManageMovement()
@@ -151,7 +140,6 @@ public class PlayerController : MonoBehaviour
             if (((Input.GetButtonDown("Jump") && team == PlayerTeam.Blue) || (Input.GetButtonDown("JumpP2") && team == PlayerTeam.Red)) && (IsGrounded() ||
              (doubleJumpExtraCounter > 0 &&  doubleJumpCounter < 1)))
             {
-                Debug.Log(IsGrounded());
                 animator.SetBool("Is Jumping", true);
                 jumpPower = 3.0f;
                 soundSource.PlayOneShot(SoundManager.Instance.PlayerJump);
@@ -199,7 +187,7 @@ public class PlayerController : MonoBehaviour
         hasDied = false;
         isRespawning = true;
         soundSource.PlayOneShot(SoundManager.Instance.PlayerDeath);
-        managerOfTheScene.SubstractLife(team);
+        sceneManager.SubstractLife(team);
         StartCoroutine(Blink(0.5f));
         isRespawning = true;
         //respawn();
@@ -221,10 +209,8 @@ public class PlayerController : MonoBehaviour
         {
             if (Collider2D.gameObject.tag == "GreenMushroom")
             {
-
-                managerOfTheScene.AddLife(team);
+                sceneManager.AddLife(team);
                 //TODO trouver un son pour une vie de plus
-
             }
 
             if (Collider2D.gameObject.tag == "wall")

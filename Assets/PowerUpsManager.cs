@@ -4,18 +4,29 @@ using UnityEngine;
 
 public class PowerUpsManager : MonoBehaviour
 {
-    [SerializeField]private Finder finder;
+    public GameObject[] powerUps;
+    [SerializeField] private Finder finder;
     private GameObject[] childPowerUpsList;
     private float spawnCooldown = 0f;
     private float spawnCooldownMax;
-    
 
-
-    GameObject powerUp;
+    private int maxPowerUpsPerType = 10;
 
     void Start()
     {
         childPowerUpsList = finder.GetChilds(gameObject);
+        InitPowerUps();
+    }
+
+    private void InitPowerUps()
+    {
+        for (int i = 0; i < maxPowerUpsPerType; i++)
+        {
+            for (int j = 0; j < powerUps.Length; j++)
+            {
+                Instantiate(powerUps[j], Vector2.zero, Quaternion.identity, transform);
+            }
+        }
     }
 
     void Update()
@@ -32,12 +43,17 @@ public class PowerUpsManager : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D collision) {
+        if(CompareTag("Despawner")) {
+            gameObject.SetActive(false);
+        }
+    }
+
     private void SpawnPowerUp()
     {
-        powerUp = finder.GetRandomInactiveChild(gameObject);
+        GameObject powerUp = finder.GetRandomInactiveChild(gameObject);
         if (powerUp != null)
         {
-            //Debug.Log("Spawned PowerUp");
             powerUp.SetActive(true);
         }
     }

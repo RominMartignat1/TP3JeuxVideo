@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class ShotsController : MonoBehaviour
 {
-
     private GameObject gun;
-    private GameObject bullets; 
+    public GameObject bullet;
+    private GameObject[] bullets;
+    private int maxBulletsEachTeam;
     private GameObject player;
     private float bulletSpeed = 10f;
     private float bulletLifeTime = 2f;
@@ -29,19 +30,20 @@ public class ShotsController : MonoBehaviour
 
     private int homingBulletExtraCount = 0;
 
-
-
-
-
-
     void Start()
     {
         //gun = GetChildWithTag(gameObject, "Bullets");
         //bullets = gun.transform.GetChild(0).gameObject;//GetChildsSpawnerActive(gun.transform.GetChild(0).gameObject);
         gun = GetChildWithTag(gameObject, "Gun");
-        bullets = GameObject.FindGameObjectWithTag("Player1Bullets");
         soundSource = gameObject.GetComponent<AudioSource>();
-        //Debug.Log(bullets.Length + "bullets");
+    }
+
+    private void InitBullets()
+    {
+        for (int i = 0; i < maxBulletsEachTeam; i++)
+        {
+            Instantiate(bullet, Vector2.zero, Quaternion.identity, transform);
+        }
     }
 
     public GameObject[] GetChildsSpawnerActive(GameObject parent)
@@ -120,13 +122,13 @@ public class ShotsController : MonoBehaviour
                 }
             }
         }
-       
+
     }
 
 
     public void addHommingBullet()
     {
-        homingBulletExtraCount+= 3;
+        homingBulletExtraCount += 3;
     }
 
 
