@@ -1,5 +1,8 @@
 # TP3JeuxVideo
 
+IMPORTANT !!!!!!!!!!!!!!!! Seulement la scène de jeu peut utiliser les manettes 
+
+
 Pour jouer avec clavier souris :
 	joueur1(bleu) =
 		gauche = a

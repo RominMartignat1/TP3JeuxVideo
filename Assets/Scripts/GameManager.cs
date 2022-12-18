@@ -119,7 +119,6 @@ public class GameManager : MonoBehaviour
     private IEnumerator RestartLevelDelay(float delay, int level)
     {
         yield return new WaitForSeconds(delay);
-        textsNotLinked = true;
 
 
            if(level == MENU_SCENE)
