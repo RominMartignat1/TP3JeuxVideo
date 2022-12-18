@@ -5,11 +5,10 @@ using teams;
 
 public class ArmController : MonoBehaviour
 {
-
     private PlayerController playerController;
     void Start()
     {
-        playerController = gameObject.transform.parent.gameObject.GetComponent<PlayerController>();
+        playerController = transform.parent.transform.parent.GetComponent<PlayerController>();
     }
 
     void Update()
@@ -23,11 +22,13 @@ public class ArmController : MonoBehaviour
             horizontal = Input.GetAxis("HorizontalRightP2");
             vertical = Input.GetAxis("VerticalRightP2");
         }
-        if(Input.GetJoystickNames().Length > 0) {
+        Debug.Log(Input.GetJoystickNames().Length);
+        if((Input.GetJoystickNames().Length == 1 && playerController.GetTeam() == Teams.Red) || Input.GetJoystickNames().Length >= 2) {
             transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(horizontal, vertical) * -180 / Mathf.PI + 90);
+        } else {
+            Vector3 mousePos = Input.mousePosition;
+            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            transform.LookAt(mousePos,new Vector3(0, 0, 1));
         }
-        Vector3 mousePos = Input.mousePosition;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        transform.LookAt(mousePos,new Vector3(0, 0, 1));
     }
 }

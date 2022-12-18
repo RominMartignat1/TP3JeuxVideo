@@ -15,13 +15,12 @@ public class GameManager : MonoBehaviour
     public bool isPaused = false;
 
     private int actualLevel = 0;
-    private string winnerName = "personne";
-
+    private string winnerName = "Patoum patoum";
 
     bool scenesAreInTransition = false;
 
-    private string player1Name = "joueur1";
-    private string player2Name = "joueur2";
+    private string player1Name = "Équipe bleue";
+    private string player2Name = "Équipe rouge";
 
 
     void Awake()
