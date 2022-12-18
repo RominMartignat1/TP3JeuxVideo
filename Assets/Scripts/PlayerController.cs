@@ -4,7 +4,6 @@ using teams;
 
 public class PlayerController : MonoBehaviour
 {
-
     private int isGrounded;
     [SerializeField] Teams team;
     private Rigidbody2D rigidBody;
@@ -14,13 +13,11 @@ public class PlayerController : MonoBehaviour
     private float jumpTimer;
     private float jumpIntensity;
     private float jumpPower;
-    private float maxThreshold;
     private bool hasDied;
     private bool canPlayerMove;
     private float deathTimer;
     private float acceleration;
     public bool isRespawning = false;
-    private bool isInvicible = false;
     [SerializeField] private Finder finder;
     [SerializeField] private GameSceneManager sceneManager;
     AudioSource soundSource;
@@ -30,7 +27,6 @@ public class PlayerController : MonoBehaviour
     public PlayerController()
     {
         canPlayerMove = true;
-        maxThreshold = 0.2f;
         acceleration = 0.0f;
     }
     private void Awake()
@@ -223,7 +219,7 @@ public class PlayerController : MonoBehaviour
             }
             if (Collider2D.gameObject.tag == "Player")
             {
-               
+
                 Collider2D.gameObject.GetComponent<PlayerController>().acceleration = acceleration;
             }
         }
@@ -285,7 +281,6 @@ public class PlayerController : MonoBehaviour
             {
                 isGrounded++;
                 collisionThreshold = 0;
-                maxThreshold = 0.2f;
             }
         }
 
