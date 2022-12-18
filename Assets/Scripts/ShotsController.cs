@@ -113,23 +113,20 @@ public class ShotsController : MonoBehaviour
                     {
                         homingBulletExtraCount--;
                         GameObject bullet = finder.GetFirstAvailableObject(bullets);
-                        SpawnBullet(bullet);
+                        SpawnBullet(bullet, true);
                     }
                 }
             }
         }
     }
 
-    private void SpawnBullet(GameObject bullet)
+    private void SpawnBullet(GameObject bullet, bool homing = false)
     {
         if (bullet != null)
         {
-            bullet.GetComponent<BulletsManager>().SetHoming(false);
             soundSource.PlayOneShot(SoundManager.Instance.FireBulletSound);
+            bullet.GetComponent<BulletsManager>().Shoot(gun, homing);
             shotcooldown = shootingCooldown;
-            bullet.GetComponent<Rigidbody2D>().transform.position = gun.transform.position;
-            bullet.GetComponent<Rigidbody2D>().transform.forward = gun.transform.forward;
-            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bullet.transform.forward.x, bullet.transform.forward.y) * bulletSpeed;
         }
     }
 
