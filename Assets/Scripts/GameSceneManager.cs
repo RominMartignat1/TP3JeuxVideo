@@ -75,9 +75,9 @@ public class GameSceneManager : MonoBehaviour
         
         if (player1Life <= 0)
         {
-            GameManager.instance.EndGame(playerName1Text.text);
+            GameManager.instance.EndGame(playerName2Text.text);
         }
-        else if (player2Life <= 0)
+        else if(player2Life <= 0)
         {
             GameManager.instance.EndGame(playerName1Text.text);
         }
@@ -106,25 +106,8 @@ public class GameSceneManager : MonoBehaviour
             player2Lifes[player2Life].GetComponent<Image>().color = black;
         }
 
-        if (player1Life <= 0 || player2Life <= 0)
-        {
-            ManagerWinner(player);
-                
-        }
     }
 
-    private void ManagerWinner(PlayerController.PlayerTeam player)
-    {
-        if (player == PlayerController.PlayerTeam.Blue)
-        {
-            GameManager.instance.EndGame(playerName2Text.text);
-        }
-        else
-        {
-            GameManager.instance.EndGame(playerName1Text.text);
-            
-        }
-    }
 
     public void AddLife(PlayerController.PlayerTeam player)
     {
