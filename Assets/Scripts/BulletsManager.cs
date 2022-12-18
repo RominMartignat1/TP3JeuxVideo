@@ -70,6 +70,13 @@ public class BulletsManager : MonoBehaviour
         }
     }
 
+    public void Shoot(GameObject gun, bool homing) {
+            SetHoming(homing);
+            GetComponent<Rigidbody2D>().transform.position = gun.transform.position;
+            GetComponent<Rigidbody2D>().transform.forward = gun.transform.forward;
+            GetComponent<Rigidbody2D>().velocity = new Vector2(transform.forward.x, transform.forward.y) * bulletSpeed;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
