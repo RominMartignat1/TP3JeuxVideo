@@ -38,7 +38,6 @@ public class GameSceneManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!gameIsEnded)
@@ -94,7 +93,7 @@ public class GameSceneManager : MonoBehaviour
 
     public void SubstractLife(Teams team)
     {
-       
+
         if (team == Teams.Blue)
         {
             player1Life -= LIFE_TO_ADD;

@@ -137,11 +137,11 @@ public class PlayerController : MonoBehaviour
                 soundSource.PlayOneShot(SoundManager.Instance.PlayerJump);
                 if(System.Math.Abs(acceleration) > 1.0f && System.Math.Abs(acceleration) < 2.0f)
                 {
-                    //jumpIntensity = 10.5f;
+                    jumpIntensity = 10.5f;
                 }
                 else if (System.Math.Abs(acceleration) > 2.0f && System.Math.Abs(acceleration) < 3.0f)
                 {
-                    //jumpIntensity = 2.0f;
+                    jumpIntensity = 2.0f;
                 }
                 else if (System.Math.Abs(acceleration) > 3.0f)
                 {
