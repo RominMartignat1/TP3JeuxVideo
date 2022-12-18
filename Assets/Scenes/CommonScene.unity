@@ -238,6 +238,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1424673430056593529, guid: 28796c2d335bee644895408f45516e7a, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 4488438001233183550, guid: 81eefdb8198b0c94ebca82ddba41c672, type: 3}
+    - target: {fileID: 1424673430056593529, guid: 28796c2d335bee644895408f45516e7a, type: 3}
       propertyPath: finder
       value: 
       objectReference: {fileID: 920205245}
@@ -372,6 +376,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1613440524}
+  - component: {fileID: 1613440525}
   m_Layer: 0
   m_Name: GameSceneManager
   m_TagString: Untagged
@@ -394,6 +399,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1613440525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613440523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa1049087d47708438778c05e9021fcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addSpeed:
+    m_PersistentCalls:
+      m_Calls: []
+  playerName1Text: {fileID: 0}
+  playerName2Text: {fileID: 0}
+  timerText: {fileID: 0}
 --- !u!1 &1634622176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1471,6 +1494,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1424673430056593529, guid: 28796c2d335bee644895408f45516e7a, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 7154565940362090006, guid: cd98fc3841bd25d4da38c32cc431fdf7, type: 3}
     - target: {fileID: 1424673430056593529, guid: 28796c2d335bee644895408f45516e7a, type: 3}
       propertyPath: finder
       value: 
