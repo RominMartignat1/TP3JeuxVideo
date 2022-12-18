@@ -6,7 +6,7 @@ public class ShotsController : MonoBehaviour
 {
     private GameObject gun;
     public GameObject bullet;
-    private GameObject bullets;
+    private List<GameObject> bullets = new List<GameObject>();
     private int maxBulletsEachTeam;
     private GameObject player;
     private float bulletSpeed = 10f;
@@ -38,11 +38,17 @@ public class ShotsController : MonoBehaviour
         soundSource = gameObject.GetComponent<AudioSource>();
     }
 
+    void Awake() {
+        InitBullets();
+    }
+
     private void InitBullets()
     {
         for (int i = 0; i < maxBulletsEachTeam; i++)
         {
-            Instantiate(bullet, Vector2.zero, Quaternion.identity, transform);
+            GameObject b = Instantiate(bullet, Vector2.zero, Quaternion.identity, transform);
+            bullets.Add(b);
+            Debug.Log(bullets[0]);
         }
     }
 
@@ -53,7 +59,7 @@ public class ShotsController : MonoBehaviour
         {
             //if (parent.transform.GetChild(i).gameObject.activeSelf)
             //{
-                array[i] = parent.transform.GetChild(i).gameObject;
+            array[i] = parent.transform.GetChild(i).gameObject;
             //}
         }
         return array;
@@ -89,13 +95,12 @@ public class ShotsController : MonoBehaviour
             if (Input.GetButtonDown("Fire1"))
             {
                 Debug.Log("Fire1");
-                
+
                 if (shotcooldown <= 0)
                 {
                     Debug.Log("Fire1 AGAIN");
                     soundSource.PlayOneShot(SoundManager.Instance.FireBulletSound);
                     GameObject bullet = finder.GetFirstAvailableObject(bullets);
-                    Debug.Log( "bullet :");
                     if (bullet != null)
                     {
                         bullet.SetActive(true);

@@ -16,7 +16,7 @@ public class Finder : MonoBehaviour
     {
         respawnArea = GameObject.Find("RespawnAera");
         players = GameObject.FindGameObjectsWithTag("Player");
-        parentOfPlatform =  GameObject.Find("Platforms");
+        parentOfPlatform = GameObject.Find("Platforms");
         //bullets = GameObject.Find("Bullets");
         powerUps = GameObject.Find("PowerUps");
     }
@@ -135,7 +135,7 @@ public class Finder : MonoBehaviour
         {
             if (positionToReturn.y < players[i].transform.position.y)
             {
-               positionToReturn.y = players[i].transform.position.y;
+                positionToReturn.y = players[i].transform.position.y;
             }
         }
         return positionToReturn;
@@ -155,11 +155,11 @@ public class Finder : MonoBehaviour
         return null;
     }
 
-    public GameObject GetFirstAvailableObject(GameObject[] gameObjects)
+    public GameObject GetFirstAvailableObject(List<GameObject> gameObjects)
     {
-        for (int i = 0; i < gameObjects.Length; i++)
+        for (int i = 0; i < gameObjects.Count; i++)
         {
-            if (gameObjects[i].activeInHierarchy)
+            if (!gameObjects[i].activeInHierarchy)
             {
                 return gameObjects[i];
             }
