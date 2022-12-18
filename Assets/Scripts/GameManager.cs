@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("HomeScene");
 
         else if (level == GAME_SCENE)
-            SceneManager.LoadScene("SceneRomin");
+            SceneManager.LoadScene("CommonScene");
         else if (level == END_SCENE)
             SceneManager.LoadScene("GameOverScene");
        /* else
