@@ -94,11 +94,8 @@ public class ShotsController : MonoBehaviour
             shotcooldown = DecreaseCooldown(shotcooldown);
             if (Input.GetButtonDown("Fire1"))
             {
-                Debug.Log("Fire1");
-
                 if (shotcooldown <= 0)
                 {
-                    Debug.Log("Fire1 AGAIN");
                     soundSource.PlayOneShot(SoundManager.Instance.FireBulletSound);
                     GameObject bullet = finder.GetFirstAvailableObject(bullets);
                     SpawnBullet(bullet);
@@ -125,7 +122,7 @@ public class ShotsController : MonoBehaviour
         if (bullet != null)
         {
             soundSource.PlayOneShot(SoundManager.Instance.FireBulletSound);
-            bullet.GetComponent<BulletsManager>().Shoot(gun, homing);
+            bullet.GetComponent<BulletsManager>().Shoot(gameObject, gun, homing);
             shotcooldown = shootingCooldown;
         }
     }

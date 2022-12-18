@@ -6,7 +6,7 @@ using UnityEngine;
 public class BulletsManager : MonoBehaviour
 {
 
-    [SerializeField] private GameObject source;
+    private GameObject source;
     [SerializeField] private float bulletSpeed = 75;
     [SerializeField] private float maxTimeActive = 4;
 
@@ -17,8 +17,8 @@ public class BulletsManager : MonoBehaviour
 
     public enum BulletTeam
     {
-        Team1,
-        Team2
+        Blue,
+        Red
     }
 
     [SerializeField] private BulletTeam bulletTeam;
@@ -51,7 +51,7 @@ public class BulletsManager : MonoBehaviour
 
         if (isHomingBullet)
         {
-            GetComponent<Renderer>().material.color = Color.red;
+            GetComponent<Renderer>().material.color = Color.yellow;
             if(players == null)
             {
                 players = GameObject.FindGameObjectsWithTag("Player");
@@ -70,7 +70,8 @@ public class BulletsManager : MonoBehaviour
         }
     }
 
-    public void Shoot(GameObject gun, bool homing) {
+    public void Shoot(GameObject gun, GameObject source, bool homing) {
+            this.source = source;
             SetHoming(homing);
             GetComponent<Rigidbody2D>().transform.position = gun.transform.position;
             GetComponent<Rigidbody2D>().transform.forward = gun.transform.forward;
