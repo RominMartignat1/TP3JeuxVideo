@@ -7,7 +7,6 @@ public class SoundManager : MonoBehaviour
     private static SoundManager instance = null;
 
     [SerializeField] private AudioClip playerJump;
-    [SerializeField] private AudioClip playerKilled;
     [SerializeField] private AudioClip gameMusic;
     [SerializeField] private AudioClip bulletSound;
     [SerializeField] private AudioClip deathSound;

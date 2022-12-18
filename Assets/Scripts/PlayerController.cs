@@ -181,6 +181,7 @@ public class PlayerController : MonoBehaviour
 
     private void respawnSequence()
     {
+        soundSource.PlayOneShot(SoundManager.Instance.PlayerDeath);
         GetComponent<Rigidbody2D>().isKinematic = true;
         canPlayerMove = true;
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
@@ -188,6 +189,7 @@ public class PlayerController : MonoBehaviour
         isRespawning = true;
         StartCoroutine(Blink(0.5f));
         isRespawning = true;
+        
         //respawn();
         isRespawning = false;
         canPlayerMove = true;
@@ -248,7 +250,6 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("player died");
                 sceneManager.SubstractLife(team);
-                soundSource.PlayOneShot(SoundManager.Instance.PlayerDeath);
                 gameObject.SetActive(false);
 
             }
