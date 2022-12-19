@@ -228,7 +228,7 @@ PrefabInstance:
       objectReference: {fileID: 956862574}
     - target: {fileID: 1424673430056593531, guid: 302f5e07a408be944b1bbfc0f83e24b9, type: 3}
       propertyPath: knockbackHitForce
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1424673430056593535, guid: 302f5e07a408be944b1bbfc0f83e24b9, type: 3}
       propertyPath: m_Name
@@ -2132,7 +2132,7 @@ PrefabInstance:
       objectReference: {fileID: 956862574}
     - target: {fileID: 7628235407955525551, guid: 9223feecb9662074f9e6946375a20876, type: 3}
       propertyPath: knockbackHitForce
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

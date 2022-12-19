@@ -15,6 +15,9 @@ public class Finder : MonoBehaviour
 
     public GameObject[] GetPlayers()
     {
+        if(players.Length == 0) {
+            players = GameObject.FindGameObjectsWithTag("Player");
+        }
         return players;
     }
 
