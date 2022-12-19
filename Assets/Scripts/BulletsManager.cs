@@ -12,7 +12,10 @@ public class BulletsManager : MonoBehaviour
     [SerializeField] private GameObject parentPlayer;
     private Finder finder;
     private bool isHomingBullet = false;
-    [SerializeField] private float velocityThreshold = 50;
+
+    [SerializeField] private float velocityThreshold = 7;
+
+    [SerializeField] private float  minVelocity = 4;
 
     void Start()
     {
@@ -36,7 +39,7 @@ public class BulletsManager : MonoBehaviour
         if (isHomingBullet)
         {
             GetComponent<Renderer>().material.color = Color.yellow;
-            foreach (GameObject player in finder.GetChilds(parentPlayer))
+            foreach (GameObject player in finder.GetPlayers())
             {
                 if (player != source)
                 {
@@ -52,13 +55,23 @@ public class BulletsManager : MonoBehaviour
         GetComponent<Rigidbody2D>().transform.LookAt(gun.transform.position);
         GetComponent<Rigidbody2D>().transform.forward = gun.transform.forward;
         GetComponent<Rigidbody2D>().velocity = new Vector2(transform.forward.x, transform.forward.y) * bulletSpeed;
-        if(GetComponent<Rigidbody2D>().velocity.x > velocityThreshold) {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(velocityThreshold, GetComponent<Rigidbody2D>().velocity.y);
-        }
-        if(GetComponent<Rigidbody2D>().velocity.y > velocityThreshold) {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.y, velocityThreshold);
-        }
+        limitVelocity(GetComponent<Rigidbody2D>().velocity);
         SetHoming(homing);
+    }
+
+    public void limitVelocity(Vector3 velocity) {
+        if(velocity.x <=  minVelocity) {
+            velocity = new Vector2(minVelocity, velocity.y);
+        }
+        if(velocity.y <=  minVelocity) {
+            velocity = new Vector2(velocity.x,  minVelocity);
+        }
+        if(velocity.x > velocityThreshold) {
+            velocity = new Vector2(velocityThreshold, velocity.y);
+        }
+        if(velocity.y > velocityThreshold) {
+            velocity = new Vector2(velocity.x, velocityThreshold);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

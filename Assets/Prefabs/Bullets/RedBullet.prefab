@@ -106,6 +106,8 @@ MonoBehaviour:
   maxTimeActive: 4
   timeActive: 0
   parentPlayer: {fileID: 5057662398673984951, guid: 27c9f55e60993884bbf0ea9acebe9092, type: 3}
+  velocityThreshold: 10
+  minVelocity: 2
 --- !u!61 &4488438001233183547
 BoxCollider2D:
   m_ObjectHideFlags: 0

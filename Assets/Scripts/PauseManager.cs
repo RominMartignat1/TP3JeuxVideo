@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PauseManager : MonoBehaviour
@@ -8,7 +6,7 @@ public class PauseManager : MonoBehaviour
     public static bool GameIsPaused { get { return gameIsPaused; } }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7))
+        if (Input.GetButtonDown("Pause"))
         {
             gameIsPaused = !gameIsPaused;
             PauseGame();
