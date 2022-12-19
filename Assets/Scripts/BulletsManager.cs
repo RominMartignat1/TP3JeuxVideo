@@ -12,7 +12,7 @@ public class BulletsManager : MonoBehaviour
     [SerializeField] private GameObject parentPlayer;
     private Finder finder;
     private bool isHomingBullet = false;
-
+    [SerializeField] private float velocityThreshold = 50;
 
     void Start()
     {
@@ -49,10 +49,15 @@ public class BulletsManager : MonoBehaviour
     public void Shoot(GameObject gun, bool homing)
     {
         GetComponent<Rigidbody2D>().transform.position = gun.transform.position;
-        transform.position = Vector3.MoveTowards(transform.position, gun.transform.position, bulletSpeed * Time.deltaTime);
         GetComponent<Rigidbody2D>().transform.LookAt(gun.transform.position);
         GetComponent<Rigidbody2D>().transform.forward = gun.transform.forward;
         GetComponent<Rigidbody2D>().velocity = new Vector2(transform.forward.x, transform.forward.y) * bulletSpeed;
+        if(GetComponent<Rigidbody2D>().velocity.x > velocityThreshold) {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(velocityThreshold, GetComponent<Rigidbody2D>().velocity.y);
+        }
+        if(GetComponent<Rigidbody2D>().velocity.y > velocityThreshold) {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.y, velocityThreshold);
+        }
         SetHoming(homing);
     }
 
