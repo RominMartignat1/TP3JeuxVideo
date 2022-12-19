@@ -6,7 +6,7 @@ public class Finder : MonoBehaviour
     private GameObject powerUps;
     private GameObject respawnArea;
     private GameObject[] players;
-    void Start()
+    void OnEnable()
     {
         respawnArea = GameObject.Find("RespawnAera");
         players = GameObject.FindGameObjectsWithTag("Player");
