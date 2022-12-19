@@ -9,7 +9,7 @@ public class Finder : MonoBehaviour
     void Start()
     {
         respawnArea = GameObject.Find("RespawnAera");
-        players = GetChilds(GameObject.Find("Players"));
+        players = GameObject.FindGameObjectsWithTag("Player");
         powerUps = GameObject.Find("PowerUps");
     }
 
@@ -23,10 +23,7 @@ public class Finder : MonoBehaviour
         GameObject[] array = new GameObject[parent.transform.childCount];
         for (int i = 0; i < parent.transform.childCount; i++)
         {
-            if (parent.transform.GetChild(i))
-            {
-                array[i] = parent.transform.GetChild(i).gameObject;
-            }
+            array[i] = parent.transform.GetChild(i).gameObject;
         }
         return array;
     }

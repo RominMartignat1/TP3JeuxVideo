@@ -1,6 +1,6 @@
 # TP3JeuxVideo
 
-IMPORTANT !!!!!!!!!!!!!!!! Seulement la scène de jeu peut utiliser les manettes 
+IMPORTANT !!!!!!!!!!!!!!!! Seulement la scène de jeu peut utiliser les manettes
 
 
 Pour jouer avec clavier souris :
@@ -8,12 +8,19 @@ Pour jouer avec clavier souris :
 		gauche = a
 		droite = d
 		sauter = espace
-		tirer = click
-	joueur2(rouge) = 
+		tirer = click gauche
+		tireBonus = click droite
+	joueur2(rouge) =
 		gauche = <-
 		droite = ->
 		sauter = flèche du haut
-		tirer = click //TODO changer ça pour le deuxième joueur
-		
-Pour jouer avec une manette : 
-		//Il n'y a pas encore le support
+		tirer = '
+	viseur = souris
+
+Pour jouer avec une manette :
+	joueur1(bleu) et joueur 2(Rouge) =
+		déplacements = gachette gauche
+		viseur = gachette droite
+		sauter = a
+		tirer = RT
+		tireBonus = RB
