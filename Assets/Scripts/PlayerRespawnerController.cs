@@ -3,9 +3,10 @@ using UnityEngine;
 public class PlayerRespawnerController : MonoBehaviour
 {
     [SerializeField] private Finder finder;
+    [SerializeField] private GameObject parentPlayer;
     void Update()
     {
-        foreach (GameObject player in finder.GetPlayers())
+        foreach (GameObject player in finder.GetChilds(parentPlayer))
         {
             if (!player.activeSelf)
             {
