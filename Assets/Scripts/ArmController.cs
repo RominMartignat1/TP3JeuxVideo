@@ -25,7 +25,10 @@ public class ArmController : MonoBehaviour
         }
         if ((Input.GetJoystickNames().Length == 1 && playerController.GetTeam() == Teams.Red) || Input.GetJoystickNames().Length >= 2)
         {
-            transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(horizontal, vertical) * 180 / Mathf.PI + 90);
+            if (horizontal != 0 && vertical != 0)
+            {
+                transform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(horizontal, vertical) * 180 / Mathf.PI + 180);
+            }
         }
         else
         {

@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        soundSource = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -69,6 +68,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
+        soundSource = GetComponent<AudioSource>();
         if (hasDied)
         {
             respawnSequence();

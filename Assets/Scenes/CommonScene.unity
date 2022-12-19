@@ -1588,6 +1588,10 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 2235285369225400910, guid: ce06b06cfc2ce224ca87471290daadc3, type: 3}
+      propertyPath: finder
+      value: 
+      objectReference: {fileID: 920205245}
     - target: {fileID: 2687757157650087234, guid: ce06b06cfc2ce224ca87471290daadc3, type: 3}
       propertyPath: finder
       value: 
