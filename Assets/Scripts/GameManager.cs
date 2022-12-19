@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
     public void EndGame(string text)
     {
         winnerName = text;
-        StartEnding(1f);
+        StartEnding(1);
     }
 
     void Update()
@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
 
     private void StartEnding(float delay)
     {
-        if (scenesAreInTransition) return;  //Pour �viter plusieurs transitions lanc�es en bloc
+        if (scenesAreInTransition) return;
 
         scenesAreInTransition = true;
 
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(float delay)
     {
-        if (scenesAreInTransition) return;  //Pour �viter plusieurs transitions lanc�es en bloc
+        if (scenesAreInTransition) return;
 
         scenesAreInTransition = true;
 
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
 
     public void StartMenu(float delay)
     {
-        if (scenesAreInTransition) return;  //Pour �viter plusieurs transitions lanc�es en bloc
+        if (scenesAreInTransition) return;
 
         scenesAreInTransition = true;
 
@@ -119,10 +119,8 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-
-           if(level == MENU_SCENE)
+        if(level == MENU_SCENE)
             SceneManager.LoadScene("HomeScene");
-
         else if (level == GAME_SCENE)
             SceneManager.LoadScene("CommonScene");
         else if (level == END_SCENE)

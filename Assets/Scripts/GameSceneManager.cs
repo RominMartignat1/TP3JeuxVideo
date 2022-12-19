@@ -49,7 +49,6 @@ public class GameSceneManager : MonoBehaviour
         {
             FinishGame();
         }
-
     }
 
     private void CheckTimer()

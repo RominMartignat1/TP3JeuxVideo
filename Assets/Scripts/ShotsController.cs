@@ -19,7 +19,7 @@ public class ShotsController : MonoBehaviour
 
     void Start()
     {
-        gun = GetChildWithTag(gameObject, "Gun");
+        gun = finder.GetChildWithTag(gameObject, "Gun");
         soundSource = gameObject.GetComponent<AudioSource>();
         team = GetComponent<PlayerController>().GetTeam();
     }
@@ -39,53 +39,25 @@ public class ShotsController : MonoBehaviour
         }
     }
 
-    public GameObject[] GetChildsSpawnerActive(GameObject parent)
-    {
-        GameObject[] array = new GameObject[parent.transform.childCount];
-        for (int i = 0; i < parent.transform.childCount; i++)
-        {
-            array[i] = parent.transform.GetChild(i).gameObject;
-        }
-        return array;
+    bool IsFiring(int shotNb) {
+        Debug.Log(Input.GetAxisRaw("Fire" + shotNb));
+        return Input.GetButtonDown("Fire" + shotNb) && team == Teams.Blue || Input.GetButtonDown("Fire" + shotNb + "P2") && team == Teams.Red || Input.GetAxisRaw("Fire" + shotNb) != 0 && team == Teams.Blue || Input.GetAxisRaw("Fire" + shotNb + "P2") != 0 && team == Teams.Red;
     }
-
-
-    public GameObject GetChildWithTag(GameObject parent, string tag)
-    {
-        for (int i = 0; i < parent.transform.childCount; i++)
-        {
-            if (parent.transform.GetChild(i).gameObject.tag == tag)
-            {
-                return parent.transform.GetChild(i).gameObject;
-            }
-            else
-            {
-                GameObject child = GetChildWithTag(parent.transform.GetChild(i).gameObject, tag);
-                if (child != null)
-                {
-                    return child;
-                }
-            }
-        }
-        return null;
-    }
-
 
     void Update()
     {
         if (!PauseManager.GameIsPaused || !GameSceneManager.GameIsEnded)
         {
             shotcooldown = DecreaseCooldown(shotcooldown);
-            if (Input.GetButtonDown("Fire1") && team == Teams.Blue || Input.GetButtonDown("Fire1P2") && team == Teams.Red)
+            if (IsFiring(1))
             {
                 if (shotcooldown <= 0)
                 {
-                    soundSource.PlayOneShot(SoundManager.Instance.FireBulletSound);
                     GameObject bullet = finder.GetFirstAvailableObject(bullets);
                     SpawnBullet(bullet);
                 }
             }
-            if (Input.GetButtonDown("Fire2") && team == Teams.Blue || Input.GetButtonDown("Fire2P2") && team == Teams.Red)
+            if (IsFiring(2))
             {
                 if (homingBulletExtraCount > 0)
                 {

@@ -30,6 +30,27 @@ public class Finder : MonoBehaviour
         }
         return array;
     }
+
+    public GameObject GetChildWithTag(GameObject parent, string tag)
+    {
+        for (int i = 0; i < parent.transform.childCount; i++)
+        {
+            if (parent.transform.GetChild(i).gameObject.tag == tag)
+            {
+                return parent.transform.GetChild(i).gameObject;
+            }
+            else
+            {
+                GameObject child = GetChildWithTag(parent.transform.GetChild(i).gameObject, tag);
+                if (child != null)
+                {
+                    return child;
+                }
+            }
+        }
+        return null;
+    }
+    
     public GameObject GetRandomInactiveChild(GameObject parent)
     {
         GameObject[] array = GetChilds(parent);

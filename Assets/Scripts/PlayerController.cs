@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     AudioSource soundSource;
     private int doubleJumpExtraCounter = 0;
     private int doubleJumpCounter = 0;
-    [SerializeField] private float knockbackHitForce = 10;
+    [SerializeField] private float knockbackHitForce = 3;
     private bool isInvulnerable = false;
 
     public PlayerController()
@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Awake()
     {
+        soundSource = GetComponent<AudioSource>();
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -68,7 +69,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        soundSource = GetComponent<AudioSource>();
         if (hasDied)
         {
             respawnSequence();
@@ -273,7 +273,7 @@ public class PlayerController : MonoBehaviour
                     {
                         acceleration = -5.0f;
                     }
-                    rigidBody.AddForce(new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, collision.gameObject.GetComponent<Rigidbody2D>().velocity.y * knockbackHitForce), ForceMode2D.Impulse);
+                    rigidBody.AddForce(new Vector2(Mathf.Abs(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x) * knockbackHitForce, Mathf.Abs(collision.gameObject.GetComponent<Rigidbody2D>().velocity.y) * knockbackHitForce), ForceMode2D.Impulse);
                     isInvulnerable = true;
                 }
             }
