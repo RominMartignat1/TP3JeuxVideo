@@ -40,7 +40,6 @@ public class ShotsController : MonoBehaviour
     }
 
     bool IsFiring(int shotNb) {
-        Debug.Log(Input.GetAxisRaw("Fire" + shotNb));
         return Input.GetButtonDown("Fire" + shotNb) && team == Teams.Blue || Input.GetButtonDown("Fire" + shotNb + "P2") && team == Teams.Red || Input.GetAxisRaw("Fire" + shotNb) != 0 && team == Teams.Blue || Input.GetAxisRaw("Fire" + shotNb + "P2") != 0 && team == Teams.Red;
     }
 
