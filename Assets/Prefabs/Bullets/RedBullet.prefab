@@ -100,10 +100,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 442e24840e8732943a39b06e9e6b165d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 0
   source: {fileID: 1424673430056593535, guid: 302f5e07a408be944b1bbfc0f83e24b9, type: 3}
   bulletSpeed: 15
   maxTimeActive: 4
-  bulletTeam: 1
+  timeActive: 0
+  parentPlayer: {fileID: 5057662398673984951, guid: 27c9f55e60993884bbf0ea9acebe9092, type: 3}
 --- !u!61 &4488438001233183547
 BoxCollider2D:
   m_ObjectHideFlags: 0

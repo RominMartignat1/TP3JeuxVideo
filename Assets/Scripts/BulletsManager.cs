@@ -9,7 +9,7 @@ public class BulletsManager : MonoBehaviour
     [SerializeField] private float bulletSpeed = 75;
     [SerializeField] private float maxTimeActive = 4;
     [SerializeField] private float timeActive = 0;
-
+    [SerializeField] private GameObject parentPlayer;
     private Finder finder;
     private bool isHomingBullet = false;
 
@@ -36,7 +36,7 @@ public class BulletsManager : MonoBehaviour
         if (isHomingBullet)
         {
             GetComponent<Renderer>().material.color = Color.yellow;
-            foreach (GameObject player in finder.GetPlayers())
+            foreach (GameObject player in finder.GetChilds(parentPlayer))
             {
                 if (player != source)
                 {
