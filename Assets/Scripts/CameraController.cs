@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-
 
 public class CameraController : MonoBehaviour
 {
@@ -33,15 +29,13 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!PauseManager.GameIsPaused || !GameSceneManager.GameIsEnded) 
+        if (!PauseManager.GameIsPaused || !GameSceneManager.GameIsEnded)
         {
             if (isFollowingPlayer)
             {
                 makeCameraFollow(playerBeingFollowed);
             }
         }
-        
-        
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -65,9 +59,7 @@ public class CameraController : MonoBehaviour
                         }
                     }
                 }
-
             }
-
         }
     }
 
@@ -88,7 +80,6 @@ public class CameraController : MonoBehaviour
         {
             transform.position = new Vector3(cameraPos.x, playerPos.y, cameraPos.z);
         }
-
     }
 
     public void ChangeSpeed()

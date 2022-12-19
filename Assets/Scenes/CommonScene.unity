@@ -158,6 +158,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 2030859154}
     m_Modifications:
+    - target: {fileID: 1424673430056593526, guid: 302f5e07a408be944b1bbfc0f83e24b9, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1424673430056593526, guid: 302f5e07a408be944b1bbfc0f83e24b9, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 866433315
+      objectReference: {fileID: 0}
     - target: {fileID: 1424673430056593528, guid: 302f5e07a408be944b1bbfc0f83e24b9, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -245,7 +253,11 @@ PrefabInstance:
     - target: {fileID: 1424673431251836089, guid: 302f5e07a408be944b1bbfc0f83e24b9, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d2c0dc76eca05bb4eb4f3fc4a37f258d, type: 3}
+      objectReference: {fileID: 0}
+    - target: {fileID: 1424673431251836089, guid: 302f5e07a408be944b1bbfc0f83e24b9, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 302f5e07a408be944b1bbfc0f83e24b9, type: 3}
@@ -2021,7 +2033,7 @@ PrefabInstance:
     - target: {fileID: 7628235406776519533, guid: 9223feecb9662074f9e6946375a20876, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300018, guid: a0e7f1167efba544bb8d6e3198ae44f9, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 7628235406776519533, guid: 9223feecb9662074f9e6946375a20876, type: 3}
       propertyPath: m_SortingLayer
       value: 5
@@ -2031,6 +2043,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7628235406776519533, guid: 9223feecb9662074f9e6946375a20876, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 866433315
+      objectReference: {fileID: 0}
+    - target: {fileID: 7628235406776519533, guid: 9223feecb9662074f9e6946375a20876, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7628235407955525538, guid: 9223feecb9662074f9e6946375a20876, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7628235407955525538, guid: 9223feecb9662074f9e6946375a20876, type: 3}
       propertyPath: m_SortingLayerID
       value: 866433315
       objectReference: {fileID: 0}

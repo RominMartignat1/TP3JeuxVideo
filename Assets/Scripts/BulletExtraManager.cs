@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletExtraManager : MonoBehaviour
@@ -7,10 +5,6 @@ public class BulletExtraManager : MonoBehaviour
     private float timeActive = 0f;
     private float maxTimeActive = 10f;
     private Vector2 currentDirection = Vector2.left;
-
-    void Start()
-    {
-    }
 
     private void OnEnable()
     {

@@ -1,32 +1,18 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using teams;
 
 public class BulletsManager : MonoBehaviour
 {
-
+    [SerializeField] private Teams team;
     [SerializeField] private GameObject source;
     [SerializeField] private float bulletSpeed = 75;
     [SerializeField] private float maxTimeActive = 4;
+    [SerializeField] private float timeActive = 0;
 
-    private GameObject[] players;
-
+    private Finder finder;
     private bool isHomingBullet = false;
 
-    public enum BulletTeam
-    {
-        Blue,
-        Red
-    }
-    [SerializeField] private BulletTeam bulletTeam;
-
-    public BulletTeam GetBulletTeam()
-    {
-        return bulletTeam;
-    }
-
-    private float timeActive = 0f;
 
     void Start()
     {
@@ -35,12 +21,12 @@ public class BulletsManager : MonoBehaviour
 
     private void Update()
     {
-        if(isActiveAndEnabled)
+        if (isActiveAndEnabled)
         {
             timeActive += Time.deltaTime;
         }
 
-        if(timeActive >= maxTimeActive)
+        if (timeActive >= maxTimeActive)
         {
             gameObject.SetActive(false);
             timeActive = 0f;
@@ -50,30 +36,23 @@ public class BulletsManager : MonoBehaviour
         if (isHomingBullet)
         {
             GetComponent<Renderer>().material.color = Color.yellow;
-            if(players == null)
+            foreach (GameObject player in finder.GetPlayers())
             {
-                players = GameObject.FindGameObjectsWithTag("Player");
-            }
-            else
-            {
-                foreach (GameObject player in players)
+                if (player != source)
                 {
-                    if (player != source)
-                    {
-                        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, bulletSpeed * Time.deltaTime);
-                    }
+                    transform.position = Vector3.MoveTowards(transform.position, player.transform.position, bulletSpeed * Time.deltaTime);
                 }
-
             }
         }
     }
 
-    public void Shoot(GameObject gun, bool homing) {
-            GetComponent<Rigidbody2D>().transform.position = gun.transform.position;
-            GetComponent<Rigidbody2D>().transform.forward = gun.transform.forward;
-            GetComponent<Rigidbody2D>().transform.LookAt(gun.transform.position);
-            GetComponent<Rigidbody2D>().velocity = new Vector2(transform.forward.x, transform.forward.y) * bulletSpeed;
-            SetHoming(homing);
+    public void Shoot(GameObject gun, bool homing)
+    {
+        GetComponent<Rigidbody2D>().transform.position = gun.transform.position;
+        GetComponent<Rigidbody2D>().transform.forward = gun.transform.forward;
+        GetComponent<Rigidbody2D>().transform.LookAt(gun.transform.position);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(transform.forward.x, transform.forward.y) * bulletSpeed;
+        SetHoming(homing);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -95,9 +74,7 @@ public class BulletsManager : MonoBehaviour
         this.isHomingBullet = isHomingBullet;
     }
 
-
-    public GameObject GetSource()
-    {
-        return this.source;
+    public Teams GetTeam() {
+        return team;
     }
 }

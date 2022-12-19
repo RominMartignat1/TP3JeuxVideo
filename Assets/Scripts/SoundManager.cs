@@ -15,7 +15,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip deathSound;
     [SerializeField] private AudioClip powerUpSound;
 
-
     public static SoundManager Instance { get { return instance; } }
     public AudioClip PlayerJumpHigh { get { return playerJumpHigh; } }
     public AudioClip PlayerJumpMid { get { return playerJumpMid; } }

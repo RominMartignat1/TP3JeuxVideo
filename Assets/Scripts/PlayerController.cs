@@ -162,8 +162,6 @@ public class PlayerController : MonoBehaviour
                         doubleJumpCounter++;
                     }
 
-                    Debug.Log("Double Jump");
-
                     if(doubleJumpCounter > 1)
                     {
                         doubleJumpExtraCounter--;
@@ -202,7 +200,7 @@ public class PlayerController : MonoBehaviour
             if (Collider2D.gameObject.tag == "GreenMushroom")
             {
                 sceneManager.AddLife(team);
-                //TODO trouver un son pour une vie de plus
+                soundSource.PlayOneShot(SoundManager.Instance.PowerUp);
             }
 
             if (Collider2D.gameObject.tag == "wall")
@@ -211,12 +209,12 @@ public class PlayerController : MonoBehaviour
                 if (rigidBody.velocity.x > 0)
                 {
                     acceleration = 0.0f;
-                    acceleration = 5.0f;//oldAcceleration * 0.75f;
+                    acceleration = 5.0f;
                 }
                 else
                 {
                     acceleration = 0.0f;
-                    acceleration = -5.0f;//-oldAcceleration * 0.75f;
+                    acceleration = -5.0f;
                 }
             }
             if (Collider2D.gameObject.tag == "Player")
@@ -241,9 +239,7 @@ public class PlayerController : MonoBehaviour
             {
                 sceneManager.SubstractLife(team);
                 gameObject.SetActive(false);
-
             }
-
 
             if(collision.gameObject.tag == "BulletPowerUp")
             {
@@ -257,7 +253,7 @@ public class PlayerController : MonoBehaviour
 
             if (collision.gameObject.tag == "Bullet")
             {
-                if (collision.gameObject.GetComponent<BulletsManager>().GetBulletTeam().ToString() == team.ToString())
+                if (collision.gameObject.GetComponent<BulletsManager>().GetTeam() == team)
                 {
                     return;
                 }

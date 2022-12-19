@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using teams;
@@ -20,8 +19,6 @@ public class ShotsController : MonoBehaviour
 
     void Start()
     {
-        //gun = GetChildWithTag(gameObject, "Bullets");
-        //bullets = gun.transform.GetChild(0).gameObject;//GetChildsSpawnerActive(gun.transform.GetChild(0).gameObject);
         gun = GetChildWithTag(gameObject, "Gun");
         soundSource = gameObject.GetComponent<AudioSource>();
         team = GetComponent<PlayerController>().GetTeam();
@@ -47,10 +44,7 @@ public class ShotsController : MonoBehaviour
         GameObject[] array = new GameObject[parent.transform.childCount];
         for (int i = 0; i < parent.transform.childCount; i++)
         {
-            //if (parent.transform.GetChild(i).gameObject.activeSelf)
-            //{
             array[i] = parent.transform.GetChild(i).gameObject;
-            //}
         }
         return array;
     }

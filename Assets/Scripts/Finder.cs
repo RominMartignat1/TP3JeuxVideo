@@ -5,19 +5,13 @@ using UnityEngine;
 
 public class Finder : MonoBehaviour
 {
-    // Start is called before the first frame update
-    private GameObject parentOfPlatform;
-    private GameObject wallPaperParent;
-    private GameObject bullets;
     private GameObject powerUps;
     private GameObject respawnArea;
     private GameObject[] players;
     void Start()
     {
         respawnArea = GameObject.Find("RespawnAera");
-        players = GameObject.FindGameObjectsWithTag("Player");
-        parentOfPlatform = GameObject.Find("Platforms");
-        //bullets = GameObject.Find("Bullets");
+        players = GetChilds(GameObject.Find("Players"));
         powerUps = GameObject.Find("PowerUps");
     }
 
@@ -26,45 +20,12 @@ public class Finder : MonoBehaviour
         return players;
     }
 
-    public GameObject GetRespawnArea()
-    {
-        return respawnArea;
-    }
-
-    public GameObject GetPlatformParent()
-    {
-        return parentOfPlatform;
-    }
-
-    public GameObject GetWallPaperParent()
-    {
-        return wallPaperParent;
-    }
-
-    public GameObject GetPowerUpParent()
-    {
-        return null;
-    }
-
     public GameObject[] GetChilds(GameObject parent)
     {
         GameObject[] array = new GameObject[parent.transform.childCount];
         for (int i = 0; i < parent.transform.childCount; i++)
         {
             if (parent.transform.GetChild(i))
-            {
-                array[i] = parent.transform.GetChild(i).gameObject;
-            }
-        }
-        return array;
-    }
-
-    public GameObject[] GetChildsActive(GameObject parent)
-    {
-        GameObject[] array = new GameObject[parent.transform.childCount];
-        for (int i = 0; i < parent.transform.childCount; i++)
-        {
-            if (parent.transform.GetChild(i).gameObject.activeSelf)
             {
                 array[i] = parent.transform.GetChild(i).gameObject;
             }
@@ -92,28 +53,6 @@ public class Finder : MonoBehaviour
             return null;
         }
     }
-    public GameObject GetRandomChild(GameObject parent)
-    {
-        GameObject[] array = GetChilds(parent);
-        int random = UnityEngine.Random.Range(0, array.Length);
-        return array[random];
-    }
-
-
-    public GameObject[] GetChildsNotActive(GameObject parent)
-    {
-        GameObject[] array = new GameObject[parent.transform.childCount];
-        for (int i = 0; i < parent.transform.childCount; i++)
-        {
-            if (!parent.transform.GetChild(i).gameObject.activeSelf)
-            {
-                array[i] = parent.transform.GetChild(i).gameObject;
-            }
-        }
-        return array;
-    }
-
-
     public int GetNumberOfActiveChild(GameObject parent)
     {
         int numberOfChildActive = 0;
@@ -140,8 +79,6 @@ public class Finder : MonoBehaviour
         }
         return positionToReturn;
     }
-
-
 
     public GameObject GetFirstAvailableObject(List<GameObject> gameObjects)
     {
