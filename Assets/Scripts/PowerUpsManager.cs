@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PowerUpsManager : MonoBehaviour
@@ -9,7 +7,6 @@ public class PowerUpsManager : MonoBehaviour
     private GameObject[] childPowerUpsList;
     private float spawnCooldown = 0f;
     private float spawnCooldownMax;
-
     private int maxPowerUpsPerType = 10;
 
     void Start()

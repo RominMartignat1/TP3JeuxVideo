@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,15 +8,13 @@ public class GameOverManager : MonoBehaviour
 
     void Start()
     {
-        winnerText.text = GameManager.instance.GetWinner() + " a gagn�";
+        winnerText.text = GameManager.instance.GetWinner() + " a gagné";
     }
 
     void Update()
     {
         if (!textisSet)
         {
-            Debug.Log(GameManager.instance.GetWinner());
-
             textisSet = true;
         }
     }

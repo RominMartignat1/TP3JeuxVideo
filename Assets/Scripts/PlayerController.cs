@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     AudioSource soundSource;
     private int doubleJumpExtraCounter = 0;
     private int doubleJumpCounter = 0;
+    [SerializeField] private float knockbackHitForce = 10;
+    private bool isInvulnerable = false;
 
     public PlayerController()
     {
@@ -46,7 +48,6 @@ public class PlayerController : MonoBehaviour
                 jumpPower = 0.0f;
                 animator.SetBool("Is Jumping", false);
             }
-
             if (jumpIntensity <= 10.0f)
             {
                 jumpIntensity = 0.0f;
@@ -130,11 +131,11 @@ public class PlayerController : MonoBehaviour
             }
 
             if (((Input.GetButtonDown("Jump") && team == Teams.Blue) || (Input.GetButtonDown("JumpP2") && team == Teams.Red)) && (IsGrounded() ||
-             (doubleJumpExtraCounter > 0 &&  doubleJumpCounter < 1)))
+             (doubleJumpExtraCounter > 0 && doubleJumpCounter < 1)))
             {
                 animator.SetBool("Is Jumping", true);
                 jumpPower = 3.0f;
-                if(System.Math.Abs(acceleration) > 1.0f && System.Math.Abs(acceleration) < 2.0f)
+                if (System.Math.Abs(acceleration) > 1.0f && System.Math.Abs(acceleration) < 2.0f)
                 {
                     soundSource.PlayOneShot(SoundManager.Instance.PlayerJumpMid);
                     jumpIntensity = 6.5f;
@@ -162,7 +163,7 @@ public class PlayerController : MonoBehaviour
                         doubleJumpCounter++;
                     }
 
-                    if(doubleJumpCounter > 1)
+                    if (doubleJumpCounter > 1)
                     {
                         doubleJumpExtraCounter--;
                     }
@@ -241,19 +242,19 @@ public class PlayerController : MonoBehaviour
                 gameObject.SetActive(false);
             }
 
-            if(collision.gameObject.tag == "BulletPowerUp")
+            if (collision.gameObject.tag == "BulletPowerUp")
             {
                 this.GetComponent<ShotsController>().addHommingBullet();
             }
 
-            if(collision.gameObject.tag == "DoubleJumpBonus")
+            if (collision.gameObject.tag == "DoubleJumpBonus")
             {
                 doubleJumpExtraCounter += 5;
             }
 
             if (collision.gameObject.tag == "Bullet")
             {
-                if (collision.gameObject.GetComponent<BulletsManager>().GetTeam() == team)
+                if (collision.gameObject.GetComponent<BulletsManager>().GetTeam() == team && !isInvulnerable)
                 {
                     return;
                 }
@@ -272,7 +273,8 @@ public class PlayerController : MonoBehaviour
                     {
                         acceleration = -5.0f;
                     }
-                    rigidBody.AddForce(new Vector2(0, collision.gameObject.GetComponent<Rigidbody2D>().velocity.y * 0.5f), ForceMode2D.Impulse);
+                    rigidBody.AddForce(new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, collision.gameObject.GetComponent<Rigidbody2D>().velocity.y * knockbackHitForce), ForceMode2D.Impulse);
+                    isInvulnerable = true;
                 }
             }
             if (collision.gameObject.tag == "Block")
@@ -292,6 +294,9 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(delay);
             GetComponent<SpriteRenderer>().enabled = true;
             yield return new WaitForSeconds(delay);
+        }
+        if(isInvulnerable) {
+            isInvulnerable = false;
         }
     }
 
@@ -335,7 +340,8 @@ public class PlayerController : MonoBehaviour
         return isGrounded != 0;
     }
 
-    public Teams GetTeam() {
+    public Teams GetTeam()
+    {
         return team;
     }
 
