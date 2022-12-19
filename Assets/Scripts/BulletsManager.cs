@@ -49,8 +49,9 @@ public class BulletsManager : MonoBehaviour
     public void Shoot(GameObject gun, bool homing)
     {
         GetComponent<Rigidbody2D>().transform.position = gun.transform.position;
-        GetComponent<Rigidbody2D>().transform.forward = gun.transform.forward;
+        transform.position = Vector3.MoveTowards(transform.position, gun.transform.position, bulletSpeed * Time.deltaTime);
         GetComponent<Rigidbody2D>().transform.LookAt(gun.transform.position);
+        GetComponent<Rigidbody2D>().transform.forward = gun.transform.forward;
         GetComponent<Rigidbody2D>().velocity = new Vector2(transform.forward.x, transform.forward.y) * bulletSpeed;
         SetHoming(homing);
     }
@@ -74,7 +75,8 @@ public class BulletsManager : MonoBehaviour
         this.isHomingBullet = isHomingBullet;
     }
 
-    public Teams GetTeam() {
+    public Teams GetTeam()
+    {
         return team;
     }
 }
