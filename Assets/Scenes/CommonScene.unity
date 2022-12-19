@@ -269,7 +269,7 @@ TilemapCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 1
+  m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
@@ -1446,6 +1446,22 @@ PrefabInstance:
       propertyPath: finder
       value: 
       objectReference: {fileID: 920205245}
+    - target: {fileID: 5057662399973262739, guid: 27c9f55e60993884bbf0ea9acebe9092, type: 3}
+      propertyPath: m_Size.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057662399973262739, guid: 27c9f55e60993884bbf0ea9acebe9092, type: 3}
+      propertyPath: m_Size.y
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057662399973262739, guid: 27c9f55e60993884bbf0ea9acebe9092, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057662399973262739, guid: 27c9f55e60993884bbf0ea9acebe9092, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6193885210385806484, guid: 27c9f55e60993884bbf0ea9acebe9092, type: 3}
       propertyPath: finder
       value: 
