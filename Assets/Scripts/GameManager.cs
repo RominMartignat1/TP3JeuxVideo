@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
 
     bool scenesAreInTransition = false;
 
-    private string player1Name = "Équipe bleue";
-    private string player2Name = "Équipe rouge";
+    private string player1Name = "Joueur 1";
+    private string player2Name = "Joueur 2";
 
 
     void Awake()
