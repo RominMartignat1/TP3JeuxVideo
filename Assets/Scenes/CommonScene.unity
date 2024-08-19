@@ -1252,23 +1252,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 436357630973279241, guid: 286326a3d32b6a443bb07d75898395f3, type: 3}
       propertyPath: m_Size.x
-      value: 0.5
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 735732315862867908, guid: 286326a3d32b6a443bb07d75898395f3, type: 3}
       propertyPath: m_Size.x
-      value: 0.5
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 889138018717584239, guid: 286326a3d32b6a443bb07d75898395f3, type: 3}
       propertyPath: m_Size.x
-      value: 0.5
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 1151202218558271303, guid: 286326a3d32b6a443bb07d75898395f3, type: 3}
       propertyPath: m_Size.x
-      value: 0.5
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 1254710077997602619, guid: 286326a3d32b6a443bb07d75898395f3, type: 3}
       propertyPath: m_Size.x
-      value: 0.5
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 1460468227903943362, guid: 286326a3d32b6a443bb07d75898395f3, type: 3}
       propertyPath: m_BodyType
@@ -1288,15 +1288,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1775522528979515355, guid: 286326a3d32b6a443bb07d75898395f3, type: 3}
       propertyPath: m_Size.x
-      value: 0.5
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 2982441801024168383, guid: 286326a3d32b6a443bb07d75898395f3, type: 3}
       propertyPath: m_Size.x
-      value: 0.5
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 3909437506099024769, guid: 286326a3d32b6a443bb07d75898395f3, type: 3}
       propertyPath: m_Size.x
-      value: 0.5
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 4034549166932089482, guid: 286326a3d32b6a443bb07d75898395f3, type: 3}
       propertyPath: m_BodyType
@@ -1340,19 +1340,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5337467597866582501, guid: 286326a3d32b6a443bb07d75898395f3, type: 3}
       propertyPath: m_Size.x
-      value: 0.5
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 5643106331823789705, guid: 286326a3d32b6a443bb07d75898395f3, type: 3}
       propertyPath: m_Size.x
-      value: 0.5
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 5879569692215566524, guid: 286326a3d32b6a443bb07d75898395f3, type: 3}
       propertyPath: m_Size.x
-      value: 0.5
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 6103583736571870081, guid: 286326a3d32b6a443bb07d75898395f3, type: 3}
       propertyPath: m_Size.x
-      value: 0.5
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 6464045494049196037, guid: 286326a3d32b6a443bb07d75898395f3, type: 3}
       propertyPath: m_BodyType

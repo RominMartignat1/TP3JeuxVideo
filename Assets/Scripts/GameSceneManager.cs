@@ -126,15 +126,15 @@ public class GameSceneManager : MonoBehaviour
 
         if (team == Teams.Blue)
         {
-            if (player1Life++ >= MAX_POSSIBLE_LIFE) return;
-            player1Lifes[player1Life - 1].GetComponent<Image>().color = Color.white;
+            if (player1Life >= MAX_POSSIBLE_LIFE) return;
+            player1Lifes[player1Life].GetComponent<Image>().color = Color.white;
             player1Life += LIFE_TO_ADD;
 
         }
         else
         {
-            if (player2Life++ >= MAX_POSSIBLE_LIFE) return;
-            player2Lifes[player2Life - 1].GetComponent<Image>().color = Color.white;
+            if (player2Life >= MAX_POSSIBLE_LIFE) return;
+            player2Lifes[player2Life].GetComponent<Image>().color = Color.white;
             player2Life += LIFE_TO_ADD;
 
         }

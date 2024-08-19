@@ -45,6 +45,24 @@ public class GreenMushroomController : MonoBehaviour
         {
             currentDirection *= -1;
         }
+        if (collision.gameObject.CompareTag("GreenMushroom"))
+        {
+            GreenMushroomController otherMushroom = collision.gameObject.GetComponent<GreenMushroomController>();
+
+            // Check if the mushrooms are moving in opposite directions
+            if (otherMushroom != null && otherMushroom.currentDirection != currentDirection)
+            {
+                // Invert the direction of both mushrooms
+                currentDirection *= -1;
+                otherMushroom.currentDirection *= -1;
+            }
+        }
+
+        if (collision.gameObject.tag == "Player")
+        {
+            gameObject.SetActive(false);
+            timeActive = 0f;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

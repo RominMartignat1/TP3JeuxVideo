@@ -7,7 +7,7 @@ public class PowerUpsManager : MonoBehaviour
     private GameObject[] childPowerUpsList;
     private float spawnCooldown = 0f;
     private float spawnCooldownMax;
-    private int maxPowerUpsPerType = 10;
+    private int maxPowerUpsPerType = 20;
 
     void Start()
     {
@@ -28,9 +28,9 @@ public class PowerUpsManager : MonoBehaviour
 
     void Update()
     {
-        if (spawnCooldown <= 0)
+        if (spawnCooldown <= 4)
         {
-            spawnCooldownMax = Random.Range(7f, 12f);
+            spawnCooldownMax = Random.Range(3f, 7f);
             spawnCooldown = spawnCooldownMax;
             SpawnPowerUp();
         }
