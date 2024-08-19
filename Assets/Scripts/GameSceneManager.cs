@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using teams;
 using UnityEngine;
 using UnityEngine.Events;
@@ -31,8 +32,9 @@ public class GameSceneManager : MonoBehaviour
     {
         player1Life = MAX_INITIAL_LIFE;
         player2Life = MAX_INITIAL_LIFE;
-        player1Lifes = GameObject.FindGameObjectsWithTag("HearthPlayer1"); //liste des coeurs de gauche
-        player2Lifes = GameObject.FindGameObjectsWithTag("HearthPlayer2"); // liste des coeurs de droite
+
+        sortHearths();
+
         playerName1Text.text = GameManager.instance.getPlayerName(GameManager.PLAYER.PLAYER1);
         playerName2Text.text = GameManager.instance.getPlayerName(GameManager.PLAYER.PLAYER2);
 
@@ -49,6 +51,18 @@ public class GameSceneManager : MonoBehaviour
         {
             FinishGame();
         }
+    }
+
+    private void sortHearths()
+    {
+       player1Lifes = GameObject.FindGameObjectsWithTag("HearthPlayer1").OrderBy(obj => obj.transform.position.x).ToArray(); //liste des coeurs de gauche
+       player2Lifes = GameObject.FindGameObjectsWithTag("HearthPlayer2").OrderBy(obj => obj.transform.position.x).ToArray(); ; // liste des coeurs de droite
+       
+    }
+
+    private int CompareByX(GameObject a, GameObject b)
+    {
+        return a.transform.position.x.CompareTo(b.transform.position.x);
     }
 
     private void CheckTimer()

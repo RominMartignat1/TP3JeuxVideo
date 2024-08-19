@@ -76,10 +76,22 @@ public class CameraController : MonoBehaviour
     {
         Vector3 playerPos = player.transform.position;
         Vector3 cameraPos = transform.position;
-        if (playerBeingFollowed.transform.position.y > transform.position.y)
+
+        if (playerPos.y > cameraPos.y)
         {
-            transform.position = new Vector3(cameraPos.x, playerPos.y, cameraPos.z);
+            // Use Vector3.Lerp to smoothly move the camera towards the player's position
+            Vector3 targetPosition = new Vector3(cameraPos.x, playerPos.y, cameraPos.z);
+            transform.position = Vector3.Lerp(cameraPos, targetPosition, Time.deltaTime * 5f);
         }
+        //if (currentMoveSpeed != 0.0f)
+        //{
+        //    Vector3 playerPos = player.transform.position;
+        //    Vector3 cameraPos = transform.position;
+        //    if (playerBeingFollowed.transform.position.y > transform.position.y)
+        //    {
+        //        transform.position = new Vector3(cameraPos.x, playerPos.y, cameraPos.z);
+        //    }
+        //}
     }
 
     public void ChangeSpeed()
