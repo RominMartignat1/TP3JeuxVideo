@@ -82,8 +82,9 @@ public class PlayerController : MonoBehaviour
             if (canPlayerMove)
             {
                 ManageMovement();
-                transform.rotation = Quaternion.Euler(0, transform.rotation.y, transform.rotation.z);
-                animator.SetFloat("Speed", horizontal);
+                bool flipped = horizontal < 0f;
+                transform.rotation = Quaternion.Euler(0, flipped? 180: 0, transform.rotation.z);
+                animator.SetFloat("Speed",System.Math.Abs(horizontal));
             }
         }
     }
@@ -130,8 +131,9 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (((Input.GetButtonDown("Jump") && team == Teams.Blue) || (Input.GetButtonDown("JumpP2") && team == Teams.Red)) && (IsGrounded() ||
-             (doubleJumpExtraCounter > 0 && doubleJumpCounter < 1)))
+          
+            
+            if (IsGoingToJump())
             {
                 animator.SetBool("Is Jumping", true);
                 jumpPower = 3.0f;
@@ -172,6 +174,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool IsGoingToJump()
+    {
+        return ((Input.GetButtonDown("Jump") && team == Teams.Blue) || (Input.GetButtonDown("JumpP2") && team == Teams.Red)) && (IsGrounded() ||
+             (doubleJumpExtraCounter > 0 && doubleJumpCounter < 1));
+    }
     private void respawnSequence()
     {
         soundSource.PlayOneShot(SoundManager.Instance.PlayerDeath);
